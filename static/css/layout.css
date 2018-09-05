@@ -1,0 +1,135 @@
+
+
+html,body {
+    height: 100%;
+    direction: rtl;
+    background: #fafafa;
+    text-decoration: none;
+    text-align: right;
+}
+
+.navbar{
+    background: #fff;
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 3px 2px -2px rgba(200,200,200,0.2);
+    box-sizing: border-box;
+    z-index: 800;
+}
+
+a.navbar-brand {
+    display: block;
+    width: 80px;
+    height: 50px;
+    background-size: 80px 23px;
+    background-image: url(//qsf.fs.quoracdn.net/-3-images.logo.wordmark_default.svg-26-bfa6b94bc0d6af2e.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.nav-item{
+    display: inherit;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 0 14px;
+    border-bottom: 2px solid transparent;
+
+}
+
+.nav-item a.nav-link{
+    color: #666;
+}
+
+.nav-item.selected{
+    border-color: #b92b27;
+    opacity: 1;
+}
+
+.nav-item.selected a.nav-link{
+    color: #b92b27;
+}
+
+.nav-item div.nav-icon svg{
+    width: 24px;
+    height: 23px;
+    margin-right: 4px;
+    margin-top: 8px;
+    display: inline-block;
+    background-size: contain;
+
+}
+.nav-item.selected div.nav-icon svg g{
+    fill: #b92b27;
+}
+
+.photo_wrapper span img, .photo-wrapper a img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border-bottom: 2px solid transparent;
+
+}
+
+.photo-wrapper a img{
+    width: 45px;
+    height: 45px;
+}
+
+.right-nav-item button{
+    width: 96px;
+    height: 38px;
+    transition: opacity ease-in-out 100ms,color ease-in-out 100ms,background-color ease-in-out 100ms,border-color ease-in-out 100ms;
+    border-radius: 3px;
+    box-shadow: 0 1px 1px 0 rgba(200,200,200,0.2);
+    display: inline-block;
+    outline: 0;
+    padding: 3px 7px 4px 7px;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid #962520;
+    background: #b92b27;
+    color: #fff;
+    font-weight: 800;
+    font-size: 18px;
+}
+
+.navbar-toggler {
+    border-color: #666;
+    width: 40px;
+    height: 30px;
+    padding: 0;
+}
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke=' #666' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+    width: 25px;
+    height: 25px;
+}
+
+.content-wrapper{
+    padding-top: 83px;
+    padding-left: 32px;
+    padding-right: 32px;
+    padding-bottom: 32px;
+
+}
+
+.answer{
+    background: white;
+    /*z-index: 500;*/
+    /*overflow: auto;*/
+}
+
+.hide{
+    display: none;
+}
+
+.show{
+    display: block;
+}
+
+
+
+
+

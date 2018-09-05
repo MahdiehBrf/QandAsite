@@ -1,0 +1,23 @@
+@font-face {
+  font-family: 'BNazanin';
+  src: url('/static/font/BNazanin.eot?#') format('eot'),
+       url('/static/font/BNazanin.woff') format('woff'),
+       url('/static/font/BNazanin.ttf') format('truetype');
+}
+
+html,body{
+    /*height:100%;*/
+    font-family: 'BNazanin', serif;
+}
+
+.english{
+    font-family: serif;
+}
+
+.hide{
+    display: none;
+}
+
+.show{
+    display: block;
+}

@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 
-from account.models import User
+from account.models import User, Question, Answer
 
 
 class SignUpForm(ModelForm):
@@ -8,3 +8,14 @@ class SignUpForm(ModelForm):
         model = User
         fields = ['email', 'password', 'first_name', 'last_name']
 
+
+class QForm(ModelForm):
+    class Meta:
+        model = Question
+        fields = ['description']
+
+
+class AForm(ModelForm):
+    class Meta:
+        model = Answer
+        fields = ['text']

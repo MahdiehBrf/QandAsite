@@ -11,7 +11,9 @@
 
 {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static "css/home.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "css/base.css" %}"/>
+
+    <link rel="stylesheet" type="text/css" href="{% static "css/login.css" %}"/>
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
@@ -19,12 +21,6 @@
 </head>
 <body>
 
-
-
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-{#<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>#}
-{#<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>#}
-{#<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>#}
 <div class="home-image"></div>
 <div class="screen-center">
     <div class="container">
@@ -65,7 +61,7 @@
                                                   </div>
                                               </div>
                                           </div>
-                                          <div class="form_row">
+                                          <div class="form_row english">
                                               <label>Email</label>
                                               <div class="input_wrapper">
                                                   <input class="text" type="text" name="email">
@@ -104,7 +100,7 @@
                           {% csrf_token %}
                       <div class="form-title">Login</div>
                       <div class="form_inputs">
-                          <div class="form_column">
+                          <div class="form_column english">
                               <input type="text" name="email"  placeholder="Email" >
                           </div>
                           <div class="form_column">

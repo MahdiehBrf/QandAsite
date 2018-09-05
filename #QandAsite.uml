@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DjangoModelDependency</ID>
+  <OriginalElement>#QandAsite</OriginalElement>
+  <nodes>
+    <node x="1406.875" y="266.0">account.models.Question</node>
+    <node x="1006.0" y="858.0">account.models.AnswerComment</node>
+    <node x="235.0" y="302.0">account.models.Educational</node>
+    <node x="0.0" y="338.0">account.models.Language</node>
+    <node x="1942.875" y="242.0">account.models.User</node>
+    <node x="1781.0498737373737" y="82.0">account.models.Topic</node>
+    <node x="1087.5" y="0.0">typing.Sequence</node>
+    <node x="509.0" y="302.0">account.models.Location</node>
+    <node x="1679.875" y="326.0">account.models.Experience</node>
+    <node x="1076.0" y="584.0">account.models.Answer</node>
+    <node x="1369.0" y="644.0">account.models.AnswerRequest</node>
+    <node x="1043.5" y="94.0">str</node>
+    <node x="809.0" y="290.0">account.models.Employment</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="account.models.Question" target="str">
+      <point x="-84.33333333333326" y="-112.0" />
+      <point x="1449.0416666666667" y="212.0" />
+      <point x="1225.8636363636363" y="212.0" />
+      <point x="64.36363636363637" y="28.0" />
+    </edge>
+    <edge source="account.models.Experience" target="str">
+      <point x="-55.75" y="-52.0" />
+      <point x="1735.625" y="192.0" />
+      <point x="1268.772727272727" y="192.0" />
+      <point x="107.27272727272714" y="28.0" />
+    </edge>
+    <edge source="account.models.AnswerRequest" target="account.models.Question">
+      <point x="63.75" y="-52.0" />
+      <point x="1560.25" y="564.0" />
+      <point x="1596.625" y="564.0" />
+      <point x="63.25" y="112.0" />
+    </edge>
+    <edge source="account.models.Answer" target="account.models.Question">
+      <point x="91.0" y="-112.0" />
+      <point x="1303.5" y="564.0" />
+      <point x="1470.125" y="564.0" />
+      <point x="-63.25" y="112.0" />
+    </edge>
+    <edge source="account.models.AnswerComment" target="str">
+      <point x="-66.5" y="-52.0" />
+      <point x="1072.5" y="833.0" />
+      <point x="1065.5" y="833.0" />
+      <point x="1065.5" y="222.0" />
+      <point x="1140.0454545454545" y="222.0" />
+      <point x="-21.454545454545496" y="28.0" />
+    </edge>
+    <edge source="account.models.Question" target="account.models.Topic">
+      <point x="84.33333333333326" y="-112.0" />
+      <point x="1617.7083333333333" y="222.0" />
+      <point x="1818.5498737373737" y="222.0" />
+      <point x="-75.0" y="40.0" />
+    </edge>
+    <edge source="str" target="typing.Sequence">
+      <point x="0.0" y="-28.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="account.models.Answer" target="str">
+      <point x="0.0" y="-112.0" />
+      <point x="1212.5" y="564.0" />
+      <point x="1187.6262626262626" y="564.0" />
+      <point x="1187.6262626262626" y="222.0" />
+      <point x="1182.9545454545453" y="222.0" />
+      <point x="21.454545454545382" y="28.0" />
+    </edge>
+    <edge source="account.models.AnswerComment" target="account.models.Answer">
+      <point x="66.5" y="-52.0" />
+      <point x="1205.5" y="833.0" />
+      <point x="1212.5" y="833.0" />
+      <point x="0.0" y="112.0" />
+    </edge>
+    <edge source="account.models.AnswerRequest" target="str">
+      <point x="-63.75" y="-52.0" />
+      <point x="1432.75" y="554.0" />
+      <point x="1396.375" y="554.0" />
+      <point x="1396.375" y="222.0" />
+      <point x="1204.4090909090908" y="222.0" />
+      <point x="42.90909090909088" y="28.0" />
+    </edge>
+    <edge source="account.models.Employment" target="str">
+      <point x="0.0" y="-88.0" />
+      <point x="932.0" y="212.0" />
+      <point x="1118.590909090909" y="212.0" />
+      <point x="-42.90909090909088" y="28.0" />
+    </edge>
+    <edge source="account.models.User" target="account.models.Topic">
+      <point x="0.0" y="-136.0" />
+      <point x="2066.375" y="222.0" />
+      <point x="1968.5498737373737" y="222.0" />
+      <point x="75.0" y="40.0" />
+    </edge>
+    <edge source="account.models.User" target="account.models.User">
+      <point x="0.0" y="136.0" />
+      <point x="2066.375" y="534.0" />
+      <point x="1922.875" y="534.0" />
+      <point x="1922.875" y="378.0" />
+      <point x="-123.5" y="-0.0" />
+    </edge>
+    <edge source="account.models.Educational" target="str">
+      <point x="0.0" y="-76.0" />
+      <point x="362.0" y="192.0" />
+      <point x="1075.681818181818" y="192.0" />
+      <point x="-85.81818181818187" y="28.0" />
+    </edge>
+    <edge source="account.models.Language" target="str">
+      <point x="0.0" y="-40.0" />
+      <point x="107.5" y="182.0" />
+      <point x="1054.2272727272727" y="182.0" />
+      <point x="-107.27272727272725" y="28.0" />
+    </edge>
+    <edge source="account.models.Experience" target="account.models.Topic">
+      <point x="55.75" y="-52.0" />
+      <point x="1847.125" y="222.0" />
+      <point x="1893.5498737373737" y="222.0" />
+      <point x="0.0" y="40.0" />
+    </edge>
+    <edge source="account.models.Location" target="str">
+      <point x="0.0" y="-76.0" />
+      <point x="649.0" y="202.0" />
+      <point x="1097.1363636363635" y="202.0" />
+      <point x="-64.36363636363637" y="28.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.5315682281059063" x="1095.0" y="481.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+  </Categories>
+</Diagram>
+
