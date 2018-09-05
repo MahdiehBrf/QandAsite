@@ -2,87 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6879a081-6be1-4517-94d5-0eb1ba7f52ac" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/#QandAsite.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/#QandAsite.uml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/account/templates/answer.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/account/templates/editortest.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/css/base.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/css/bootstrap.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/css/layout.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/css/login.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/confighelper/docs/install.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/confighelper/docs/styles.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/confighelper/plugin.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/minimalist/dialog.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/minimalist/dialog_ie.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/minimalist/dialog_ie7.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/minimalist/dialog_ie8.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/minimalist/dialog_iequirks.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/minimalist/editor.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/minimalist/editor_gecko.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/minimalist/editor_ie.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/minimalist/editor_ie7.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/minimalist/editor_ie8.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/minimalist/editor_iequirks.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/minimalist/icons.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/minimalist/icons_hidpi.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/minimalist/images/arrow.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/minimalist/images/close.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/minimalist/images/hidpi/close.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/minimalist/images/hidpi/lock-open.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/minimalist/images/hidpi/lock.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/minimalist/images/hidpi/refresh.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/minimalist/images/lock-open.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/minimalist/images/lock.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/minimalist/images/refresh.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/minimalist/readme.md" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/minimalist/skin.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/moono-lisa/dev/icons16.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/moono-lisa/dev/icons16.svg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/moono-lisa/dev/icons32.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/moono-lisa/dev/icons32.svg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/moono-lisa/dev/locations.json" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/moono-lisa/dialog.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/moono-lisa/dialog_ie.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/moono-lisa/dialog_ie8.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/moono-lisa/dialog_iequirks.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/moono-lisa/editor.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/moono-lisa/editor_gecko.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/moono-lisa/editor_ie.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/moono-lisa/editor_ie8.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/moono-lisa/editor_iequirks.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/moono-lisa/images/arrow.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/moono-lisa/images/close.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/moono-lisa/images/hidpi/close.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/moono-lisa/images/hidpi/lock-open.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/moono-lisa/images/hidpi/lock.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/moono-lisa/images/hidpi/refresh.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/moono-lisa/images/lock-open.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/moono-lisa/images/lock.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/moono-lisa/images/refresh.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/moono-lisa/images/spinner.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/moono-lisa/readme.md" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/extra plugin/moono-lisa/skin.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/font/BNazanin.eot" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/font/BNazanin.ttf" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/font/BNazanin.woff" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/image/bigphoto.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/image/bookmark.svg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/js/bootstrap.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/js/bootstrap.min.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/js/editor-config.js" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/account/forms.py" afterPath="$PROJECT_DIR$/account/forms.py" />
-      <change beforePath="$PROJECT_DIR$/account/models.py" afterPath="$PROJECT_DIR$/account/models.py" />
-      <change beforePath="$PROJECT_DIR$/account/templates/home.html" afterPath="$PROJECT_DIR$/account/templates/home.html" />
-      <change beforePath="$PROJECT_DIR$/account/templates/layout.html" afterPath="$PROJECT_DIR$/account/templates/layout.html" />
-      <change beforePath="$PROJECT_DIR$/account/templates/registration/login.html" afterPath="$PROJECT_DIR$/account/templates/registration/login.html" />
-      <change beforePath="$PROJECT_DIR$/account/urls.py" afterPath="$PROJECT_DIR$/account/urls.py" />
-      <change beforePath="$PROJECT_DIR$/account/views.py" afterPath="$PROJECT_DIR$/account/views.py" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/static/css/bootstrap.min.css" afterPath="$PROJECT_DIR$/static/css/bootstrap.min.css" />
-      <change beforePath="$PROJECT_DIR$/static/css/home.css" afterPath="$PROJECT_DIR$/static/css/home.css" />
+      <change beforePath="$PROJECT_DIR$/QandAsite/settings.py" afterPath="$PROJECT_DIR$/QandAsite/settings.py" />
+      <change beforePath="$PROJECT_DIR$/QandAsite/urls.py" afterPath="$PROJECT_DIR$/QandAsite/urls.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -149,7 +71,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="home.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/account/templates/home.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-1242">
@@ -163,7 +85,17 @@
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="216">
-              <caret line="12" column="7" lean-forward="false" selection-start-line="12" selection-start-column="7" selection-end-line="12" selection-end-column="7" />
+              <caret line="12" column="7" lean-forward="true" selection-start-line="12" selection-start-column="7" selection-end-line="12" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/QandAsite/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="211">
+              <caret line="166" column="0" lean-forward="false" selection-start-line="166" selection-start-column="0" selection-end-line="166" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -224,6 +156,9 @@
       <replace>'</replace>
     </replaceStrings>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -232,13 +167,13 @@
         <option value="$PROJECT_DIR$/account/templates/registration/logged_out.html" />
         <option value="$PROJECT_DIR$/static/css/bootstrap.min.css" />
         <option value="$PROJECT_DIR$/static/css/home.css" />
-        <option value="$PROJECT_DIR$/QandAsite/settings.py" />
         <option value="$PROJECT_DIR$/account/models.py" />
         <option value="$PROJECT_DIR$/account/urls.py" />
         <option value="$PROJECT_DIR$/account/templates/registration/login.html" />
         <option value="$PROJECT_DIR$/account/templates/home.html" />
         <option value="$PROJECT_DIR$/account/forms.py" />
         <option value="$PROJECT_DIR$/account/views.py" />
+        <option value="$PROJECT_DIR$/QandAsite/settings.py" />
       </list>
     </option>
   </component>
@@ -300,19 +235,7 @@
             <path>
               <item name="QandAsite" type="b2602c69:ProjectViewProjectNode" />
               <item name="QandAsite" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="QandAsite" type="b2602c69:ProjectViewProjectNode" />
               <item name="QandAsite" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="QandAsite" type="b2602c69:ProjectViewProjectNode" />
-              <item name="QandAsite" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -486,6 +409,24 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
@@ -534,7 +475,7 @@
         <state relative-caret-position="432">
           <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
           <folding>
-            <element signature="e#633#665#0" expanded="true" />
+            <element signature="e#702#734#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -675,14 +616,6 @@
           <folding>
             <element signature="e#0#41#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="12" column="7" lean-forward="false" selection-start-line="12" selection-start-column="7" selection-end-line="12" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -748,7 +681,7 @@
         <state relative-caret-position="432">
           <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
           <folding>
-            <element signature="e#633#665#0" expanded="true" />
+            <element signature="e#702#734#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -786,14 +719,6 @@
           <folding>
             <marker date="1536077282000" expanded="true" signature="7162:7168" ph="..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/QandAsite/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="149" column="10" lean-forward="false" selection-start-line="149" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -894,6 +819,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="320">
           <caret line="67" column="32" lean-forward="false" selection-start-line="67" selection-start-column="32" selection-end-line="67" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="12" column="7" lean-forward="true" selection-start-line="12" selection-start-column="7" selection-end-line="12" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/QandAsite/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="166" column="0" lean-forward="false" selection-start-line="166" selection-start-column="0" selection-end-line="166" selection-end-column="0" />
           <folding />
         </state>
       </provider>

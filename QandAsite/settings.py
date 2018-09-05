@@ -38,8 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'account',
-    'social_django'
+    'social_django',
+    'notifications',
+    'ckeditor'
 ]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -142,9 +146,21 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='370091242927-rh9e0dibo75s3qd3bh48qlpg6poc4mhi.ap
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'OCswg6yp5X8-JUdf-eMJDgWG' #Paste Secret Key
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
+
+STATIC_ROOT = '/home/mahdiehbrf/University/BS Project/Implementation/test/QandAsite/assets'
+MEDIA_ROOT = '/home/mahdiehbrf/University/BS Project/Implementation/test/QandAsite/media'
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_IMAGE_BACKEND = "pillow"
+
+# New
+IMAGE_QUALITY = 40
+THUMBNAIL_SIZE = (300, 300)
+
 
 AUTH_USER_MODEL = 'account.User'
