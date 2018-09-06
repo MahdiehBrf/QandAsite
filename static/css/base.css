@@ -8,6 +8,7 @@
 html,body{
     /*height:100%;*/
     font-family: 'BNazanin', serif;
+    min-width: 275px;
 }
 
 .english{

@@ -56,8 +56,7 @@ class UserManager(BaseUserManager):
             raise ValueError('Users must have an email address')
 
         user = self.model(
-            email=self.normalize_email(email),
-            first_name=username
+            email=self.normalize_email(email)
         )
 
         user.save(using=self._db)
@@ -101,7 +100,7 @@ class User(AbstractBaseUser):
     REQUIRED_FIELDS = ['first_name', 'last_name']
 
     def __str__(self):
-        return self.email
+        return self.get_full_name()
 
     def get_full_name(self):
         return self.first_name + " " + self.last_name
@@ -119,7 +118,7 @@ class Question(models.Model):
     topics = models.ManyToManyField(Topic, related_name='questions')
 
     def __str__(self):
-        return str(self.asker) + "'s question about " + str(self.title)
+        return "سوال " + str(self.asker) + " درمورد: " + self.title
 
 
 @receiver(post_save, sender=Question)
@@ -139,13 +138,13 @@ class Answer(models.Model):
     shareholders = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='shares')
 
     def __str__(self):
-        return str(self.responder) + "'s answer to" + str(self.question)
+        return "پاسخ " + str(self.responder) + " به: " + str(self.question)
 
 
 @receiver(post_save, sender=Answer)
 def my_handler(sender, instance, created, **kwargs):
     for follower in instance.question.followers.all():
-        notify.send(sender= instance.responder, recipient=follower, verb="answered to ", action_object=instance, target=instance.question)
+        notify.send(sender= instance.responder, recipient=follower, verb=" پاسخ داد به ", action_object=instance, target=instance.question)
 
 
 class AnswerRequest(models.Model):

@@ -8,8 +8,12 @@ from account.models import User, Question
 
 
 def home(request):
-    q = Question.objects.all()
-    return render(request, 'home.html', {'q': q})
+    if request.user.is_authenticated:
+        return render(request, 'home.html', {'unread_count': request.user.notifications.unread().count(),
+                                                   'notifications': request.user.notifications.all()
+                                                   })
+    else:
+        return render(request, 'home.html')
 
 
 def editor(request):

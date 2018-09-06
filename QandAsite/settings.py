@@ -121,7 +121,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+
 
 
 # Static files (CSS, JavaScript, Images)
@@ -164,3 +164,7 @@ THUMBNAIL_SIZE = (300, 300)
 
 
 AUTH_USER_MODEL = 'account.User'
+
+# USE_TZ = True
+
+NOTIFICATIONS_USE_JSONFIELD = True
