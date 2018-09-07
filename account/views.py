@@ -69,3 +69,8 @@ def signin(request):
         if user is not None:
             login(request, user)
             return HttpResponseRedirect(reverse('account:home'))
+
+
+def question_page(request, q_id):
+    question = Question.objects.get(id=q_id)
+    return render(request, 'question.html', {'question': question})

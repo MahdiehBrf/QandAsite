@@ -19,8 +19,7 @@
     margin-top: 0;
     border: 1px solid #efefef;
     background-color: #fff;
-        border-radius: 4px;
-
+    border-radius: 4px;
     margin-bottom: 8px;
 
 }
@@ -30,9 +29,10 @@
 
 }
 
-.info{
+.info, .comment-input{
     font-size: 14px;
     color: #999;
+    padding-right: 37px;
 }
 
 .full-name, .creditional{
@@ -52,6 +52,7 @@
     align-items: center;
     padding: 8px 12px;
     color: #666;
+    font-size: 17px;
 }
 
 .action-item.vote svg g, .action-item.answer svg path{
@@ -70,7 +71,7 @@
 }
 
 .questions-header img{
-        display: inline-block;
+    display: inline-block;
     width: 24px;
     height: 24px;
     background-size: 10px 15px;
@@ -80,4 +81,30 @@
 
 .action-item.bookmark img, .action-item.edit img{
    margin-left: 5px;
+}
+
+@media (min-width: 1200px){
+    .col-md-11.info, .col-md-11.comment-input{
+    padding-right: 15px;
+    }
+}
+
+textarea.text{
+    resize:none;
+    overflow:hidden;
+    font-size:18px;
+    height:1.1em;
+    padding:2px;
+}
+
+.comments{
+    border: 0;
+    background-color: #f7f7f7;
+    padding: 16px;
+    border-radius: 4px;
+}
+
+.submit_button.comment{
+    width: 80px;
+    margin-right: 8px;
 }
