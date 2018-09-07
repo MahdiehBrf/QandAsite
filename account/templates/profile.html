@@ -1,10 +1,493 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "layout.html" %}
 
-</body>
-</html>
+
+{% block special_static %}
+    {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static "css/profile.css" %}"/>
+
+{% endblock special_static %}
+
+{% block content %}
+<div class="row name">
+
+    <div class="profile-page col-md-10">
+        <div class="profile row">
+            <div class="photo-wrapper col-md-2 ">
+                <a href="/profile/MahdiehBrf">
+                    <img class="profile_photo_img" src="https://qsf.fs.quoracdn.net/-3-images.new_grid.profile_pic_default_small.png-26-679bc670f786484c.png" alt="MahdiehBrf" height="50" width="50">
+                </a>
+            </div>
+            <div class="info col-md-10">
+                <span class="full-name">مهدیه بهروزی‌فر</span>
+                <div class="bio">
+                    دانشجوی ارشد مهندسی کامپیوتر دانشگاه صنعتی شریف
+                </div>
+                <div class="action-bar d-flex justify-content-between">
+                            <div class="ml-auto d-flex">
+                                <div class="action-item follow">
+                                    <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                        <g stroke="none" fill="none" fill-rule="evenodd">
+                                            <g id="user-follow">
+                                                <g class="icon_svg-unpressed icon_svg-stroke" transform="translate(4.400000, 4.000000)" stroke="#666" fill="none" stroke-width="1.5">
+                                                    <path d="M10.5999999,12.5 C10.5999999,10.8431458 9.25685415,9.5 7.5999999,9.5 C5.94314566,9.5 4.5999999,10.8431458 4.5999999,12.5 M7.5999999,8.5 C8.84264059,8.5 9.8499999,7.49264069 9.8499999,6.25 C9.8499999,5.00735931 8.84264059,4 7.5999999,4 C6.35735922,4 5.3499999,5.00735931 5.3499999,6.25 C5.3499999,7.49264069 6.35735922,8.5 7.5999999,8.5 Z" id="profile"></path>
+                                                    <path d="M15.0999999,13 L15.0999999,18 M12.5999999,15.5 L17.5999999,15.5" id="plus" stroke-linecap="round"></path>
+                                                    <path d="M9.0999999,15.5 L3.0999999,15.5 C1.44314566,15.5 0.0999999046,14.1568542 0.0999999046,12.5 L0.0999999046,3.5 C0.0999999046,1.84314575 1.44314566,0.5 3.0999999,0.5 L12.0999999,0.5 C13.7568542,0.5 15.0999999,1.84314575 15.0999999,3.5 L15.0999999,9.5" id="outline" stroke-linecap="round"></path>
+                                                </g>
+                                                <g class="icon_svg-pressed" transform="translate(3.000000, 3.000000)">
+                                                    <path d="M7.73218309,9.96973049 C6.28500703,10.4895228 5.25,11.873892 5.25,13.5 L12.75,13.5 C12.75,11.873892 11.714993,10.4895228 10.2678169,9.96973049 C11.2910047,9.49195022 12,8.45377247 12,7.25 C12,5.59314575 10.6568542,4.25 9,4.25 C7.34314575,4.25 6,5.59314575 6,7.25 C6,8.45377247 6.70899528,9.49195022 7.73218309,9.96973049 Z M17.25,11.3388626 C16.9783814,11.4955 16.7318899,11.7061926 16.5273952,11.9688404 L14.7662908,14.2307581 C13.7898614,13.2559226 12.2080519,13.2564142 11.232233,14.232233 C10.4142783,15.0501878 10.2816074,16.2939234 10.8342204,17.25 L4.5,17.25 C2.42893219,17.25 0.75,15.5710678 0.75,13.5 L0.75,4.5 C0.75,2.42893219 2.42893219,0.75 4.5,0.75 L13.5,0.75 C15.5710678,0.75 17.25,2.42893219 17.25,4.5 L17.25,11.3388626 Z" id="filled" class="icon_svg-fill" fill="none" fill-rule="nonzero"></path>
+                                                    <polyline id="check" class="icon_svg-stroke" stroke="#666" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" points="13 16 15 18 18.5 13.5046888"></polyline>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                    پیروی
+                                </div>
+                                <div class="action-item ask">
+                                    <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                        <g stroke="none" fill="none" fill-rule="evenodd">
+                                            <g id="ask" class="icon_svg-stroke" stroke="#666" stroke-width="1.5">
+                                                <g id="Group-2" transform="translate(4.500000, 4.000000)">
+                                                    <g id="Group" transform="translate(4.500000, 3.000000)">
+                                                        <path d="M3,6 C3,5.67627727 3,5.50961061 3,5.5 C4.38071187,5.5 5.5,4.38071187 5.5,3 C5.5,1.61928813 4.38071187,0.5 3,0.5 C1.61928813,0.5 0.5,1.61928813 0.5,3" id="Oval-11" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                        <circle id="Oval-12" class="icon_svg-fill_as_stroke" fill="#666" stroke="none" cx="3" cy="8.5" r="1"></circle>
+                                                    </g>
+                                                    <path d="M3,0 L12,0 C13.6568542,-3.04359188e-16 15,1.34314575 15,3 L15,12 C15,13.6568542 13.6568542,15 12,15 L9,15 L4.5,18 L4.5,15 L3,15 C1.34314575,15 1.78140872e-14,13.6568542 1.687539e-14,12 L0,3 C-9.3869722e-16,1.34314575 1.34314575,-1.47199765e-15 3,-1.77635684e-15 Z" stroke-linejoin="round"></path>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                    پرسش سوال
+                                </div>
+                            </div>
+                        </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="feed-bar">
+                    <label>Feeds</label>
+                    <ul>
+                        <li class="feed-item selected">
+                            پاسخ‌ها
+                        </li>
+                        <li class="feed-item">
+                            سوال‌ها
+                        </li>
+                        <li class="feed-item">
+                            به اشتراک گذاشته‌ها
+                        </li>
+                        <li class="feed-item">
+                            followings
+                        </li>
+                        <li class="feed-item">
+                            followers
+                        </li>
+                        <li class="feed-item">
+                            followers
+                        </li>
+                        <li class="feed-item">
+                            موضوع‌ها
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-10">
+                <div class="question summary" id="1">
+
+                    <div class="box">
+                        <div class="reason">
+                            سوال . کوئرا . موضوعی که ممکن است دوست داشته باشید
+                        </div>
+                        <div class="question-title">
+                            از چی چیز کوئرا در سال 2018 بدتان می‌آید؟
+                        </div>
+                        <div class="action-bar d-flex justify-content-between">
+                            <div class="ml-auto d-flex">
+                                <div class="action-item answer">
+                                    <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                        <g id="answer" transform="translate(2.500000, 3.500000)" stroke="none" fill="none" fill-rule="evenodd">
+                                            <g id="pen" transform="translate(9.000000, 9.000000) rotate(-315.000000) translate(-9.000000, -9.000000) translate(7.000000, -1.000000)">
+                                                <path d="M2,8.8817842e-16 L2,8.8817842e-16 L2,8.8817842e-16 C3.1045695,6.85269983e-16 4,0.8954305 4,2 L4,16 L2.00256278,20 L0,16 L0,2 L0,2 C-1.35267774e-16,0.8954305 0.8954305,1.09108686e-15 2,8.8817842e-16 Z" id="pen_body" class="icon_svg-stroke" stroke="#666" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                <polygon id="pen_tip" class="icon_svg-fill_as_stroke" fill="#666" transform="translate(2.000000, 18.750000) scale(1, -1) translate(-2.000000, -18.750000) " points="2 17.5 3.25 20 0.75 20"></polygon>
+                                            </g>
+                                            <path d="M12,16 L17,16 L17,11 M7,1 L2,1 L2,6" id="bg" class="icon_svg-stroke" stroke="#666" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        </g>
+                                    </svg>
+                                    پاسخ
+                                </div>
+                                <div class="action-item follow">
+                                    <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                        <g stroke="none" fill="none" fill-rule="evenodd" stroke-linecap="round">
+                                            <g id="follow" class="icon_svg-stroke" stroke="#666" stroke-width="1.5">
+                                                <path d="M14.5,19 C14.5,13.3369229 11.1630771,10 5.5,10 M19.5,19 C19.5,10.1907689 14.3092311,5 5.5,5" id="lines"></path>
+                                                <circle id="circle" cx="7.5" cy="17" r="2" class="icon_svg-fill" fill="none"></circle>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                    پیروی
+                                </div>
+                            </div>
+                            <div class="action-item edit d-flex">
+                                <img src="{% static "/image/edit.svg" %}">
+                                <div>ویرایش</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="question summary" id="1">
+                    <div class="box">
+                        <div class="reason">
+                            سوال . کوئرا . موضوعی که ممکن است دوست داشته باشید
+                        </div>
+                        <div class="question-title">
+                            از چی چیز کوئرا در سال 2018 بدتان می‌آید؟
+                        </div>
+                        <div class="action-bar d-flex justify-content-between">
+                            <div class="ml-auto d-flex">
+                                <div class="action-item answer">
+                                    <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                        <g id="answer" transform="translate(2.500000, 3.500000)" stroke="none" fill="none" fill-rule="evenodd">
+                                            <g id="pen" transform="translate(9.000000, 9.000000) rotate(-315.000000) translate(-9.000000, -9.000000) translate(7.000000, -1.000000)">
+                                                <path d="M2,8.8817842e-16 L2,8.8817842e-16 L2,8.8817842e-16 C3.1045695,6.85269983e-16 4,0.8954305 4,2 L4,16 L2.00256278,20 L0,16 L0,2 L0,2 C-1.35267774e-16,0.8954305 0.8954305,1.09108686e-15 2,8.8817842e-16 Z" id="pen_body" class="icon_svg-stroke" stroke="#666" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                <polygon id="pen_tip" class="icon_svg-fill_as_stroke" fill="#666" transform="translate(2.000000, 18.750000) scale(1, -1) translate(-2.000000, -18.750000) " points="2 17.5 3.25 20 0.75 20"></polygon>
+                                            </g>
+                                            <path d="M12,16 L17,16 L17,11 M7,1 L2,1 L2,6" id="bg" class="icon_svg-stroke" stroke="#666" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        </g>
+                                    </svg>
+                                    پاسخ
+                                </div>
+                                <div class="action-item follow">
+                                    <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                        <g stroke="none" fill="none" fill-rule="evenodd" stroke-linecap="round">
+                                            <g id="follow" class="icon_svg-stroke" stroke="#666" stroke-width="1.5">
+                                                <path d="M14.5,19 C14.5,13.3369229 11.1630771,10 5.5,10 M19.5,19 C19.5,10.1907689 14.3092311,5 5.5,5" id="lines"></path>
+                                                <circle id="circle" cx="7.5" cy="17" r="2" class="icon_svg-fill" fill="none"></circle>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                    پیروی
+                                </div>
+                            </div>
+                            <div class="action-item edit d-flex">
+                                <img src="{% static "/image/edit.svg" %}">
+                                <div>ویرایش</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="answer summary" id="1">
+                    <div class="box">
+                        <div class="reason">
+                            پاسخ . کوئرا . پاسخی که ممکن است دوست داشته باشید
+                        </div>
+                        <div class="question-title">
+                            از چی چیز کوئرا در سال 2018 بدتان می‌آید؟
+                        </div>
+                        <div class="responder row">
+                            <div class="photo-wrapper col-md-1">
+                                <a href="/profile/MahdiehBrf">
+                                    <img class="profile_photo_img" src="https://qsf.fs.quoracdn.net/-3-images.new_grid.profile_pic_default_small.png-26-679bc670f786484c.png" alt="MahdiehBrf" height="50" width="50">
+                                </a>
+                            </div>
+                            <div class="info col-md-11">
+                                <span class="full-name">مهدیه بهروزی‌فر</span>
+                                ،
+                                <span class="creditional">نوشتن سایت کوئرا</span>
+                                <div class="bio">
+                                    دانشجوی ارشد مهندسی کامپیوتر دانشگاه صنعتی شریف
+                                </div>
+                                <div class="time">2 ساعت پیش</div>
+                            </div>
+                        </div>
+                        <div class="response">
+                            <div class="text truncated">
+                                ببین تو آیه‌های قران یه ارتباطی وجود داره. مثلا یه جایی داریم که میگه شما اگه گناه نکنی به مرور یه نوری رو به دست میاری که میتونی خیلی عمیق‌تر و شفاف‌تر اون چیزی که بقیه ازش محرومن رو به دست بیاری. حالا این که این گناه نکردن چه ابعادی داره بماند
+                            </div>
+                            <a href="#" class="more id">(بیشتر)</a>
+                            <a href="#" class="less id hide">(کمتر)</a>
+                            <div class="full hide">
+                                <div class="text full">
+                                ببین تو آیه‌های قران یه ارتباطی وجود داره. مثلا یه جایی داریم که میگه شما اگه گناه نکنی به مرور یه نوری رو به دست میاری که میتونی خیلی عمیق‌تر و شفاف‌تر اون چیزی که بقیه ازش محرومن رو به دست بیاری. حالا این که این گناه نکردن چه ابعادی داره بماند. یا مثلا یه جای دیگه داریم وقتی یه شخصی اون نور وجودیش رو از دست میده میره تو ظلمات. خوب به نظرم تفسیر این آیه میتونه به این شکل باشه...
+            به نظرم شما وقتی نیتت این باشه که دلسوزانه برای شخص یا یه گروهی کار کنی و بیشتر از حدی که برای اون شخص یا اون کار تعریف شده برای رفع مشکل یا افزایش اطلاعات اون دسته از افرادی که باهاشون ارتباط داری وقت بذاری مسلما یه سری خلا‌ها در شما به وجود میاد. شما بیشترین تایمت رو داری رو این میذاری که علمت رو تو یه زمینه هدفمند توسعه بدی یا یه کاری برای یه قشر خاصی از افراد انجام بدی. این زمان گذاشتن میتونه رو فکر کردن باشه. تو تفسیر و تحلیل موضوعاتی که خودت بهش علاقه داری. خب الان دیگه به راحتی میتونی تایم‌هایی که باعث میشه استعداد بد بودن رو پیدا کنی رو با تایم‌های خوب و هدفمند پر کنی و تازه یه نکته دیگه‌ای هم هست و اونم اینکه باعث میشه استعداد  خوب بودن رو پیدا کنی تا تازه برسی به یه انسانی که داره استعدادهاشو میشناسه که باز همین هم خودش یکی از مراحلی هست برای این که بتونی یه انسان خوبی باشی یعنی داری یه نوری به دست میاری، یه شناختی از خودت. خودشناسی و خودآگاهی که تو روایت‌هایی هم که داریم این مرتبه از ارزش خیلی بالایی برخورداره.
+
+            به نکته دیگه‌ای هم هست، این نکته حاصل از برداشت شخص خودم از کتاب نشان از بی‌نشان‌ها هست. ببین نویسنده این کتاب یه روحانی گمنامی بوده تو زمان خودش که خیلی‌ها شاید نمیدونستن این شخص چه علمی داره و وقتی این کتاب رو میخونی یه نکته خیلی قشنگی توشه. فرض کن ویژگی‌های یه انسان خوب رو بخوای به 10 قسمت تقسیم کنی و تازه هر کدوم از این 10 قسمت هم 10 قسمت دیگه‌ای داشته باشه. در کل این طور که من برداشت کردم نماز خوندن یکی از این 100 قسمت هست. دروغ نگفتن یکی از 100 قسمت هست. پس آدمایی که میگن ما که دزدی نکردیم و مال کسی رو نخوردیم و چند تا چیز دیگه دارن بهش اضافه می‌کنن و همچنان تو کاراشون هم موندن به خاطر این هست که نمیدونن قسمت‌های مختلف تو شاخه‌های مختلف برای به کمال رسیدن وجود داره. از لحاظ اینا خودشون نسبت به دزدای اطرافشون خیلی خوبن چون شاید مثلا دو سه مورد رو که اونا انجامش دادن اینا انجام ندادن. اینا هنوز تو مرحله خودشناسی موندن یا به قول یکی می‌گفت که اینا از مرحله گروهی هم هنوز بالا نیومدن.
+            موفق و موید باشید
+                                </div>
+                                <div class="action-bar d-flex justify-content-between">
+                                    <div class="ml-auto d-flex">
+                                        <div class="action-item vote">
+                                            <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                <g id="upvote" class="icon_svg-stroke icon_svg-fill" stroke-width="1.5" stroke="#666" fill="none" fill-rule="evenodd" stroke-linejoin="round">
+                                                    <polygon points="12 4 3 15 9 15 9 20 15 20 15 15 21 15"></polygon>
+                                                </g>
+                                            </svg>
+                                            رای بده
+                                        </div>
+                                        <div class="action-item share">
+                                            <svg width="72px" height="72px" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                <g stroke="none" fill-rule="evenodd" class="icon_svg-fill-as-stroke" fill="#666666">
+                                                    <path d="M52.9771128,43.6844872 L49.3666709,45.2170289 C48.2228141,45.7025673 46.9019283,45.1688948 46.4163899,44.025038 C45.9308515,42.8811812 46.464524,41.5602954 47.6083808,41.074757 L56.7737124,37.1843046 C56.7775109,37.1826706 56.781316,37.1810459 56.7851278,37.1794307 C57.9289948,36.6939163 59.2498806,37.2275888 59.735419,38.3714456 C59.7473185,38.3994792 59.7586059,38.4276192 59.7692871,38.4558506 L63.3375042,47.7513738 C63.7828268,48.9114788 63.2033812,50.2129351 62.0432761,50.6582577 C60.8831711,51.1035803 59.5817149,50.5241346 59.1363923,49.3640296 L57.4019323,44.8456067 C53.8266758,52.9071086 45.7532718,58.5302552 36.3665114,58.5302552 C25.332728,58.5302552 16.1136244,50.7606874 13.8817799,40.3941313 L13.8789565,40.3946582 C13.8790691,40.390676 13.879192,40.3866953 13.8793254,40.382716 C13.8789952,40.3809074 13.8791413,40.3807975 13.8793949,40.3806684 C13.9127483,39.4112654 14.5618887,38.5311597 15.5446728,38.2493508 C16.6753689,37.925129 17.8512059,38.5065386 18.2970425,39.5639119 L18.3071273,39.5620803 C20.1471587,47.8404964 27.5339873,54.0302552 36.3665114,54.0302552 C43.6572653,54.0302552 49.9629832,49.8128151 52.9771128,43.6844872 Z" id="Combined-Shape"></path>
+                                                    <path d="M19.3893987,27.845768 L22.9998406,26.3132263 C24.1436974,25.8276879 25.4645831,26.3613604 25.9501215,27.5052172 C26.4356599,28.649074 25.9019874,29.9699598 24.7581307,30.4554982 L15.592799,34.3459506 C15.5890005,34.3475846 15.5851954,34.3492092 15.5813836,34.3508245 C14.4375167,34.8363389 13.1166309,34.3026664 12.6310925,33.1588096 C12.6191929,33.130776 12.6079055,33.102636 12.5972243,33.0744046 L9.02900724,23.7788814 C8.58368465,22.6187764 9.16313029,21.3173201 10.3232353,20.8719975 C11.4833403,20.4266749 12.7847966,21.0061206 13.2301192,22.1662256 L14.9645792,26.6846485 C18.5398356,18.6231466 26.6132397,13 36,13 C47.0337834,13 56.2528871,20.7695678 58.4847315,31.1361239 L58.4875549,31.135597 C58.4874424,31.1395792 58.4873194,31.1435599 58.4871861,31.1475392 C58.4875163,31.1493478 58.4873702,31.1494577 58.4871166,31.1495868 C58.4537631,32.1189898 57.8046227,32.9990955 56.8218386,33.2809044 C55.6911425,33.6051262 54.5153056,33.0237166 54.069469,31.9663433 L54.0593841,31.9681749 C52.2193527,23.6897588 44.8325242,17.5 36,17.5 C28.7092462,17.5 22.4035283,21.7174401 19.3893987,27.845768 Z" id="Combined-Shape"></path>
+                                                </g>
+                                            </svg>
+                                            به اشتراک بگذار
+                                        </div>
+                                    </div>
+                                    <div class="action-item bookmark d-flex">
+                                        <img src="{% static "/image/bookmark add.svg" %}">
+                                        <div>به نشانه‌ها اضافه کن</div>
+                                    </div>
+
+                                </div>
+                                <div class="comments">
+                                        <div class="comment-item self row">
+                                            <div class="photo-wrapper col-md-1">
+                                                <a href="/profile/MahdiehBrf">
+                                                    <img class="profile_photo_img" src="https://qsf.fs.quoracdn.net/-3-images.new_grid.profile_pic_default_small.png-26-679bc670f786484c.png" alt="MahdiehBrf" height="50" width="50">
+                                                </a>
+                                            </div>
+                                            <div class="col-md-11 comment-input d-flex align-items-center">
+                                                <textarea  class="text"></textarea>
+                                                <input class="submit_button comment" type="submit" value="Comment">
+                                            </div>
+
+                                        </div>
+                                        <div class="comment-item">
+                                            <div class="commenter row">
+                                                <div class="photo-wrapper col-md-1">
+                                                    <a href="/profile/MahdiehBrf">
+                                                        <img class="profile_photo_img" src="https://qsf.fs.quoracdn.net/-3-images.new_grid.profile_pic_default_small.png-26-679bc670f786484c.png" alt="MahdiehBrf" height="50" width="50">
+                                                    </a>
+                                                </div>
+                                                <div class="info col-md-11">
+                                                    <span class="full-name">مهدیه بهروزی‌فر</span>
+                                                    <div class="time">2 ساعت پیش</div>
+                                                </div>
+                                            </div>
+                                            <div class="text">
+                                                                            ببین تو آیه‌های قران یه ارتباطی وجود داره. مثلا یه جایی داریم که میگه شما اگه گناه نکنی به مرور یه نوری رو به دست میاری که میتونی خیلی عمیق‌تر و شفاف‌تر اون چیزی که بقیه ازش محرومن رو به دست بیاری. حالا این که این گناه نکردن چه ابعادی داره بماند. یا مثلا یه جای دیگه داریم وقتی یه شخصی اون نور وجودیش رو از دست میده میره تو ظلمات. خوب به نظرم تفسیر این آیه میتونه به این شکل باشه...
+                                            </div>
+                                            <div class="action-bar d-flex justify-content-between">
+                                                <div class="ml-auto d-flex">
+                                                    <div class="action-item vote">
+                                                        <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                            <g id="upvote" class="icon_svg-stroke icon_svg-fill" stroke-width="1.5" stroke="#666" fill="none" fill-rule="evenodd" stroke-linejoin="round">
+                                                                <polygon points="12 4 3 15 9 15 9 20 15 20 15 15 21 15"></polygon>
+                                                            </g>
+                                                        </svg>
+                                                        رای بده
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="answer summary" id="1">
+                    <div class="box">
+                        <div class="reason">
+                            پاسخ . کوئرا . پاسخی که ممکن است دوست داشته باشید
+                        </div>
+                        <div class="question-title">
+                            از چی چیز کوئرا در سال 2018 بدتان می‌آید؟
+                        </div>
+                        <div class="responder row">
+                            <div class="photo-wrapper col-md-1">
+                                <a href="/profile/MahdiehBrf">
+                                    <img class="profile_photo_img" src="https://qsf.fs.quoracdn.net/-3-images.new_grid.profile_pic_default_small.png-26-679bc670f786484c.png" alt="MahdiehBrf" height="50" width="50">
+                                </a>
+                            </div>
+                            <div class="info col-md-11">
+                                <span class="full-name">مهدیه بهروزی‌فر</span>
+                                ،
+                                <span class="creditional">نوشتن سایت کوئرا</span>
+                                <div class="bio">
+                                    دانشجوی ارشد مهندسی کامپیوتر دانشگاه صنعتی شریف
+                                </div>
+                                <div class="time">2 ساعت پیش</div>
+                            </div>
+                        </div>
+                        <div class="response">
+                            <div class="text truncated">
+                                ببین تو آیه‌های قران یه ارتباطی وجود داره. مثلا یه جایی داریم که میگه شما اگه گناه نکنی به مرور یه نوری رو به دست میاری که میتونی خیلی عمیق‌تر و شفاف‌تر اون چیزی که بقیه ازش محرومن رو به دست بیاری. حالا این که این گناه نکردن چه ابعادی داره بماند
+                            </div>
+                            <a href="#" class="more id">(بیشتر)</a>
+                            <a href="#" class="less id hide">(کمتر)</a>
+                            <div class="full hide">
+                                <div class="text full">
+                                ببین تو آیه‌های قران یه ارتباطی وجود داره. مثلا یه جایی داریم که میگه شما اگه گناه نکنی به مرور یه نوری رو به دست میاری که میتونی خیلی عمیق‌تر و شفاف‌تر اون چیزی که بقیه ازش محرومن رو به دست بیاری. حالا این که این گناه نکردن چه ابعادی داره بماند. یا مثلا یه جای دیگه داریم وقتی یه شخصی اون نور وجودیش رو از دست میده میره تو ظلمات. خوب به نظرم تفسیر این آیه میتونه به این شکل باشه...
+            به نظرم شما وقتی نیتت این باشه که دلسوزانه برای شخص یا یه گروهی کار کنی و بیشتر از حدی که برای اون شخص یا اون کار تعریف شده برای رفع مشکل یا افزایش اطلاعات اون دسته از افرادی که باهاشون ارتباط داری وقت بذاری مسلما یه سری خلا‌ها در شما به وجود میاد. شما بیشترین تایمت رو داری رو این میذاری که علمت رو تو یه زمینه هدفمند توسعه بدی یا یه کاری برای یه قشر خاصی از افراد انجام بدی. این زمان گذاشتن میتونه رو فکر کردن باشه. تو تفسیر و تحلیل موضوعاتی که خودت بهش علاقه داری. خب الان دیگه به راحتی میتونی تایم‌هایی که باعث میشه استعداد بد بودن رو پیدا کنی رو با تایم‌های خوب و هدفمند پر کنی و تازه یه نکته دیگه‌ای هم هست و اونم اینکه باعث میشه استعداد  خوب بودن رو پیدا کنی تا تازه برسی به یه انسانی که داره استعدادهاشو میشناسه که باز همین هم خودش یکی از مراحلی هست برای این که بتونی یه انسان خوبی باشی یعنی داری یه نوری به دست میاری، یه شناختی از خودت. خودشناسی و خودآگاهی که تو روایت‌هایی هم که داریم این مرتبه از ارزش خیلی بالایی برخورداره.
+
+            به نکته دیگه‌ای هم هست، این نکته حاصل از برداشت شخص خودم از کتاب نشان از بی‌نشان‌ها هست. ببین نویسنده این کتاب یه روحانی گمنامی بوده تو زمان خودش که خیلی‌ها شاید نمیدونستن این شخص چه علمی داره و وقتی این کتاب رو میخونی یه نکته خیلی قشنگی توشه. فرض کن ویژگی‌های یه انسان خوب رو بخوای به 10 قسمت تقسیم کنی و تازه هر کدوم از این 10 قسمت هم 10 قسمت دیگه‌ای داشته باشه. در کل این طور که من برداشت کردم نماز خوندن یکی از این 100 قسمت هست. دروغ نگفتن یکی از 100 قسمت هست. پس آدمایی که میگن ما که دزدی نکردیم و مال کسی رو نخوردیم و چند تا چیز دیگه دارن بهش اضافه می‌کنن و همچنان تو کاراشون هم موندن به خاطر این هست که نمیدونن قسمت‌های مختلف تو شاخه‌های مختلف برای به کمال رسیدن وجود داره. از لحاظ اینا خودشون نسبت به دزدای اطرافشون خیلی خوبن چون شاید مثلا دو سه مورد رو که اونا انجامش دادن اینا انجام ندادن. اینا هنوز تو مرحله خودشناسی موندن یا به قول یکی می‌گفت که اینا از مرحله گروهی هم هنوز بالا نیومدن.
+            موفق و موید باشید
+                                </div>
+                                <div class="action-bar d-flex justify-content-between">
+                                    <div class="ml-auto d-flex">
+                                        <div class="action-item vote">
+                                            <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                <g id="upvote" class="icon_svg-stroke icon_svg-fill" stroke-width="1.5" stroke="#666" fill="none" fill-rule="evenodd" stroke-linejoin="round">
+                                                    <polygon points="12 4 3 15 9 15 9 20 15 20 15 15 21 15"></polygon>
+                                                </g>
+                                            </svg>
+                                            رای بده
+                                        </div>
+                                        <div class="action-item share">
+                                            <svg width="72px" height="72px" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                <g stroke="none" fill-rule="evenodd" class="icon_svg-fill-as-stroke" fill="#666666">
+                                                    <path d="M52.9771128,43.6844872 L49.3666709,45.2170289 C48.2228141,45.7025673 46.9019283,45.1688948 46.4163899,44.025038 C45.9308515,42.8811812 46.464524,41.5602954 47.6083808,41.074757 L56.7737124,37.1843046 C56.7775109,37.1826706 56.781316,37.1810459 56.7851278,37.1794307 C57.9289948,36.6939163 59.2498806,37.2275888 59.735419,38.3714456 C59.7473185,38.3994792 59.7586059,38.4276192 59.7692871,38.4558506 L63.3375042,47.7513738 C63.7828268,48.9114788 63.2033812,50.2129351 62.0432761,50.6582577 C60.8831711,51.1035803 59.5817149,50.5241346 59.1363923,49.3640296 L57.4019323,44.8456067 C53.8266758,52.9071086 45.7532718,58.5302552 36.3665114,58.5302552 C25.332728,58.5302552 16.1136244,50.7606874 13.8817799,40.3941313 L13.8789565,40.3946582 C13.8790691,40.390676 13.879192,40.3866953 13.8793254,40.382716 C13.8789952,40.3809074 13.8791413,40.3807975 13.8793949,40.3806684 C13.9127483,39.4112654 14.5618887,38.5311597 15.5446728,38.2493508 C16.6753689,37.925129 17.8512059,38.5065386 18.2970425,39.5639119 L18.3071273,39.5620803 C20.1471587,47.8404964 27.5339873,54.0302552 36.3665114,54.0302552 C43.6572653,54.0302552 49.9629832,49.8128151 52.9771128,43.6844872 Z" id="Combined-Shape"></path>
+                                                    <path d="M19.3893987,27.845768 L22.9998406,26.3132263 C24.1436974,25.8276879 25.4645831,26.3613604 25.9501215,27.5052172 C26.4356599,28.649074 25.9019874,29.9699598 24.7581307,30.4554982 L15.592799,34.3459506 C15.5890005,34.3475846 15.5851954,34.3492092 15.5813836,34.3508245 C14.4375167,34.8363389 13.1166309,34.3026664 12.6310925,33.1588096 C12.6191929,33.130776 12.6079055,33.102636 12.5972243,33.0744046 L9.02900724,23.7788814 C8.58368465,22.6187764 9.16313029,21.3173201 10.3232353,20.8719975 C11.4833403,20.4266749 12.7847966,21.0061206 13.2301192,22.1662256 L14.9645792,26.6846485 C18.5398356,18.6231466 26.6132397,13 36,13 C47.0337834,13 56.2528871,20.7695678 58.4847315,31.1361239 L58.4875549,31.135597 C58.4874424,31.1395792 58.4873194,31.1435599 58.4871861,31.1475392 C58.4875163,31.1493478 58.4873702,31.1494577 58.4871166,31.1495868 C58.4537631,32.1189898 57.8046227,32.9990955 56.8218386,33.2809044 C55.6911425,33.6051262 54.5153056,33.0237166 54.069469,31.9663433 L54.0593841,31.9681749 C52.2193527,23.6897588 44.8325242,17.5 36,17.5 C28.7092462,17.5 22.4035283,21.7174401 19.3893987,27.845768 Z" id="Combined-Shape"></path>
+                                                </g>
+                                            </svg>
+                                            به اشتراک بگذار
+                                        </div>
+                                    </div>
+                                    <div class="action-item bookmark d-flex">
+                                        <img src="{% static "/image/bookmark add.svg" %}">
+                                        <div>به نشانه‌ها اضافه کن</div>
+                                    </div>
+
+                                </div>
+                                <div class="comments">
+                                        <div class="comment-item self row">
+                                            <div class="photo-wrapper col-md-1">
+                                                <a href="/profile/MahdiehBrf">
+                                                    <img class="profile_photo_img" src="https://qsf.fs.quoracdn.net/-3-images.new_grid.profile_pic_default_small.png-26-679bc670f786484c.png" alt="MahdiehBrf" height="50" width="50">
+                                                </a>
+                                            </div>
+                                            <div class="col-md-11 comment-input d-flex align-items-center">
+                                                <textarea  class="text"></textarea>
+                                                <input class="submit_button comment" type="submit" value="Comment">
+                                            </div>
+
+                                        </div>
+                                        <div class="comment-item">
+                                            <div class="commenter row">
+                                                <div class="photo-wrapper col-md-1">
+                                                    <a href="/profile/MahdiehBrf">
+                                                        <img class="profile_photo_img" src="https://qsf.fs.quoracdn.net/-3-images.new_grid.profile_pic_default_small.png-26-679bc670f786484c.png" alt="MahdiehBrf" height="50" width="50">
+                                                    </a>
+                                                </div>
+                                                <div class="info col-md-11">
+                                                    <span class="full-name">مهدیه بهروزی‌فر</span>
+                                                    <div class="time">2 ساعت پیش</div>
+                                                </div>
+                                            </div>
+                                            <div class="text">
+                                                                            ببین تو آیه‌های قران یه ارتباطی وجود داره. مثلا یه جایی داریم که میگه شما اگه گناه نکنی به مرور یه نوری رو به دست میاری که میتونی خیلی عمیق‌تر و شفاف‌تر اون چیزی که بقیه ازش محرومن رو به دست بیاری. حالا این که این گناه نکردن چه ابعادی داره بماند. یا مثلا یه جای دیگه داریم وقتی یه شخصی اون نور وجودیش رو از دست میده میره تو ظلمات. خوب به نظرم تفسیر این آیه میتونه به این شکل باشه...
+                                            </div>
+                                            <div class="action-bar d-flex justify-content-between">
+                                                <div class="ml-auto d-flex">
+                                                    <div class="action-item vote">
+                                                        <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                            <g id="upvote" class="icon_svg-stroke icon_svg-fill" stroke-width="1.5" stroke="#666" fill="none" fill-rule="evenodd" stroke-linejoin="round">
+                                                                <polygon points="12 4 3 15 9 15 9 20 15 20 15 15 21 15"></polygon>
+                                                            </g>
+                                                        </svg>
+                                                        رای بده
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <div class="col-md-2">
+        <div class="creditional-bar">
+            <label>اعتبار‌ها</label>
+            <ul>
+                <li class="credit-item">
+                    <div class="icon d-flex">
+                        <img src="{% static "/image/employment.svg" %}">
+                        <div>شغل</div>
+                    </div>
+{#                    <ul>#}
+{#                        <li>مدرس</li>#}
+{#                    </ul>#}
+                </li>
+                <li class="credit-item">
+                    <div class="icon d-flex">
+                        <img src="{% static "/image/educational.svg" %}">
+                        <div>تحصیل</div>
+                    </div>
+                </li>
+                <li class="credit-item">
+                    <div class="icon d-flex">
+                        <img src="{% static "/image/language.svg" %}">
+                        <div>زبان</div>
+                    </div>
+                </li>
+                <li class="credit-item">
+                    <div class="icon d-flex">
+                        <img src="{% static "/image/location.svg" %}">
+                        <div>مکان</div>
+                    </div>
+                </li>
+                <li class="credit-item">
+                    <div class="icon d-flex">
+                        <img src="{% static "/image/experience.svg" %}">
+                        <div>تجربه</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<script>
+$(function() {
+    $(".more.id").click(function(e) { // limit click to children of main menu
+        $(this).siblings(".full").removeClass('hide').addClass('show');
+        $(this).siblings(".less.id").removeClass('hide').addClass('show');
+        $(this).siblings(".text.truncated").removeClass('show').addClass('hide');
+        $(this).removeClass('show').addClass('hide');
+
+
+        e.stopPropagation();
+    });
+    $(".less.id").click(function(e) { // limit click to children of main menu
+        console.log('hii');
+        $(this).siblings(".more.id").removeClass('hide').addClass('show');
+        $(this).siblings(".text.truncated").removeClass('hide').addClass('show');
+        $(this).removeClass('show').addClass('hide');
+        $(this).siblings(".full").removeClass('show').addClass('hide');
+        e.stopPropagation();
+    });
+    $(".action-item.bookmark").click(function(e) { // limit click to children of main menu
+        var text = $(this).find('div').text();
+        if (text==="حذف از نشانه‌ها"){
+            $(this).find('img').attr('src','{% static "/image/bookmark add.svg" %}');
+            $(this).find('div').text("اضافه به نشانه‌ها");
+        }else{
+            $(this).find('img').attr('src','{% static "/image/bookmark remove.svg" %}');
+            $(this).find('div').text("حذف از نشانه‌ها");
+        }
+        e.stopPropagation();
+    });
+});
+</script>
+
+
+
+
+
+{% endblock content %}

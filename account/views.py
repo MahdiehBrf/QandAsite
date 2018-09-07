@@ -74,3 +74,8 @@ def signin(request):
 def question_page(request, q_id):
     question = Question.objects.get(id=q_id)
     return render(request, 'question.html', {'question': question})
+
+
+def profile_page(request, u_id):
+    user = User.objects.get(id=u_id)
+    return render(request, 'profile.html', {'user': user})
