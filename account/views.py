@@ -137,3 +137,10 @@ def comment(request, a_id):
     new_comment = AnswerComment(commenter=request.user, answer=selected_answer, text=text )
     new_comment.save()
     return render(request, 'comment.html', {'comment': new_comment})
+
+
+def comment_delete(request, c_id):
+    selected_comment = AnswerComment.objects.get(id=c_id)
+    if request.user == selected_comment.commenter:
+        selected_comment.delete()
+    return JsonResponse({})

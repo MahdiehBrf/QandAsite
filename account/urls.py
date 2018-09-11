@@ -2,7 +2,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth import views
 from .views import home, signup, signin, ask_question, answer, question_page, profile_page, vote, devote, bookmark, \
-    unbookmark, share, unshare, comment, comment_devote, comment_vote
+    unbookmark, share, unshare, comment, comment_devote, comment_vote, comment_delete
 
 app_name = 'account'
 
@@ -25,7 +25,7 @@ urlpatterns = [
     url(r'^comment/(?P<a_id>\d+)/$', comment, name='comment'),
     url(r'^comment_vote/(?P<c_id>\d+)/$', comment_vote, name='comment_vote'),
     url(r'^comment_devote/(?P<c_id>\d+)/$', comment_devote, name='comment_devote'),
-
+    url(r'^comment_delete/(?P<c_id>\d+)/$', comment_delete, name='comment_delete'),
 
     url(r'^$', home, name='home'),
     # url(r'^', include('account.urls', namespace="account`")),

@@ -189,10 +189,12 @@
                                                             </div>
                                                     </div>
                                                 </div>
-                                                <div class="action-item delete d-flex">
-                                                    <img src="{% static "/image/garbage .svg" %}">
-                                                    <div>حذف</div>
-                                                </div>
+                                                {% if user.email == comment.commenter.email %}
+                                                    <div class="action-item delete d-flex">
+                                                        <img src="{% static "/image/garbage .svg" %}">
+                                                        <div>حذف</div>
+                                                    </div>
+                                                {% endif %}
                                             </div>
                                         </div>
                                     {% endfor %}
@@ -327,6 +329,15 @@
                     $voteObj.addClass('selected');
                 });
             }
+
+        }
+        var $deleteObj = $(e.target).closest('.delete');
+        if ($deleteObj.length) {
+            var commentID = $(e.target).closest('.comment-item')[0].id;
+            var $comment_answer = $(e.target).closest('.answer .full');
+            $.get("/comment_delete/" + commentID + "/", {}, function (data) {
+                $comment_answer.find('.comment-section .comment-item#'+ commentID).remove();
+            });
 
         }
     });
