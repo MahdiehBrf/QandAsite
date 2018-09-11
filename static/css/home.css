@@ -32,12 +32,16 @@
 .info, .comment-input{
     font-size: 14px;
     color: #999;
-    padding-right: 37px;
+    padding-right: 32px;
 }
 
 .full-name, .creditional{
     color: #333;
     font-size: 16px;
+}
+
+.responder .full-name{
+    float: right;
 }
 
 .text{
@@ -59,7 +63,7 @@
     stroke: #329bff;
 }
 
-.action-item svg, .action-item.bookmark img, .action-item.edit img{
+.action-item svg, .action-item img{
     width: 24px;
     height: 24px;
 }
@@ -79,13 +83,21 @@
     margin-left: 5px;
 }
 
-.action-item.bookmark img, .action-item.edit img{
+.action-item img{
    margin-left: 5px;
+}
+
+.action-item svg{
+    margin-left: 5px;
+}
+
+.comment-item.self .comment-input{
+    padding-right: 37px;
 }
 
 @media (min-width: 1200px){
     .col-md-11.info, .col-md-11.comment-input{
-    padding-right: 15px;
+    padding-right: 15px!important;
     }
 }
 
@@ -95,9 +107,11 @@ textarea.text{
     font-size:18px;
     height:1.1em;
     padding:2px;
+    min-width: 100px;
+    width: 100%;
 }
 
-.comments{
+.comment-section{
     border: 0;
     background-color: #f7f7f7;
     padding: 16px;
@@ -107,4 +121,8 @@ textarea.text{
 .submit_button.comment{
     width: 80px;
     margin-right: 8px;
+}
+
+.vote .vote-count{
+    margin-right: 5px;
 }

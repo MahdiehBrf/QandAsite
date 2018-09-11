@@ -244,7 +244,7 @@
                                     </div>
 
                                 </div>
-                                <div class="comments">
+                                <div class="comment-section">
                                         <div class="comment-item self row">
                                             <div class="photo-wrapper col-md-1">
                                                 <a href="/profile/MahdiehBrf">
@@ -356,7 +356,7 @@
                                     </div>
 
                                 </div>
-                                <div class="comments">
+                                <div class="comment-section">
                                         <div class="comment-item self row">
                                             <div class="photo-wrapper col-md-1">
                                                 <a href="/profile/MahdiehBrf">
@@ -482,6 +482,26 @@ $(function() {
             $(this).find('div').text("حذف از نشانه‌ها");
         }
         e.stopPropagation();
+    });
+    var span = $('<span>').css('display','inline-block')
+    .css('word-break','break-all').appendTo('body').css('visibility','hidden');
+    function initSpan(textarea){
+      span.text(textarea.text())
+          .width(textarea.width())
+          .css('font',textarea.css('font'));
+    }
+    $('textarea').on({
+        input: function(){
+          var text = $(this).val();
+          span.text(text);
+          $(this).height(text ? span.height() : '1.1em');
+        },
+        focus: function(){
+         initSpan($(this));
+        },
+        keypress: function(e){
+            if(e.which == 13) e.preventDefault();
+        }
     });
 });
 </script>

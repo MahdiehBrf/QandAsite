@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'account',
     'social_django',
     'notifications',
-    'ckeditor'
+    'ckeditor',
+    'polymorphic',
+    'widget_tweaks'
 ]
 
 

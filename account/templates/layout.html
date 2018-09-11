@@ -6,7 +6,7 @@
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="icon" type="image/png" href="http://www.yogihosting.com/wp-content/themes/yogi-yogihosting/Images/favicon.ico" />
+{#        <link rel="icon" type="image/png" href="http://www.yogihosting.com/wp-content/themes/yogi-yogihosting/Images/favicon.ico" />#}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         {% load static %}
@@ -33,6 +33,7 @@
     <body>
     {% if user.is_authenticated %}
     {% live_notify_list  list_class="dropdown-menu" %}
+        <div class="overlay">
         <nav class="navbar navbar-expand-md justify-content-between">
             <a class="navbar-brand" href="#"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -85,7 +86,7 @@
                     </ul>
                 </div>
                 <div class="right-nav-item">
-                    <button class="btn" type="button">سوال بپرس</button>
+                    <button class="ask btn" type="button">سوال بپرس</button>
                 </div>
             </div>
         </nav>
@@ -94,6 +95,67 @@
             {% block content %}
             {% endblock content %}
         </div>
+        </div>
+            <div class="ask-form hide screen-center">
+                <div class="container">
+                    <div class="row d-flex justify-content-center">
+                        <div class="question-form col-md-8">
+                            <form method="POST" action="{% url 'account:ask' %}">
+                            {% csrf_token %}
+                                <div class="inputs">
+                                    <div class="asker">
+                                    {{ user }} می پرسد :
+                                    </div>
+                                    <textarea  class="text" id="title" name="title" placeholder="سوال خود را با 'چگونه'، 'چه'، 'چرا' و غیره شروع کنید."></textarea>
+                                </div>
+                                <div class="buttons d-flex justify-content-end align-items-center">
+                                    <a id="cancel" href="#">
+                                    انصراف
+                                    </a>
+                                    <input class="submit_button" type="submit" value="ایجاد سوال">
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <script>
+
+        $(".ask.btn").click(function (e) { // limit click to children of mainmenue
+                $(".ask-form").removeClass('hide').addClass('show');
+                $('.overlay').css("opacity", "0.2").css("position","absolute");
+                e.stopPropagation();
+            });
+        $(document).on('click', '*', function (e) {
+            e.stopPropagation();
+            if (!$(e.target).closest('.ask-form').length || (e.target.id === "cancel")) {
+                $(".ask-form").removeClass('show').addClass('hide');
+                $('.overlay').css("opacity", "1").css("position","unset");
+            }
+        });
+        var span = $('<span>').css('display','inline-block')
+        .css('word-break','break-all').appendTo('body').css('visibility','hidden');
+        function initSpan(textarea){
+          span.text(textarea.text())
+              .width(textarea.width())
+              .css('font',textarea.css('font'));
+        }
+        $('textarea').on({
+            input: function(){
+              var text = $(this).val();
+              span.text(text);
+              $(this).height(text ? span.height() : '1.1em');
+            },
+            focus: function(){
+             initSpan($(this));
+            },
+            keypress: function(e){
+                if(e.which == 13) e.preventDefault();
+            }
+        });
+
+    </script>
     {% else %}
         <a class="lead" href="{% url 'account:login' %}">Log in</a>
     {% endif %}

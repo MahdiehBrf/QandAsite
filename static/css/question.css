@@ -33,5 +33,10 @@
 }
 
 .photo-wrapper{
-    padding-right: 37px;
+    padding-right: 15px;
 }
+
+.comment-item.self .photo-wrapper{
+    padding-right: 30px;
+}
+

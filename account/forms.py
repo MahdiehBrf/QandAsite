@@ -12,7 +12,7 @@ class SignUpForm(ModelForm):
 class QForm(ModelForm):
     class Meta:
         model = Question
-        fields = ['description']
+        fields = ['title']
 
 
 class AForm(ModelForm):

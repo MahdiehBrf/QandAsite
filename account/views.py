@@ -1,10 +1,10 @@
 from django.contrib.auth import authenticate, login
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 
 from account.forms import SignUpForm, QForm, AForm
-from account.models import User, Question
+from account.models import User, Question, Answer, AnswerComment
 
 
 def home(request):
@@ -16,11 +16,13 @@ def home(request):
         return render(request, 'home.html')
 
 
-def editor(request):
+def ask_question(request):
     if request.method == 'POST':
         uf = QForm(request.POST)
         if uf.is_valid():
-            uf.save()
+            question = uf.save(commit=False)
+            question.asker = request.user
+            question.save()
             return HttpResponseRedirect(reverse('account:home'))
         else:
             print()
@@ -38,7 +40,7 @@ def answer(request):
         if uf.is_valid():
             answer_f = uf.save(commit=False)
             answer_f.responder = request.user
-            answer_f.question = Question.objects.get(id=1)
+            answer_f.question = Question.objects.get(id=2)
             answer_f.save()
             return HttpResponseRedirect(reverse('account:home'))
         else:
@@ -79,3 +81,59 @@ def question_page(request, q_id):
 def profile_page(request, u_id):
     user = User.objects.get(id=u_id)
     return render(request, 'profile.html', {'user': user})
+
+
+def vote(request, a_id):
+    selected_answer = Answer.objects.get(id=a_id)
+    selected_answer.voters.add(request.user)
+    return JsonResponse({'vote_count': selected_answer.voters.all().count()})
+
+
+def devote(request, a_id):
+    selected_answer = Answer.objects.get(id=a_id)
+    selected_answer.voters.remove(request.user)
+    return JsonResponse({'vote_count': selected_answer.voters.all().count()})
+
+
+def comment_vote(request, c_id):
+    selected_comment = AnswerComment.objects.get(id=c_id)
+    selected_comment.voters.add(request.user)
+    return JsonResponse({'vote_count': selected_comment.voters.all().count()})
+
+
+def comment_devote(request, c_id):
+    selected_comment = AnswerComment.objects.get(id=c_id)
+    selected_comment.voters.remove(request.user)
+    return JsonResponse({'vote_count': selected_comment.voters.all().count()})
+
+
+def bookmark(request, a_id):
+    selected_answer = Answer.objects.get(id=a_id)
+    selected_answer.bookmarkers.add(request.user)
+    return JsonResponse({})
+
+
+def unbookmark(request, a_id):
+    selected_answer = Answer.objects.get(id=a_id)
+    selected_answer.bookmarkers.remove(request.user)
+    return JsonResponse({})
+
+
+def share(request, a_id):
+    selected_answer = Answer.objects.get(id=a_id)
+    selected_answer.shareholders.add(request.user)
+    return JsonResponse({})
+
+
+def unshare(request, a_id):
+    selected_answer = Answer.objects.get(id=a_id)
+    selected_answer.shareholders.remove(request.user)
+    return JsonResponse({})
+
+
+def comment(request, a_id):
+    selected_answer = Answer.objects.get(id=a_id)
+    text = request.GET['text']
+    new_comment = AnswerComment(commenter=request.user, answer=selected_answer, text=text )
+    new_comment.save()
+    return render(request, 'comment.html', {'comment': new_comment})
