@@ -126,3 +126,27 @@ textarea.text{
 .vote .vote-count{
     margin-right: 5px;
 }
+
+.editor .get-inside{
+    background: #f8f8f8;
+    border: 1px solid #d1d1d1;
+    border-top: 0;
+}
+
+.editor .submit_button{
+    margin-left: 10px;
+}
+
+.cke_chrome, .cke_inner, .cke_reset{
+    border-bottom: 0 !important;
+}
+
+.editor{
+    margin-bottom: 10px;
+}
+
+.answer.full.single{
+    padding: 16px;
+    border-radius: 4px;
+    border: 1px solid #e2e2e2;
+}

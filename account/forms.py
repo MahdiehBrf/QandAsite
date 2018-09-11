@@ -1,4 +1,5 @@
-from django.forms import ModelForm
+from ckeditor.widgets import CKEditorWidget
+from django.forms import ModelForm, Form
 
 from account.models import User, Question, Answer
 

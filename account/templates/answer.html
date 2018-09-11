@@ -1,39 +1,165 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>A Simple Page with CKEditor</title>
-        <!-- Make sure the path to CKEditor is correct. -->
-        <script src="//cdn.ckeditor.com/4.4.7/full-all/ckeditor.js"></script>
-        {% load static %}
-        {% load notifications_tags %}
-        <script src="{% static 'notifications/notify.js' %}" type="text/javascript"></script>
-        {% register_notify_callbacks callbacks='fill_notification_list,fill_notification_badge' fetch=20 refresh_period=5%}
-        <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}"/>
-        <link rel="stylesheet" type="text/css" href="{% static "css/base.css" %}"/>
-        <link rel="stylesheet" type="text/css" href="{% static "css/home.css" %}"/>
-
-    </head>
-    <body>
-
-    {% live_notify_badge %}
-    {% live_notify_list %}
-        <form method="POST" action="">
-            {% csrf_token %}
-            <textarea name="text" id="text" rows="10" cols="80" placeholder="پاسخ خود را بنویسید">
+{% extends "layout.html" %}
 
 
-            </textarea>
-            <script>
-                // Replace the <textarea id="editor1"> with a CKEditor
-                // instance, using default configuration.
-                CKEDITOR.replace( 'text', {
+{% block special_static %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/question.css" %}"/>
+{% endblock special_static %}
 
-                    customConfig: '/static/js/editor-config.js',
+{% block content %}
+<div class="row name">
 
+    <div class="col-md-10">
+
+        {% include "answer-html.html" with answer=answer %}
+
+    </div>
+
+    <div class="col-md-2">
+            left bar
+
+    </div>
+</div>
+
+<script>
+    var span = $('<span>').css('display','inline-block')
+    .css('word-break','break-all').appendTo('body').css('visibility','hidden');
+    function initSpan(textarea){
+      span.text(textarea.text())
+          .width(textarea.width())
+          .css('font',textarea.css('font'));
+    }
+    $('textarea').on({
+        input: function(){
+          var text = $(this).val();
+          span.text(text);
+          $(this).height(text ? span.height() : '1.1em');
+        },
+        focus: function(){
+         initSpan($(this));
+        },
+        keypress: function(e){
+            if(e.which == 13) e.preventDefault();
+        }
+    });
+
+
+
+
+
+    $(".answer .action-bar").on('click', '*', function (e) {
+        e.stopPropagation();
+        var $voteObj = $(e.target).closest('.vote');
+        if ($voteObj.length) {
+            var answerID = $(e.target).closest('.answer.full')[0].id;
+            if ($voteObj.hasClass('selected')){
+                $.get("/devote/"+ answerID + "/", {}, function(data) {
+                    $voteObj.find('.vote-count')[0].innerHTML = data.vote_count;
+                    $voteObj.removeClass('selected');
                 });
-            </script>
-            <input class="submit_button" type="submit" value="post">
-        </form>
-    </body>
-</html>
+            }else {
+                $.get("/vote/"+ answerID + "/", {}, function(data) {
+                    $voteObj.find('.vote-count')[0].innerHTML = data.vote_count;
+                    $voteObj.addClass('selected');
+                });
+            }
+
+        }
+        var $bookmarkObj = $(e.target).closest('.bookmark');
+        if ($bookmarkObj.length) {
+            var answerID = $(e.target).closest('.answer.full')[0].id;
+            if ($bookmarkObj.hasClass('selected')){
+                $.get("/unbookmark/"+ answerID + "/", {}, function(data) {
+                    $bookmarkObj.find('img').attr('src','{% static "/image/bookmark add.svg" %}');
+                    $bookmarkObj.find('div').text("اضافه به نشانه‌ها");
+                    $bookmarkObj.removeClass('selected');
+                });
+            }else {
+                $.get("/bookmark/"+ answerID + "/", {}, function(data) {
+                    $bookmarkObj.find('img').attr('src','{% static "/image/bookmark remove.svg" %}');
+                    $bookmarkObj.find('div').text("حذف از نشانه‌ها");
+                    $bookmarkObj.addClass('selected');
+                });
+            }
+
+        }
+        var $shareObj = $(e.target).closest('.share');
+        if ($shareObj.length) {
+            var answerID = $(e.target).closest('.answer.full')[0].id;
+            if ($shareObj.hasClass('selected')){
+                $.get("/unshare/"+ answerID + "/", {}, function(data) {
+                    $shareObj.removeClass('selected');
+                });
+            }else {
+                $.get("/share/"+ answerID + "/", {}, function(data) {
+                    $shareObj.addClass('selected');
+                });
+            }
+
+        }
+
+
+    });
+    $('.submit_button.comment').click(function(e) { // limit click to children of main menu
+        var $selected_answer = $(e.target).closest('.answer.full');
+        var $textarea = $(e.target).siblings('textarea.text');
+        if ($textarea[0].value !== '') {
+            $.get("/comment/" + $selected_answer[0].id + "/", {'text': $textarea[0].value}, function (data) {
+                $selected_answer.find('.comments').append(data);
+                $textarea[0].value = '';
+            });
+        }
+
+        e.stopPropagation();
+    });
+
+    {#$('.editor .add-answer.submit_button').click(function(e) { // limit click to children of main menu#}
+    {#    var $selected_question = $(e.target).closest('.question.full');#}
+    {#    console.log($(e.target));#}
+    {#    var $textarea = $(e.target).siblings('textarea#text');#}
+    {#    console.log($textarea);#}
+    {#    if ($textarea[0].value !== '') {#}
+    {#        $.get("/answer/" + $selected_question[0].id + "/", {'text': $textarea[0].value}, function (data) {#}
+    {#            $selected_question.find('.answers').append(data);#}
+    {#            $textarea[0].value = '';#}
+    {#        });#}
+    {#    }#}
+    {##}
+    {#    e.stopPropagation();#}
+    {#});#}
+
+    $(".comment-item .action-bar").on('click', '*', function (e) {
+        e.stopPropagation();
+        var $voteObj = $(e.target).closest('.vote');
+        if ($voteObj.length) {
+            var commentID = $(e.target).closest('.comment-item')[0].id;
+            if ($voteObj.hasClass('selected')) {
+                $.get("/comment_devote/" + commentID + "/", {}, function (data) {
+                    $voteObj.find('.vote-count')[0].innerHTML = data.vote_count;
+                    $voteObj.removeClass('selected');
+                });
+            } else {
+                $.get("/comment_vote/" + commentID + "/", {}, function (data) {
+                    $voteObj.find('.vote-count')[0].innerHTML = data.vote_count;
+                    $voteObj.addClass('selected');
+                });
+            }
+
+        }
+        var $deleteObj = $(e.target).closest('.delete');
+        if ($deleteObj.length) {
+            var commentID = $(e.target).closest('.comment-item')[0].id;
+            var $comment_answer = $(e.target).closest('.answer .full');
+            $.get("/comment_delete/" + commentID + "/", {}, function (data) {
+                $comment_answer.find('.comment-section .comment-item#'+ commentID).remove();
+            });
+
+        }
+    });
+</script>
+
+
+
+
+
+{% endblock content %}

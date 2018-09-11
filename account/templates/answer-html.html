@@ -1,0 +1,174 @@
+{% load static %}
+
+<div class="answer full {{ way }}" id="{{ answer.id }}">
+        <div class="responder d-flex align-items-center">
+            <div class="photo-wrapper">
+{#                            TODO#}
+                <a href="/profile/MahdiehBrf">
+                    <img class="profile_photo_img" src="https://qsf.fs.quoracdn.net/-3-images.new_grid.profile_pic_default_small.png-26-679bc670f786484c.png" alt="MahdiehBrf" height="50" width="50">
+                </a>
+            </div>
+            <div class="info">
+                <span class="full-name">{{ answer.responder }}</span>
+                ،
+                <span class="creditional">
+                    {% if answer.credentional %}
+                        {{ answer.credentional }}
+                    {% elif answer.responder.email == user.email %}
+{#                                    TODO#}
+                        انتخاب اعتبار پاسخ
+                    {% endif %}
+                </span>
+                <div class="bio">
+                    {% if answer.responder.bio %}
+                        {{ answer.responder.bio }}
+                    {% endif %}
+                </div>
+                <div class="time">{{ answer.pub_date }}</div>
+            </div>
+        </div>
+        <div class="response">
+            <div class="full">
+                <div class="text full">
+                    {{ answer.text|safe }}
+                </div>
+
+                <div class="answ action-bar d-flex justify-content-between">
+                    <div class="ml-auto d-flex">
+                        {% if user in answer.voters.all %}
+                            <div class="action-item vote d-flex selected">
+                        {% else %}
+                            <div class="action-item vote d-flex">
+                        {% endif %}
+                            <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g id="upvote" class="icon_svg-stroke icon_svg-fill" stroke-width="1.5" stroke="#666" fill="none" fill-rule="evenodd" stroke-linejoin="round">
+                                    <polygon points="12 4 3 15 9 15 9 20 15 20 15 15 21 15"></polygon>
+                                </g>
+                            </svg>
+                            رای بده
+                            <div class="vote-count">
+                                {{ answer.voters.count }}
+                            </div>
+                        </div>
+                        {% if user in answer.shareholders.all %}
+                            <div class="action-item share selected">
+                        {% else %}
+                            <div class="action-item share">
+                        {% endif %}
+                            <svg width="72px" height="72px" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g stroke="none" fill-rule="evenodd" class="icon_svg-fill-as-stroke" fill="#666666">
+                                    <path d="M52.9771128,43.6844872 L49.3666709,45.2170289 C48.2228141,45.7025673 46.9019283,45.1688948 46.4163899,44.025038 C45.9308515,42.8811812 46.464524,41.5602954 47.6083808,41.074757 L56.7737124,37.1843046 C56.7775109,37.1826706 56.781316,37.1810459 56.7851278,37.1794307 C57.9289948,36.6939163 59.2498806,37.2275888 59.735419,38.3714456 C59.7473185,38.3994792 59.7586059,38.4276192 59.7692871,38.4558506 L63.3375042,47.7513738 C63.7828268,48.9114788 63.2033812,50.2129351 62.0432761,50.6582577 C60.8831711,51.1035803 59.5817149,50.5241346 59.1363923,49.3640296 L57.4019323,44.8456067 C53.8266758,52.9071086 45.7532718,58.5302552 36.3665114,58.5302552 C25.332728,58.5302552 16.1136244,50.7606874 13.8817799,40.3941313 L13.8789565,40.3946582 C13.8790691,40.390676 13.879192,40.3866953 13.8793254,40.382716 C13.8789952,40.3809074 13.8791413,40.3807975 13.8793949,40.3806684 C13.9127483,39.4112654 14.5618887,38.5311597 15.5446728,38.2493508 C16.6753689,37.925129 17.8512059,38.5065386 18.2970425,39.5639119 L18.3071273,39.5620803 C20.1471587,47.8404964 27.5339873,54.0302552 36.3665114,54.0302552 C43.6572653,54.0302552 49.9629832,49.8128151 52.9771128,43.6844872 Z" id="Combined-Shape"></path>
+                                    <path d="M19.3893987,27.845768 L22.9998406,26.3132263 C24.1436974,25.8276879 25.4645831,26.3613604 25.9501215,27.5052172 C26.4356599,28.649074 25.9019874,29.9699598 24.7581307,30.4554982 L15.592799,34.3459506 C15.5890005,34.3475846 15.5851954,34.3492092 15.5813836,34.3508245 C14.4375167,34.8363389 13.1166309,34.3026664 12.6310925,33.1588096 C12.6191929,33.130776 12.6079055,33.102636 12.5972243,33.0744046 L9.02900724,23.7788814 C8.58368465,22.6187764 9.16313029,21.3173201 10.3232353,20.8719975 C11.4833403,20.4266749 12.7847966,21.0061206 13.2301192,22.1662256 L14.9645792,26.6846485 C18.5398356,18.6231466 26.6132397,13 36,13 C47.0337834,13 56.2528871,20.7695678 58.4847315,31.1361239 L58.4875549,31.135597 C58.4874424,31.1395792 58.4873194,31.1435599 58.4871861,31.1475392 C58.4875163,31.1493478 58.4873702,31.1494577 58.4871166,31.1495868 C58.4537631,32.1189898 57.8046227,32.9990955 56.8218386,33.2809044 C55.6911425,33.6051262 54.5153056,33.0237166 54.069469,31.9663433 L54.0593841,31.9681749 C52.2193527,23.6897588 44.8325242,17.5 36,17.5 C28.7092462,17.5 22.4035283,21.7174401 19.3893987,27.845768 Z" id="Combined-Shape"></path>
+                                </g>
+                            </svg>
+                            به اشتراک بگذار
+                        </div>
+                    </div>
+
+                    {% if user in answer.bookmarkers.all %}
+                        <div class="action-item bookmark d-flex selected">
+                            <img src="{% static "/image/bookmark remove.svg" %}">
+                            <div>حذف از نشانه‌ها</div>
+                        </div>
+                    {% else %}
+                        <div class="action-item bookmark d-flex">
+                            <img src="{% static "/image/bookmark add.svg" %}">
+                            <div>اضافه به نشانه‌ها</div>
+                        </div>
+                    {% endif %}
+                    {% if user.email == answer.responder.email %}
+                        <div class="action-item delete d-flex">
+                            <img src="{% static "/image/garbage .svg" %}">
+                            <div>حذف</div>
+                        </div>
+                    {% endif %}
+                    {% if user.email == answer.responder.email %}
+                        <div class="action-item edit d-flex">
+                            <img src="{% static "/image/edit.svg" %}">
+                            <div>ویرایش</div>
+                        </div>
+                    {% endif %}
+
+                </div>
+                {% if user.email == answer.responder.email %}
+                    <form class="editor hide" method="POST" action="{% url 'account:answer_edit' answer.id %}">
+                        {% csrf_token %}
+                        <textarea name="cke-{{ answer.id}}" id="cke-{{ answer.id}}" rows="10" cols="80" placeholder="پاسخ خود را بنویسید"></textarea>
+                        <script>
+                            {% autoescape off %}
+                            CKEDITOR.replace( 'cke-{{ answer.id}}', {customConfig: '/static/js/editor-config.js'});
+                            CKEDITOR.instances['cke-{{ answer.id}}'].setData('{{ answer.text |safe|escapejs}}');
+                            {% endautoescape %}
+                        </script>
+                        <div class="get-inside d-flex justify-content-end">
+                            <input class="submit_button" type="submit" value="post">
+                        </div>
+                    </form>
+                {% endif %}
+
+                <div class="comment-section">
+                    <div class="comment-item self row">
+                        <div class="photo-wrapper col-md-1">
+{#                                        TODO#}
+                            <a href="/profile/MahdiehBrf">
+                                <img class="profile_photo_img" src="https://qsf.fs.quoracdn.net/-3-images.new_grid.profile_pic_default_small.png-26-679bc670f786484c.png" alt="MahdiehBrf" height="50" width="50">
+                            </a>
+                        </div>
+                        <div class="col-md-11 comment-input d-flex align-items-center">
+                            <textarea  class="text"></textarea>
+                            <input class="submit_button comment" type="submit" value="ثبت نظر">
+                        </div>
+
+                    </div>
+                    <div class="comments">
+                        {% for comment in answer.answercomment_set.all %}
+{#                            <div class="comment-item" id="{{ comment.id }}">#}
+{#                                <div class="commenter d-flex align-items-center">#}
+{#                                    <div class="photo-wrapper">#}
+{#                                                    TODO#}
+{#                                        <a href="/profile/MahdiehBrf">#}
+{#                                            <img class="profile_photo_img" src="https://qsf.fs.quoracdn.net/-3-images.new_grid.profile_pic_default_small.png-26-679bc670f786484c.png" alt="MahdiehBrf" height="50" width="50">#}
+{#                                        </a>#}
+{#                                    </div>#}
+{#                                    <div class="info">#}
+{#                                        <span class="full-name">{{ comment.commenter }}</span>#}
+{#                                        <div class="time">{{ comment.pub_date }}</div>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <div class="text">#}
+{#                                    {{ comment.text }}#}
+{#                                </div>#}
+{#                                <div class="action-bar d-flex justify-content-between">#}
+{#                                    <div class="ml-auto d-flex">#}
+{#                                        {% if user in comment.voters.all %}#}
+{#                                            <div class="action-item vote d-flex selected">#}
+{#                                        {% else %}#}
+{#                                            <div class="action-item vote d-flex">#}
+{#                                        {% endif %}#}
+{#                                                <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">#}
+{#                                                    <g id="upvote" class="icon_svg-stroke icon_svg-fill" stroke-width="1.5" stroke="#666" fill="none" fill-rule="evenodd" stroke-linejoin="round">#}
+{#                                                        <polygon points="12 4 3 15 9 15 9 20 15 20 15 15 21 15"></polygon>#}
+{#                                                    </g>#}
+{#                                                </svg>#}
+{#                                                رای بده#}
+{#                                                <div class="vote-count">#}
+{#                                                    {{ comment.voters.count }}#}
+{#                                                </div>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                    {% if user.email == comment.commenter.email %}#}
+{#                                        <div class="action-item delete d-flex">#}
+{#                                            <img src="{% static "/image/garbage .svg" %}">#}
+{#                                            <div>حذف</div>#}
+{#                                        </div>#}
+{#                                    {% endif %}#}
+{#                                </div>#}
+{#                            </div>#}
+                            {% include "comment.html" with comment=comment %}
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+</div>

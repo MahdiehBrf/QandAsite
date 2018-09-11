@@ -261,5 +261,9 @@ a.navbar-brand {
 }
 
 .action-bar .action-item.selected path, .action-bar .action-item.selected g{
+    stroke: #329bff;
+}
+
+.answ.action-bar .action-item.selected path, .answ.action-bar .action-item.selected g, .comment-item .action-bar .action-item.selected path, .comment-item .action-bar .action-item.selected g{
     fill: #329bff;
 }

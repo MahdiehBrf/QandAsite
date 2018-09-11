@@ -34,23 +34,17 @@ def ask_question(request):
                                                    })
 
 
-def answer(request):
+def answer(request, q_id):
     if request.method == 'POST':
         uf = AForm(request.POST)
         if uf.is_valid():
             answer_f = uf.save(commit=False)
             answer_f.responder = request.user
-            answer_f.question = Question.objects.get(id=2)
+            answer_f.question = Question.objects.get(id=q_id)
             answer_f.save()
-            return HttpResponseRedirect(reverse('account:home'))
+            return render(request, 'answer.html', {'answer': answer_f, 'way': 'single'})
         else:
             print()
-    else:
-        form = AForm()
-        return render(request, 'answer.html', {'form': form,
-                                                   'unread_count': request.user.notifications.unread().count(),
-                                                   'notifications': request.user.notifications.all()
-                                                   })
 
 
 def signup(request):
@@ -144,3 +138,31 @@ def comment_delete(request, c_id):
     if request.user == selected_comment.commenter:
         selected_comment.delete()
     return JsonResponse({})
+
+
+def answer_delete(request, a_id):
+    selected_answer = Answer.objects.get(id=a_id)
+    if request.user == selected_answer.responder:
+        selected_answer.delete()
+    return JsonResponse({})
+
+
+def answer_edit(request, a_id):
+    if request.method == 'POST':
+        selected_answer = Answer.objects.get(id=a_id)
+        if request.user == selected_answer.responder:
+            selected_answer.text = request.POST['cke-'+a_id]
+            selected_answer.save()
+        return render(request, 'answer.html', {'answer': selected_answer, 'way': 'single'})
+
+
+def follow(request, q_id):
+    selected_question = Question.objects.get(id=q_id)
+    selected_question.followers.add(request.user)
+    return JsonResponse({'follower_count': selected_question.followers.all().count()})
+
+
+def unfollow(request, q_id):
+    selected_question = Question.objects.get(id=q_id)
+    selected_question.followers.remove(request.user)
+    return JsonResponse({'follower_count': selected_question.followers.all().count()})

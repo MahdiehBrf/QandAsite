@@ -2,7 +2,8 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth import views
 from .views import home, signup, signin, ask_question, answer, question_page, profile_page, vote, devote, bookmark, \
-    unbookmark, share, unshare, comment, comment_devote, comment_vote, comment_delete
+    unbookmark, share, unshare, comment, comment_devote, comment_vote, comment_delete, answer_delete, answer_edit, \
+    unfollow, follow
 
 app_name = 'account'
 
@@ -13,8 +14,10 @@ urlpatterns = [
     url(r'^signup/$', signup, name='signup'),
     url(r'^signin/$', signin, name='signin'),
     url(r'^ask/$', ask_question, name='ask'),
-    url(r'^answer/$', answer, name='answer'),
+    url(r'^answer/(?P<q_id>\d+)/$', answer, name='answer'),
     url(r'^question/(?P<q_id>\d+)/$', question_page, name='question'),
+    url(r'^follow/(?P<q_id>\d+)/$', follow, name='follow'),
+    url(r'^unfollow/(?P<q_id>\d+)/$', unfollow, name='unfollow'),
     url(r'^profile/(?P<u_id>\d+)/$', profile_page, name='profile'),
     url(r'^vote/(?P<a_id>\d+)/$', vote, name='vote'),
     url(r'^devote/(?P<a_id>\d+)/$', devote, name='devote'),
@@ -26,6 +29,8 @@ urlpatterns = [
     url(r'^comment_vote/(?P<c_id>\d+)/$', comment_vote, name='comment_vote'),
     url(r'^comment_devote/(?P<c_id>\d+)/$', comment_devote, name='comment_devote'),
     url(r'^comment_delete/(?P<c_id>\d+)/$', comment_delete, name='comment_delete'),
+    url(r'^answer_delete/(?P<a_id>\d+)/$', answer_delete, name='answer_delete'),
+    url(r'^answer_edit/(?P<a_id>\d+)/$', answer_edit, name='answer_edit'),
 
     url(r'^$', home, name='home'),
     # url(r'^', include('account.urls', namespace="account`")),
