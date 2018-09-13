@@ -23,7 +23,7 @@ def ask_question(request):
             question = uf.save(commit=False)
             question.asker = request.user
             question.save()
-            return HttpResponseRedirect(reverse('account:home'))
+
         else:
             print()
     else:
@@ -32,6 +32,16 @@ def ask_question(request):
                                                    'unread_count': request.user.notifications.unread().count(),
                                                    'notifications': request.user.notifications.all()
                                                    })
+
+
+def edit(request, q_id):
+    if request.method == 'POST':
+        uf = QForm(request.POST, instance=Question.objects.get(id=q_id))
+        if uf.is_valid():
+            question = uf.save()
+            return HttpResponseRedirect(reverse('account:question', args={q_id}))
+        else:
+            print()
 
 
 def answer(request, q_id):

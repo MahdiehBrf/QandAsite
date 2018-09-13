@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.contrib.auth import views
 from .views import home, signup, signin, ask_question, answer, question_page, profile_page, vote, devote, bookmark, \
     unbookmark, share, unshare, comment, comment_devote, comment_vote, comment_delete, answer_delete, answer_edit, \
-    unfollow, follow
+    unfollow, follow, edit
 
 app_name = 'account'
 
@@ -16,6 +16,7 @@ urlpatterns = [
     url(r'^ask/$', ask_question, name='ask'),
     url(r'^answer/(?P<q_id>\d+)/$', answer, name='answer'),
     url(r'^question/(?P<q_id>\d+)/$', question_page, name='question'),
+    url(r'^edit/(?P<q_id>\d+)/$', edit, name='edit'),
     url(r'^follow/(?P<q_id>\d+)/$', follow, name='follow'),
     url(r'^unfollow/(?P<q_id>\d+)/$', unfollow, name='unfollow'),
     url(r'^profile/(?P<u_id>\d+)/$', profile_page, name='profile'),

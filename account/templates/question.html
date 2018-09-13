@@ -22,7 +22,7 @@
                 <div class="question-title">
                     {{ question.title|safe }}
                 </div>
-                <div class="action-bar d-flex justify-content-between">
+                <div class="qu action-bar d-flex justify-content-between">
 {#                    TODO#}
                     <div class="ml-auto d-flex">
                         <div class="action-item answer">
@@ -107,6 +107,16 @@
 </div>
 
 <script>
+
+    $(".question .qu.action-bar .action-item.edit").click(function (e) { // limit click to children of mainmenue
+        var $formObj = $(".ask-form").removeClass('hide').addClass('show').find('form').attr('action', '{% url "account:edit" question.id %}');
+        $formObj.find('textarea').text('{{ question.title }}');
+        $formObj.find('input')[1].value = 'ویرایش';
+        $('.overlay').css("opacity", "0.2").css("position","absolute");
+        e.stopPropagation();
+    });
+
+
     var span = $('<span>').css('display','inline-block')
     .css('word-break','break-all').appendTo('body').css('visibility','hidden');
     function initSpan(textarea){

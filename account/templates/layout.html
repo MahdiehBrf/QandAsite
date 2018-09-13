@@ -120,17 +120,123 @@
                     </div>
                 </div>
             </div>
+        <div class="ask-answer-form hide screen-center">
+                <div class="container">
+                    <div class="row d-flex justify-content-center">
+                        <div class="request-popup col-md-8">
+                            <div class="title">
+                                درخواست پاسخ
+                            </div>
+                            <div class="request-form row">
+                                <div class="topics col-md-2">
+                                    <label>موضوعات</label>
+                                    <ul>
+                                        <li class="topic-item selected">
+                                            همه موضوعات
+                                        </li>
+                                        <li class="topic-item">
+                                            کوئرا
+                                        </li>
+                                        <li class="topic-item">
+                                            سال 2018
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="users col-md-10">
+                                    <label>کاربران با بیشترین پاسخ در موضوع</label>
+                                    <ul>
+                                        <li class="user-item">
+                                            <div class="responder d-flex align-items-center">
+                                                <div class="photo-wrapper">
+{#                                              TODO#}
+                                                    <a href="/profile/MahdiehBrf">
+                                                        <img class="profile_photo_img" src="https://qsf.fs.quoracdn.net/-3-images.new_grid.profile_pic_default_small.png-26-679bc670f786484c.png" alt="MahdiehBrf" height="50" width="50">
+                                                    </a>
+                                                </div>
+                                                <div class="info d-flex justify-content-between">
+                                                    <div>
+                                                        <span class="full-name">مهدیه بهروزی‌فر</span>
+                                                        ،
+                                                        <span class="creditional">دانشجوی ارشد مهندسی کامپیوتر دانشگاه صنعتی شریف</span>
+                                                        <div class="request-reason">
+                                                            21 پاسخ در این موضوع
+                                                        </div>
+                                                    </div>
+                                                    <div class="request-icon">
+                                                        <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                            <g class="icon_svg-stroke" stroke="#666" stroke-width="1.5" fill="none" fill-rule="evenodd">
+                                                                <path d="M12,7 L12,17" stroke-linecap="round"></path>
+                                                                <path d="M7,12 L17,12" stroke-linecap="round"></path>
+                                                                <circle cx="12" cy="12" r="9"></circle>
+                                                            </g>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </li>
+                                        <li class="user-item">
+                                            <div class="responder d-flex align-items-center">
+                                                <div class="photo-wrapper">
+{#                                              TODO#}
+                                                    <a href="/profile/MahdiehBrf">
+                                                        <img class="profile_photo_img" src="https://qsf.fs.quoracdn.net/-3-images.new_grid.profile_pic_default_small.png-26-679bc670f786484c.png" alt="MahdiehBrf" height="50" width="50">
+                                                    </a>
+                                                </div>
+                                                <div class="info d-flex justify-content-between">
+                                                    <div>
+                                                        <span class="full-name">مهدیه بهروزی‌فر</span>
+                                                        ،
+                                                        <span class="creditional">دانشجوی ارشد مهندسی کامپیوتر دانشگاه صنعتی شریف</span>
+                                                        <div class="request-reason">
+                                                            21 پاسخ در این موضوع
+                                                        </div>
+                                                    </div>
+                                                    <div class="request-icon">
+                                                        <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                            <g class="icon_svg-stroke" stroke="#666" stroke-width="1.5" fill="none" fill-rule="evenodd">
+                                                                <path d="M12,7 L12,17" stroke-linecap="round"></path>
+                                                                <path d="M7,12 L17,12" stroke-linecap="round"></path>
+                                                                <circle cx="12" cy="12" r="9"></circle>
+                                                            </g>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <input id="request-done" class="submit_button" type="submit" value="انجام شد">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
         <script>
 
         $(".ask.btn").click(function (e) { // limit click to children of mainmenue
-                $(".ask-form").removeClass('hide').addClass('show');
+                var $formObj = $(".ask-form").removeClass('hide').addClass('show').find('form').attr('action', '{% url "account:ask"%}');
+                $formObj.find('textarea').text('');
+                $formObj.find('input')[1].value = 'ایجاد سوال';
                 $('.overlay').css("opacity", "0.2").css("position","absolute");
                 e.stopPropagation();
             });
+
+        $(".question .qu.action-bar .action-item.request").click(function (e) { // limit click to children of mainmenue
+                var $formObj = $(".ask-answer-form").removeClass('hide').addClass('show');
+                $('.overlay').css("opacity", "0.2").css("position","absolute");
+                e.stopPropagation();
+            });
+
         $(document).on('click', '*', function (e) {
             e.stopPropagation();
-            if (!$(e.target).closest('.ask-form').length || (e.target.id === "cancel")) {
-                $(".ask-form").removeClass('show').addClass('hide');
+            if (!$(e.target).closest('.ask-form').length || (e.target.id === "cancel") || (e.target.id === "request-done") || !$(e.target).closest('.ask-answer-form').length ) {
+                $(".ask-form, .ask-answer-form").removeClass('show').addClass('hide');
                 $('.overlay').css("opacity", "1").css("position","unset");
             }
         });
