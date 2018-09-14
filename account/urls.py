@@ -3,7 +3,8 @@ from django.contrib import admin
 from django.contrib.auth import views
 from .views import home, signup, signin, ask_question, answer, question_page, profile_page, vote, devote, bookmark, \
     unbookmark, share, unshare, comment, comment_devote, comment_vote, comment_delete, answer_delete, answer_edit, \
-    unfollow, follow, edit, read_all, all_notifs, type_based_notifs
+    unfollow, follow, edit, read_all, all_notifs, type_based_notifs, question_topic_delete, question_topic_add, \
+    topic_search
 
 app_name = 'account'
 
@@ -17,6 +18,7 @@ urlpatterns = [
     url(r'^notifs-showall/$', all_notifs, name='showall'),
     url(r'^notifs-type_based/$', type_based_notifs, name='type_based_notifs'),
     url(r'^ask/$', ask_question, name='ask'),
+    url(r'^search-topic/$', topic_search, name='topic_search'),
     url(r'^answer/(?P<q_id>\d+)/$', answer, name='answer'),
     url(r'^question/(?P<q_id>\d+)/$', question_page, name='question'),
     url(r'^edit/(?P<q_id>\d+)/$', edit, name='edit'),
@@ -35,6 +37,8 @@ urlpatterns = [
     url(r'^comment_delete/(?P<c_id>\d+)/$', comment_delete, name='comment_delete'),
     url(r'^answer_delete/(?P<a_id>\d+)/$', answer_delete, name='answer_delete'),
     url(r'^answer_edit/(?P<a_id>\d+)/$', answer_edit, name='answer_edit'),
+    url(r'^topic_delete/(?P<q_id>\d+)/(?P<t_id>\d+)/$', question_topic_delete, name='topic_delete'),
+    url(r'^topic_add/(?P<q_id>\d+)/(?P<t_id>\d+)/$', question_topic_add, name='topic_add'),
 
     url(r'^$', home, name='home'),
     # url(r'^', include('account.urls', namespace="account`")),

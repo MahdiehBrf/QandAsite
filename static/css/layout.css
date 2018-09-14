@@ -227,7 +227,7 @@ a.navbar-brand {
 
  }
 
-.question-form, .request-popup{
+.question-form, .request-popup, .edit-topic-popup{
     /*height: 630px;*/
     margin: 32px 0;
     background-color: #fff;
@@ -284,7 +284,7 @@ a.navbar-brand {
 }
 
 
-.request-popup .title{
+.request-popup .title, .edit-topic-popup .title{
     border-bottom: 1px solid #e2e2e2;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
@@ -293,13 +293,13 @@ a.navbar-brand {
     font-weight: bold;
 }
 
-.request-form{
+.request-form, .question-topics{
     padding-top: 8px;
     margin: 0;
     height: 400px;
 }
 
-.request-form .topics{
+.request-form .topics, .question-topics{
     overflow-y: scroll
 }
 
@@ -307,7 +307,7 @@ a.navbar-brand {
     overflow-y: scroll
 }
 
-.request-form label, .type-filter-bar label{
+.request-form label, .type-filter-bar label, .question-topics label{
     color: #333;
     font-weight: 500;
     position: relative;
@@ -319,16 +319,16 @@ a.navbar-brand {
     margin-bottom: 4px;
 }
 
-.request-form ul, .type-filter-bar ul{
+.request-form ul, .type-filter-bar ul, .question-topics ul{
     padding-right: 0;
 }
 
-.request-form .topic-item.selected, .type-filter-bar .type-item.selected {
+.request-form .topic-item.selected, .type-filter-bar .type-item.selected, .question-topics .question-topic-item {
     background: #ececec;
     border-radius: 3px;
 }
 
-.request-form .topic-item, .request-form .user-item, .type-filter-bar .type-item{
+.request-form .topic-item, .request-form .user-item, .type-filter-bar .type-item, .question-topics .question-topic-item{
     color: #666;
     padding: 4px 5px;
     margin: 0 0 0 -5px;
@@ -336,7 +336,7 @@ a.navbar-brand {
     list-style: none;
 }
 
-.request-popup .submit_button{
+.request-popup .submit_button, .edit-topic-popup .submit_button{
     float: left;
     margin: 10px;
 }
@@ -358,4 +358,31 @@ a.navbar-brand {
     border: 1px solid #efefef;
     background-color: #fff;
     border-radius: 4px;
+}
+
+.question-topics{
+    padding: 8px 16px 0 16px;
+}
+
+.question-topics .question-topic-item{
+    width: fit-content;
+    margin-bottom: 5px;
+}
+
+
+.question-topics .question-topic-item img{
+    width: 16px;
+    height: 16px;
+    margin-left: 5px;
+    margin-right: 3px;
+}
+
+.question-topics .search-topic img{
+     width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+
+.question-topics .searched-topics .question-topic-item svg{
+    margin-left: 5px;
 }

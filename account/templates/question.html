@@ -15,9 +15,15 @@
             <div class="box">
                 <div class="topics d-flex">
 {#                    TODO#}
-                    <div class="topic-item">کوئرا</div>
-                    <div class="topic-item">سال 2018</div>
-                    <div class="topic-item">+4</div>
+                    <div class="topic-item">{{ question.topics.all.0 }}</div>
+                    <div class="topic-item">{{ question.topics.all.1 }}</div>
+                    {% if question.topics.count > 2 %}
+                    <div class="topic-item">+{{ question.topics.count|add:"-2" }}</div>
+                    {% endif %}
+                    <div class="topic-item edit_topics d-flex">
+                        <img src="{% static "/image/edit.svg" %}">
+                        <div>ویرایش</div>
+                    </div>
                 </div>
                 <div class="question-title">
                     {{ question.title|safe }}
@@ -115,6 +121,8 @@
         $('.overlay').css("opacity", "0.2").css("position","absolute");
         e.stopPropagation();
     });
+
+
 
 
     var span = $('<span>').css('display','inline-block')

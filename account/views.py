@@ -5,7 +5,7 @@ from django.urls import reverse
 import json
 
 from account.forms import SignUpForm, QForm, AForm
-from account.models import User, Question, Answer, AnswerComment, NOTIF_TYPE
+from account.models import User, Question, Answer, AnswerComment, NOTIF_TYPE, Topic
 
 
 def home(request):
@@ -197,3 +197,27 @@ def type_based_notifs(request):
     cond = json.dumps({'type': type})[1:-1].replace(" ", "")
     notifs = request.user.notifications.filter(data__contains=cond)
     return render(request, 'notif.html', {'notifs': notifs})
+
+
+def question_topic_delete(request, q_id, t_id):
+    selected_question = Question.objects.get(id=q_id)
+    selected_topic = Topic.objects.get(id=t_id)
+    selected_question.topics.remove(selected_topic)
+    return JsonResponse({})
+
+
+def question_topic_add(request, q_id, t_id):
+    selected_question = Question.objects.get(id=q_id)
+    selected_topic = Topic.objects.get(id=t_id)
+    included = 0
+    if selected_topic in selected_question.topics.all():
+        included = 1
+    else:
+        selected_question.topics.add(selected_topic)
+    return JsonResponse({'topic_id': selected_topic.id, 'topic_name': selected_topic.name, 'included': included})
+
+
+def topic_search(request):
+    name = request.GET['name']
+    topics = Topic.objects.filter(name__contains=name)
+    return render(request, 'topics.html', {'topics': topics})

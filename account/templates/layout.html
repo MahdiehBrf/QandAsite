@@ -215,6 +215,39 @@
                 </div>
             </div>
 
+        <div class="edit-topics-form hide screen-center">
+                <div class="container">
+                    <div class="row d-flex justify-content-center">
+                        <div class="edit-topic-popup col-md-4">
+                            <div class="title">
+                                ویرایش موضوعات
+                            </div>
+                                <div class="question-topics">
+                                    <label>موضوعات</label>
+                                    <div class="search-topic d-flex align-items-center">
+                                        <textarea class="topic-text" placeholder="جستجو موضوع"></textarea>
+                                        <img src="{% static "/image/search.png" %}">
+                                    </div>
+                                    <ul class="searched-topics">
+
+                                    </ul>
+                                    <ul class="added-topics">
+                                        {% for topic in question.topics.all %}
+                                        <li id="t-{{ topic.id }}" class="question-topic-item d-flex align-items-center">
+                                            <img src="{% static "/image/delete.png" %}">
+                                            <div>{{ topic.name }}</div>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                            </div>
+                            <input id="edit-topics-button" class="submit_button" type="submit" value="انجام شد">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
 
 
         <script>
@@ -230,8 +263,50 @@
                 e.stopPropagation();
             });
 
+        $(".question-topics .added-topics .question-topic-item img").click(function (e) {
+            var $topicObj = $(this).parent();
+            var topicID = $topicObj[0].id.split('-')[1];
+            var topicQuestionID = {{ question.id }};
+            $.get("/topic_delete/" + topicQuestionID + "/" + topicID + "/", {}, function (data) {
+                $topicObj.remove();
+            });
+                e.stopPropagation();
+        });
+
+        $(".question-topics .search-topic img").click(function (e) {
+            var name = $(this).siblings('textarea')[0].value;
+            $.get("/search-topic/", {'name':name}, function (data) {
+                $('.question-topics .searched-topics').html(data);
+            });
+                e.stopPropagation();
+        });
+
+        $(".question-topics .searched-topics").on('click', '.question-topic-item svg', function (e) {
+            var $topicObj = $(this).parent();
+            var topicID = $topicObj[0].id.split('-')[1];
+            var topicQuestionID = {{ question.id }};
+            $.get("/topic_add/" + topicQuestionID + "/" + topicID + "/", {}, function (data) {
+                $topicObj.remove();
+                if (data.included === 0){
+                    var newItem = '<li id="t-' + data.topic_id +'" class="question-topic-item d-flex align-items-center">\n' +
+                                        '<img src="{% static "/image/delete.png" %}">\n' +
+                                        '<div>' + data.topic_name + '</div>\n' +
+                                    '</li>';
+                    $('.question-topics .added-topics').append(newItem);
+                }
+            });
+                e.stopPropagation();
+        });
+
+
         $(".question .qu.action-bar .action-item.request").click(function (e) {
                 var $formObj = $(".ask-answer-form").removeClass('hide').addClass('show');
+                $('.overlay').css("opacity", "0.2").css("position","absolute");
+                e.stopPropagation();
+            });
+
+        $(".question .topics .topic-item.edit_topics").click(function (e) {
+                var $formObj = $(".edit-topics-form").removeClass('hide').addClass('show');
                 $('.overlay').css("opacity", "0.2").css("position","absolute");
                 e.stopPropagation();
             });
@@ -248,8 +323,8 @@
 
         $(document).on('click', '*', function (e) {
             e.stopPropagation();
-            if ((!$(e.target).hasClass('read-all') && !$(e.target).closest('.ask-form').length && !$(e.target).closest('.ask-answer-form').length )|| ( (e.target.id === "cancel") || (e.target.id === "request-done"))) {
-                $(".ask-form, .ask-answer-form").removeClass('show').addClass('hide');
+            if ((!$(e.target).closest('.edit-topics-form') && !$(e.target).hasClass('read-all') && !$(e.target).closest('.ask-form').length && !$(e.target).closest('.ask-answer-form').length )|| ( (e.target.id === "cancel") || (e.target.id === "request-done") || (e.target.id === "edit-topics-button"))) {
+                $(".ask-form, .ask-answer-form, .edit-topics-form").removeClass('show').addClass('hide');
                 $('.overlay').css("opacity", "1").css("position","unset");
             }
         });
