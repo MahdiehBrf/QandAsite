@@ -1,0 +1,145 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+{% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "css/base.css" %}"/>
+
+    <link rel="stylesheet" type="text/css" href="{% static "css/login.css" %}"/>
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+
+</head>
+<body>
+
+<div class="home-image"></div>
+<div class="screen-center">
+    <div class="container">
+        <div class="row">
+          <div class="home col-md-8 offset-md-2" style="background:white">
+              <div class="logo"></div>
+              <div class="tagline">
+                  A place to share knowledge and better understand the world
+              </div>
+              <div class="d-flex justify-content-center">
+                  <div class="social-auth">
+                      <div class="quick-login show">
+                          <div class="google-auth">
+                              <img src="/static/image/gmail-logo.png">
+                              <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a><br>
+                          </div>
+                          <div class="policy small">
+                              <a href="#" class="with-email ">Continue With Email.</a> By signing up you indicate that you have read and agree to Quora's <a href="https://www.quora.com/about/tos"  target="_blank"> Terms of Service</a> and <a href="https://www.quora.com/about/privacy" target="_blank">Privacy Policy</a>.
+                          </div>
+                      </div>
+                      <div class="sign-up hide">
+                          <div>
+                              <div class="form-title">Sign Up</div>
+                              <form method="post" action="/signup/">
+                                  {% csrf_token %}
+                                      <div class="EmailSignupForm">
+                                          <div class="row name">
+                                              <div class="col-md-6 first">
+                                                  <label>First Name</label>
+                                                  <div class="input_wrapper">
+                                                      <input class="text" type="text" name="first_name" autocapitalize="words"  autocorrect="off" value="">
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6 last">
+                                                  <label>Last Name</label>
+                                                  <div class="input_wrapper">
+                                                      <input class="text" type="text" name="last_name" autocapitalize="words" autocorrect="off" value="" >
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="form_row english">
+                                              <label>Email</label>
+                                              <div class="input_wrapper">
+                                                  <input class="text" type="text" name="email">
+                                              </div>
+                                          </div>
+                                          <div class="form_row">
+                                              <label>Password</label>
+                                              <div class="input_wrapper">
+                                                  <input class="text" type="password" name="password">
+                                              </div>
+                                          </div>
+                                          <div class="small">
+                                              <span class="light_gray TosDisclaimer">
+                                                  By clicking "Sign Up" you indicate that you have read and agree to Quora's
+                                                  <a class="tos_link" href="https://www.quora.com/about/tos" target="_blank" >
+                                                      Terms of Service
+                                                  </a>
+                                                  and
+                                                  <a class="tos_link" href="https://www.quora.com/about/privacy" target="_blank" >
+                                                      Privacy Policy
+                                                  </a>.
+                                              </span>
+                                          </div>
+                                          <div class="d-flex justify-content-end">
+                                                  <a class="cancel-email" href="#" >Cancel</a>
+                                                  <input class="submit_button submit_button_disabled left" type="submit" value="Sign Up" >
+                                          </div>
+                                      </div>
+                              </form>
+                          </div>
+                      </div>
+
+                  </div>
+                  <div id="sign-in" class="sign-in">
+                      <form  method="POST" action="/signin/">
+                          {% csrf_token %}
+                      <div class="form-title">Login</div>
+                      <div class="form_inputs">
+                          <div class="form_column english">
+                              <input type="text" name="email"  placeholder="Email" >
+                          </div>
+                          <div class="form_column">
+                            <input type="password" name="password" placeholder="Password" w2cid="iNaJen4">
+                          </div>
+                          <div class="form_column">
+                              <span class="login_options">
+                                  <a class="forgot_password" href="#" >
+                                      Forgot Password?
+                                  </a>
+                              </span>
+                              <input class="submit_button" type="submit" value="Login">
+                          </div>
+                      </div>
+                      </form>
+                  </div>
+              </div>
+              <div class="home-footer">
+                  footer
+              </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$(function() {
+        $(".with-email").click(function(e) { // limit click to children of main menu
+            $(".sign-up").removeClass('hide').addClass('show');
+            $(".quick-login").removeClass('show').addClass('hide');
+            e.stopPropagation();
+        });
+        $(".cancel-email").click(function(e) { // limit click to children of main menu
+            $(".quick-login").removeClass('hide').addClass('show');
+            $(".sign-up").removeClass('show').addClass('hide');
+            e.stopPropagation();
+        });
+    });
+</script>
+</body>
+</html>
+

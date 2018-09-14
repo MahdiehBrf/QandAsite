@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+
+
+{% block special_static %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/question.css" %}"/>
+{% endblock special_static %}
+
+{% block content %}
+<div class="row name">
+
+    <div class="col-md-2">
+        <div class="type-filter-bar">
+            <label>فیلتر بر اساس نوع</label>
+            <ul>
+                <li class="type-item all-type selected">
+                    همه
+                </li>
+                <li class="type-item answers">
+                    پاسخ‌ها
+                </li>
+                <li class="type-item questions">
+                    سوال‌ها
+                </li>
+                <li class="type-item comments">
+                    نظرها
+                </li>
+                <li class="type-item edits">
+                    ویرایش‌ها
+                </li>
+                <li class="type-item followers">
+                    followers
+                </li>
+                <li class="type-item requests">
+                    درخواست‌ها
+                </li>
+                <li class="type-item votes">
+                    رای‌ها
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="col-md-10">
+
+        <div class="notifications">
+            {% include "notif.html" with notifs=notifs %}
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+$(".type-filter-bar .type-item").on('click', function (e) {
+    e.stopPropagation();
+    var $typeObj = $(this);
+    var type = $typeObj.attr('class').split(' ')[1];
+    if (!$typeObj.hasClass('selected')) {
+        $.get("/notifs-type_based/", {'type': type}, function (data) {
+            $('.notifications').html(data);
+            $('.type-filter-bar .type-item').removeClass('selected');
+            $typeObj.addClass('selected');
+        });
+    }
+
+});
+</script>
+
+
+{% endblock content %}

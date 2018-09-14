@@ -1,0 +1,152 @@
+.reason{
+    color: #999;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.question-title{
+    font-weight: bold;
+    line-height: 1.3;
+    color: #262626;
+    font-size: 18px;
+}
+
+.photo-wrapper{
+    margin: 8px 0;
+}
+
+.summary{
+    margin-top: 0;
+    border: 1px solid #efefef;
+    background-color: #fff;
+    border-radius: 4px;
+    margin-bottom: 8px;
+
+}
+
+.box{
+    padding: 16px;
+
+}
+
+.info, .comment-input{
+    font-size: 14px;
+    color: #999;
+    padding-right: 32px;
+}
+
+.full-name, .creditional{
+    color: #333;
+    font-size: 16px;
+}
+
+.responder .full-name{
+    float: right;
+}
+
+.text{
+    padding: 16px;
+}
+
+.more, .less{
+    padding-right: 16px;
+}
+
+.action-item{
+    align-items: center;
+    padding: 8px 12px;
+    color: #666;
+    font-size: 17px;
+}
+
+.action-item.vote svg g, .action-item.answer svg path{
+    stroke: #329bff;
+}
+
+.action-item svg, .action-item img{
+    width: 24px;
+    height: 24px;
+}
+
+.questions-header{
+    padding: 16px;
+    padding-top: 12px;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.questions-header img{
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-size: 10px 15px;
+    background-repeat: no-repeat;
+    margin-left: 5px;
+}
+
+.action-item img{
+   margin-left: 5px;
+}
+
+.action-item svg{
+    margin-left: 5px;
+}
+
+.comment-item.self .comment-input{
+    padding-right: 37px;
+}
+
+@media (min-width: 1200px){
+    .col-md-11.info, .col-md-11.comment-input{
+    padding-right: 15px!important;
+    }
+}
+
+textarea.text{
+    resize:none;
+    overflow:hidden;
+    font-size:18px;
+    height:1.1em;
+    padding:2px;
+    min-width: 100px;
+    width: 100%;
+}
+
+.comment-section{
+    border: 0;
+    background-color: #f7f7f7;
+    padding: 16px;
+    border-radius: 4px;
+}
+
+.submit_button.comment{
+    width: 80px;
+    margin-right: 8px;
+}
+
+.vote .vote-count{
+    margin-right: 5px;
+}
+
+.editor .get-inside{
+    background: #f8f8f8;
+    border: 1px solid #d1d1d1;
+    border-top: 0;
+}
+
+.editor .submit_button{
+    margin-left: 10px;
+}
+
+.cke_chrome, .cke_inner, .cke_reset{
+    border-bottom: 0 !important;
+}
+
+.editor{
+    margin-bottom: 10px;
+}
+
+.answer.full.single{
+    padding: 16px;
+    border-radius: 4px;
+    border: 1px solid #e2e2e2;
+}

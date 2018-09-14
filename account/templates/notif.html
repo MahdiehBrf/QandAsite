@@ -1,0 +1,25 @@
+<ul class="dropdown-menu dropdown-menun show">
+    <div class="before-menu d-flex justify-content-end">
+        <a class="read-all" href="#">قراردادن همه به عنوان خوانده‌شده‌ها</a>
+    </div>
+    <div class="notifs">
+        {% for notif in notifs %}
+            {% if notif.unread == 1 %}
+                <li class="notif-item">
+            {% else %}
+                <li class="notif-item read">
+            {% endif %}
+                <div class="notif-sentence">
+                    {{ notif.actor }}
+                    {{ notif.verb }}
+                    <a href="{{ notif.data.href }}">
+                        {{ notif.target }}
+                    </a>
+                </div>
+                <div class="time">
+                    {{ notif.timestamp|date:"در y-m-d ساعت G:i:s" }}
+                </div>
+            </li>
+        {% endfor %}
+    </div>
+</ul>

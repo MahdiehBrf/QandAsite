@@ -1,0 +1,42 @@
+.question.full .question-title{
+    font-size: 23px;
+}
+
+.question.full{
+    margin-top: 0;
+    border: 1px solid #efefef;
+    background-color: #fff;
+    border-radius: 4px;
+    margin-bottom: 8px;
+
+}
+
+.question .topics .topic-item{
+    margin-right: 4px;
+    margin-bottom: 8px;
+    padding: 4px 6px;
+    background: #f7f7f7;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #666;
+}
+
+.answer-count{
+    color: #333;
+    font-size: 18px;
+    padding-bottom: 7px;
+}
+
+.answer.full{
+    padding: 16px 0;
+    border-top: 1px solid #e2e2e2;
+}
+
+.photo-wrapper{
+    padding-right: 15px;
+}
+
+.comment-item.self .photo-wrapper{
+    padding-right: 30px;
+}
+
