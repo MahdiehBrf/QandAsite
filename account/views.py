@@ -1,11 +1,12 @@
 from django.contrib.auth import authenticate, login
+from django.db.models import Count
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 import json
 
 from account.forms import SignUpForm, QForm, AForm
-from account.models import User, Question, Answer, AnswerComment, NOTIF_TYPE, Topic
+from account.models import User, Question, Answer, AnswerComment, NOTIF_TYPE, Topic, AnswerRequest
 
 
 def home(request):
@@ -221,3 +222,38 @@ def topic_search(request):
     name = request.GET['name']
     topics = Topic.objects.filter(name__contains=name)
     return render(request, 'topics.html', {'topics': topics})
+
+
+def best_topic_based_users(request, t_id):
+    topic = Topic.objects.get(id=t_id)
+    user_count = get_user_count(topic)
+    return render(request, 'user_answer_counts.html', {'user_count':user_count, 'topic':topic})
+
+
+def get_user_count(topic):
+    answers = topic.questions.values_list('answer', flat=True)
+    users = Answer.objects.filter(id__in=answers).values('responder').order_by()
+    user_count = users.annotate(answer_count=Count('responder')).order_by('-answer_count')[:10]
+    users = User.objects.filter(id__in=user_count.values_list('responder', flat=True))
+    counts = user_count.values_list('answer_count', flat=True)
+    return zip(users, counts)
+
+
+def best_question_based_users(request, q_id):
+    question = Question.objects.get(id=q_id)
+    user_topic_count = {}
+    for topic in question.topics.all():
+        user_count = get_user_count(topic)
+        for user, count in user_count:
+            if user not in user_topic_count:
+                user_topic_count[user] = {}
+            user_topic_count[user][topic] = count
+    return render(request, 'user_topic_answer_counts.html', {'user_topic_count': user_topic_count})
+
+
+def answer_request(request, u_id, q_id):
+    question = Question.objects.get(id=q_id)
+    user = User.objects.get(id=u_id)
+    ar = AnswerRequest(asker=request.user, askee=user, question=question)
+    ar.save()
+    return JsonResponse({})

@@ -131,81 +131,17 @@
                                 <div class="topics col-md-2">
                                     <label>موضوعات</label>
                                     <ul>
-                                        <li class="topic-item selected">
+                                        <li class="topic-item selected" id="all">
                                             همه موضوعات
                                         </li>
-                                        <li class="topic-item">
-                                            کوئرا
-                                        </li>
-                                        <li class="topic-item">
-                                            سال 2018
-                                        </li>
+                                        {% for topic in question.topics.all %}
+                                            <li class="topic-item" id="t-{{ topic.id }}">
+                                                {{ topic.name }}
+                                            </li>
+                                        {% endfor %}
                                     </ul>
                                 </div>
                                 <div class="users col-md-10">
-                                    <label>کاربران با بیشترین پاسخ در موضوع</label>
-                                    <ul>
-                                        <li class="user-item">
-                                            <div class="responder d-flex align-items-center">
-                                                <div class="photo-wrapper">
-{#                                              TODO#}
-                                                    <a href="/profile/MahdiehBrf">
-                                                        <img class="profile_photo_img" src="https://qsf.fs.quoracdn.net/-3-images.new_grid.profile_pic_default_small.png-26-679bc670f786484c.png" alt="MahdiehBrf" height="50" width="50">
-                                                    </a>
-                                                </div>
-                                                <div class="info d-flex justify-content-between">
-                                                    <div>
-                                                        <span class="full-name">مهدیه بهروزی‌فر</span>
-                                                        ،
-                                                        <span class="creditional">دانشجوی ارشد مهندسی کامپیوتر دانشگاه صنعتی شریف</span>
-                                                        <div class="request-reason">
-                                                            21 پاسخ در این موضوع
-                                                        </div>
-                                                    </div>
-                                                    <div class="request-icon">
-                                                        <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                            <g class="icon_svg-stroke" stroke="#666" stroke-width="1.5" fill="none" fill-rule="evenodd">
-                                                                <path d="M12,7 L12,17" stroke-linecap="round"></path>
-                                                                <path d="M7,12 L17,12" stroke-linecap="round"></path>
-                                                                <circle cx="12" cy="12" r="9"></circle>
-                                                            </g>
-                                                        </svg>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </li>
-                                        <li class="user-item">
-                                            <div class="responder d-flex align-items-center">
-                                                <div class="photo-wrapper">
-{#                                              TODO#}
-                                                    <a href="/profile/MahdiehBrf">
-                                                        <img class="profile_photo_img" src="https://qsf.fs.quoracdn.net/-3-images.new_grid.profile_pic_default_small.png-26-679bc670f786484c.png" alt="MahdiehBrf" height="50" width="50">
-                                                    </a>
-                                                </div>
-                                                <div class="info d-flex justify-content-between">
-                                                    <div>
-                                                        <span class="full-name">مهدیه بهروزی‌فر</span>
-                                                        ،
-                                                        <span class="creditional">دانشجوی ارشد مهندسی کامپیوتر دانشگاه صنعتی شریف</span>
-                                                        <div class="request-reason">
-                                                            21 پاسخ در این موضوع
-                                                        </div>
-                                                    </div>
-                                                    <div class="request-icon">
-                                                        <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                            <g class="icon_svg-stroke" stroke="#666" stroke-width="1.5" fill="none" fill-rule="evenodd">
-                                                                <path d="M12,7 L12,17" stroke-linecap="round"></path>
-                                                                <path d="M7,12 L17,12" stroke-linecap="round"></path>
-                                                                <circle cx="12" cy="12" r="9"></circle>
-                                                            </g>
-                                                        </svg>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </li>
-                                    </ul>
                                 </div>
                             </div>
                             <input id="request-done" class="submit_button" type="submit" value="انجام شد">
@@ -255,6 +191,49 @@
           fetch_api_data();
         };
 
+        $(".request-form .topics .topic-item").on('click', function (e) {
+            e.stopPropagation();
+            var $topicObj = $(this);
+            if ($topicObj[0].id!=='all') {
+                var topicID = $topicObj[0].id.split('-')[1];
+                if (!$topicObj.hasClass('selected')) {
+                    $.get("/best_topic_based_users/" + topicID + "/", {}, function (data) {
+                        $('.request-form .users').html(data);
+                        $('.request-form .topics .topic-item').removeClass('selected');
+                        $topicObj.addClass('selected');
+                    });
+                }
+            }else {
+                if (!$topicObj.hasClass('selected')) {
+                    get_best_question_based_users($topicObj);
+                }
+            }
+
+        });
+
+        $(".request-form .users").on('click','.user-item svg', function (e) {
+
+            e.stopPropagation();
+            var $userObj = $(this);
+            console.log($userObj);
+            var userID = $userObj.parents('.user-item')[0].id.split('-')[1];
+            $.get("/answer_request/" + userID + "/" + {{ question.id }} + "/", {}, function (data) {
+                $userObj.remove();
+            });
+
+        });
+
+        function get_best_question_based_users($topicObj) {
+            $.get("/best_question_based_users/" + {{ question.id }} + "/", {}, function (data) {
+                $('.request-form .users').html(data);
+                if($topicObj!==undefined){
+                    $('.request-form .topics .topic-item').removeClass('selected');
+                    $topicObj.addClass('selected');
+                }
+
+            });
+        }
+
         $(".ask.btn").click(function (e) {
                 var $formObj = $(".ask-form").removeClass('hide').addClass('show').find('form').attr('action', '{% url "account:ask"%}');
                 $formObj.find('textarea').text('');
@@ -302,6 +281,7 @@
         $(".question .qu.action-bar .action-item.request").click(function (e) {
                 var $formObj = $(".ask-answer-form").removeClass('hide').addClass('show');
                 $('.overlay').css("opacity", "0.2").css("position","absolute");
+                get_best_question_based_users(undefined);
                 e.stopPropagation();
             });
 

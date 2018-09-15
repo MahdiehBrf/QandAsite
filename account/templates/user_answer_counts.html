@@ -1,0 +1,43 @@
+<label>
+    کاربران با بیشترین پاسخ در موضوع
+    {{ topic.name }}
+</label>
+<ul>
+
+    {% for best_user,count in user_count %}
+        {% if best_user.email != user.email %}
+        <li class="user-item" id="u-{{ best_user.id }}">
+        <div class="responder d-flex align-items-center">
+            <div class="photo-wrapper">
+    {#                                              TODO#}
+                <a href="/profile/MahdiehBrf">
+                    <img class="profile_photo_img" src="https://qsf.fs.quoracdn.net/-3-images.new_grid.profile_pic_default_small.png-26-679bc670f786484c.png" alt="MahdiehBrf" height="50" width="50">
+                </a>
+            </div>
+            <div class="info d-flex justify-content-between">
+                <div>
+                    <span class="full-name">{{ best_user }}</span>
+                    ،
+                    <span class="creditional">{{ best_user.name_credential }}</span>
+                    <div class="request-reason">
+                        {{ count }}
+                        پاسخ در موضوع
+                        {{ topic.name }}
+                    </div>
+                </div>
+                <div class="request-icon">
+                    <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g class="icon_svg-stroke" stroke="#666" stroke-width="1.5" fill="none" fill-rule="evenodd">
+                            <path d="M12,7 L12,17" stroke-linecap="round"></path>
+                            <path d="M7,12 L17,12" stroke-linecap="round"></path>
+                            <circle cx="12" cy="12" r="9"></circle>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+
+        </div>
+    </li>
+        {% endif %}
+    {% endfor %}
+</ul>
