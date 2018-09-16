@@ -90,7 +90,7 @@ def question_page(request, q_id):
 
 def profile_page(request, u_id):
     user = User.objects.get(id=u_id)
-    return render(request, 'profile.html', {'user': user})
+    return render(request, 'profile.html', {'selected_user': user})
 
 
 def vote(request, a_id):

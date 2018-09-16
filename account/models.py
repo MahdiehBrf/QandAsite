@@ -95,6 +95,7 @@ class User(AbstractBaseUser):
     last_name = models.CharField(verbose_name='last name', max_length=30, blank=True)
     avatar = models.ImageField(upload_to='avatars/', default='avatars/default-image.png', null=True, blank=True)
     bio = RichTextField(null=True)
+    main_credential = models.CharField(max_length=200, null=True)
 
     followers = models.ManyToManyField('self', related_name='followees')
     topics = models.ManyToManyField(Topic, related_name='followers')

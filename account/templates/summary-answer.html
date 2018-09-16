@@ -1,13 +1,20 @@
-{% load static %}
 
-<div class="answer full {{ way }}" id="a-{{ answer.id }}">
+{% load static %}
+<div class="answer summary" id="a-{{ answer.id }}">
+    <div class="box">
+        <div class="reason">
+            پاسخ . کوئرا . پاسخی که ممکن است دوست داشته باشید
+        </div>
+        <div class="question-title">
+            {{ answer.question.title }}
+        </div>
         <div class="responder d-flex align-items-center">
             <div class="photo-wrapper">
                 <a href="{% url 'account:profile' answer.responder.id %}">
                     <img class="profile_photo_img" src="{{ answer.responder.avatar.url }}" alt="{{ answer.responder }}" height="50" width="50">
                 </a>
             </div>
-            <div class="info">
+            <div class="info col-md-11">
                 <span class="full-name">{{ answer.responder }}</span>
                 ،
                 <span class="creditional">
@@ -23,15 +30,27 @@
                         {{ answer.responder.bio|safe }}
                     {% endif %}
                 </div>
-                <div class="time">{{ answer.pub_date|date:"در y-m-d ساعت G:i:s" }}</div>
+                <div class="time">{{ answer.pub_date|timesince }}</div>
             </div>
         </div>
         <div class="response">
-            <div class="full">
+
+            {% with safe_text=answer.text|safe %}
+                {% if safe_text|wordcount > 50 %}
+                    <div class="text truncated">
+                        {{ safe_text|truncatewords_html:50 }}
+                    </div>
+                    <a href="#" class="more id">(بیشتر)</a>
+                    <a href="#" class="less id hide">(کمتر)</a>
+                    <div class="full hide">
+                {% else %}
+                    <div class="full show">
+                {% endif %}
+            {% endwith %}
+
                 <div class="text full">
                     {{ answer.text|safe }}
                 </div>
-
                 <div class="answ action-bar d-flex justify-content-between">
                     <div class="ml-auto d-flex">
                         {% if user in answer.voters.all %}
@@ -124,7 +143,8 @@
                         {% endfor %}
                     </div>
 
-                </div>
             </div>
         </div>
+    </div>
+</div>
 </div>

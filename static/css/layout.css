@@ -386,3 +386,7 @@ a.navbar-brand {
 .question-topics .searched-topics .question-topic-item svg{
     margin-left: 5px;
 }
+
+.action-bar .action-item{
+    cursor: pointer;
+}

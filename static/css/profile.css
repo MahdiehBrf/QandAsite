@@ -65,7 +65,7 @@
     text-transform: none
 }
 
-.feed-bar .feed-item, .creditional-bar .credit-item{
+.feed-bar .feed-item, .creditional-bar .credit-item, .user-list .user-item{
     color: #666;
     padding: 4px 5px;
     margin: 0 0 0 -5px;
@@ -73,7 +73,7 @@
     list-style: none;
 }
 
-.feed-bar ul, .creditional-bar ul{
+.feed-bar ul, .creditional-bar ul, ul.user-list{
     padding-right: 0;
 }
 
@@ -83,5 +83,35 @@
 }
 
 .credit-item .icon img{
+    padding-left: 5px;
+}
+
+.user-list .user-item{
+    border: 1px solid #efefef;
+    background-color: #fff;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    padding: 16px;
+}
+
+.follow-action-item{
+    border-radius: 3px;
+    box-shadow: 0 1px 1px 0 rgba(200,200,200,0.2);
+    display: inline-block;
+    font-weight: bold;
+    outline: 0;
+    padding: 3px 7px 4px 7px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    background: #f1f8fb;
+    color: #2b6dad;
+    border: 1px solid #bbcadc;
+    margin: 10px 0 0;
+    width: 100px;
+}
+
+.follow-action-item .name{
+    border-left: 1px solid #bbcadc;
     padding-left: 5px;
 }

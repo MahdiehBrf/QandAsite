@@ -150,3 +150,8 @@ textarea.text{
     border-radius: 4px;
     border: 1px solid #e2e2e2;
 }
+
+.question.summary .answer-count{
+        color: #949494;
+    font-weight: bold;
+}

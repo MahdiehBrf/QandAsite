@@ -1,0 +1,79 @@
+{% load static %}
+
+<div class="question summary" id="1">
+
+    <div class="box">
+        <div class="reason">
+            سوال . کوئرا . موضوعی که ممکن است دوست داشته باشید
+        </div>
+        <div class="question-title">
+            {{ question.title }}
+        </div>
+
+        <div class="answer-count">{{ question.answer_set.count }} پاسخ</div>
+
+        <div class="qu action-bar d-flex justify-content-between">
+                    <div class="ml-auto d-flex">
+                        <div class="action-item answer">
+                            <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g id="answer" transform="translate(2.500000, 3.500000)" stroke="none" fill="none" fill-rule="evenodd">
+                                    <g id="pen" transform="translate(9.000000, 9.000000) rotate(-315.000000) translate(-9.000000, -9.000000) translate(7.000000, -1.000000)">
+                                        <path d="M2,8.8817842e-16 L2,8.8817842e-16 L2,8.8817842e-16 C3.1045695,6.85269983e-16 4,0.8954305 4,2 L4,16 L2.00256278,20 L0,16 L0,2 L0,2 C-1.35267774e-16,0.8954305 0.8954305,1.09108686e-15 2,8.8817842e-16 Z" id="pen_body" class="icon_svg-stroke" stroke="#666" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        <polygon id="pen_tip" class="icon_svg-fill_as_stroke" fill="#666" transform="translate(2.000000, 18.750000) scale(1, -1) translate(-2.000000, -18.750000) " points="2 17.5 3.25 20 0.75 20"></polygon>
+                                    </g>
+                                    <path d="M12,16 L17,16 L17,11 M7,1 L2,1 L2,6" id="bg" class="icon_svg-stroke" stroke="#666" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </g>
+                            </svg>
+                            پاسخ
+                        </div>
+                        {% if user in question.followers.all %}
+                            <div class="action-item follow d-flex selected">
+                        {% else %}
+                            <div class="action-item follow d-flex">
+                        {% endif %}
+                            <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g stroke="none" fill="none" fill-rule="evenodd" stroke-linecap="round">
+                                    <g id="follow" class="icon_svg-stroke" stroke="#666" stroke-width="1.5">
+                                        <path d="M14.5,19 C14.5,13.3369229 11.1630771,10 5.5,10 M19.5,19 C19.5,10.1907689 14.3092311,5 5.5,5" id="lines"></path>
+                                        <circle id="circle" cx="7.5" cy="17" r="2" class="icon_svg-fill" fill="none"></circle>
+                                    </g>
+                                </g>
+                            </svg>
+                            پیروی
+                            <div class="follower-count">
+                                {{ question.followers.count }}
+                            </div>
+                        </div>
+                        <div class="action-item request">
+                            <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g id="request" class="icon_svg-stroke" stroke="#666" stroke-width="1.5" fill="none" fill-rule="evenodd">
+                                    <g transform="translate(10.000000, 5.000000)" class="icon_svg-fill" fill="none">
+                                        <path d="M10,15.5 C10,12.7385763 7.76142375,10.5 5,10.5 C2.23857625,10.5 0,12.7385763 0,15.5 M5,8 C7.209139,8 9,6.209139 9,4 C9,1.790861 7.209139,0 5,0 C2.790861,0 1,1.790861 1,4 C1,6.209139 2.790861,8 5,8 Z"></path>
+                                    </g>
+                                    <path d="M6,10 L8.5,13 L6,16 M3,13.0244257 L8.49508293,13.0244257" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </g>
+                            </svg>
+                            درخواست پاسخ
+                        </div>
+                    </div>
+                    <div class="action-item edit d-flex">
+                        <img src="{% static "/image/edit.svg" %}">
+                        <div>ویرایش</div>
+                    </div>
+                </div>
+
+                <form class="editor hide" method="POST" action="{% url 'account:answer' question.id %}">
+                    {% csrf_token %}
+                    <textarea name="text" id="text" rows="10" cols="80" placeholder="پاسخ خود را بنویسید"></textarea>
+                    <script>
+                        CKEDITOR.replace( 'text', {customConfig: '/static/js/editor-config.js'});
+                    </script>
+                    <div class="get-inside d-flex justify-content-end">
+                        <input class="submit_button" type="submit" value="post">
+                    </div>
+                </form>
+
+
+
+    </div>
+    </div>
