@@ -1,11 +1,12 @@
 from django.contrib.auth import authenticate, login
+from django.core.files.storage import FileSystemStorage
 from django.db.models import Count
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 import json
 
-from account.forms import SignUpForm, QForm, AForm
+from account.forms import SignUpForm, QForm, AForm, UserForm
 from account.models import User, Question, Answer, AnswerComment, NOTIF_TYPE, Topic, AnswerRequest
 
 
@@ -257,3 +258,16 @@ def answer_request(request, u_id, q_id):
     ar = AnswerRequest(asker=request.user, askee=user, question=question)
     ar.save()
     return JsonResponse({})
+
+
+def model_form_upload(request):
+    if request.method == 'POST':
+        form = UserForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('account:home'))
+    else:
+        form = UserForm()
+    return render(request, 'edit_profile.html', {
+        'form': form
+    })

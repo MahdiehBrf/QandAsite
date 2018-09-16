@@ -9,9 +9,8 @@
         <li class="user-item" id="u-{{ best_user.id }}">
         <div class="responder d-flex align-items-center">
             <div class="photo-wrapper">
-    {#                                              TODO#}
-                <a href="/profile/MahdiehBrf">
-                    <img class="profile_photo_img" src="https://qsf.fs.quoracdn.net/-3-images.new_grid.profile_pic_default_small.png-26-679bc670f786484c.png" alt="MahdiehBrf" height="50" width="50">
+                <a href="{% url 'account:profile' best_user.id %}">
+                    <img class="profile_photo_img" src="{{ best_user.avatar.url }}" alt="{{ best_user }}" height="50" width="50">
                 </a>
             </div>
             <div class="info d-flex justify-content-between">

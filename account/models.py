@@ -93,7 +93,7 @@ class User(AbstractBaseUser):
     is_admin = models.BooleanField(default=False)
     first_name = models.CharField(verbose_name='first name', max_length=30, blank=True)
     last_name = models.CharField(verbose_name='last name', max_length=30, blank=True)
-    avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
+    avatar = models.ImageField(upload_to='avatars/', default='avatars/default-image.png', null=True, blank=True)
     bio = RichTextField(null=True)
 
     followers = models.ManyToManyField('self', related_name='followees')

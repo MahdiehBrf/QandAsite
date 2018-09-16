@@ -114,8 +114,8 @@
                 </div>
                 <div class="responder row">
                     <div class="photo-wrapper col-md-1">
-                        <a href="/profile/MahdiehBrf">
-                            <img class="profile_photo_img" src="https://qsf.fs.quoracdn.net/-3-images.new_grid.profile_pic_default_small.png-26-679bc670f786484c.png" alt="MahdiehBrf" height="50" width="50">
+                        <a href="{% url 'account:profile' answer.responder.id %}">
+                            <img class="profile_photo_img" src="{{ answer.responder.avatar.url }}" alt="{{ user }}" height="50" width="50">
                         </a>
                     </div>
                     <div class="info col-md-11">

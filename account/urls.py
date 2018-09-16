@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^login/$', views.login, name='login'),
     url(r'^logout/$', views.logout, name='logout'),
+    url(r'^edit_profile/$', model_form_upload, name='edit_profile'),
     url(r'^signup/$', signup, name='signup'),
     url(r'^signin/$', signin, name='signin'),
     url(r'^notifs-readall/$', read_all, name='readall'),

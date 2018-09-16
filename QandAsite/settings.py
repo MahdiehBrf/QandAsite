@@ -69,6 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.media',
                 'django.contrib.messages.context_processors.messages',
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
@@ -129,7 +130,6 @@ USE_L10N = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_URL = '/static/'
 
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
@@ -148,14 +148,14 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='370091242927-rh9e0dibo75s3qd3bh48qlpg6poc4mhi.ap
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'OCswg6yp5X8-JUdf-eMJDgWG' #Paste Secret Key
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+
 MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
-
-STATIC_ROOT = '/home/mahdiehbrf/University/BS Project/Implementation/test/QandAsite/assets'
-MEDIA_ROOT = '/home/mahdiehbrf/University/BS Project/Implementation/test/QandAsite/media'
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_IMAGE_BACKEND = "pillow"

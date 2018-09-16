@@ -20,3 +20,10 @@ class AForm(ModelForm):
     class Meta:
         model = Answer
         fields = ['text']
+
+
+class UserForm(ModelForm):
+    class Meta:
+        model = User
+        fields = ('avatar', )
+

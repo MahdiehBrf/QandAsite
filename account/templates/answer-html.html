@@ -3,9 +3,8 @@
 <div class="answer full {{ way }}" id="a-{{ answer.id }}">
         <div class="responder d-flex align-items-center">
             <div class="photo-wrapper">
-{#                            TODO#}
-                <a href="/profile/MahdiehBrf">
-                    <img class="profile_photo_img" src="https://qsf.fs.quoracdn.net/-3-images.new_grid.profile_pic_default_small.png-26-679bc670f786484c.png" alt="MahdiehBrf" height="50" width="50">
+                <a href="{% url 'account:profile' answer.responder.id %}">
+                    <img class="profile_photo_img" src="{{ answer.responder.avatar.url }}" alt="{{ answer.responder }}" height="50" width="50">
                 </a>
             </div>
             <div class="info">
@@ -109,9 +108,8 @@
                 <div class="comment-section">
                     <div class="comment-item self row">
                         <div class="photo-wrapper col-md-1">
-{#                                        TODO#}
-                            <a href="/profile/MahdiehBrf">
-                                <img class="profile_photo_img" src="https://qsf.fs.quoracdn.net/-3-images.new_grid.profile_pic_default_small.png-26-679bc670f786484c.png" alt="MahdiehBrf" height="50" width="50">
+                            <a href="{% url 'account:profile' user.id %}">
+                                <img class="profile_photo_img" src="{{ user.avatar.url }}" alt="{{ user }}" height="50" width="50">
                             </a>
                         </div>
                         <div class="col-md-11 comment-input d-flex align-items-center">
