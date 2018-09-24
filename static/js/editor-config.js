@@ -11,7 +11,7 @@ CKEDITOR.editorConfig = function( config ) {
     ] ;
     config.contentsCss = ['/static/css/base.css'];
     config.skin = 'moono-lisa,/static/extra plugin/moono-lisa/';
-    config.placeholder = 'sss';
+    // config.placeholder = 'sss';
 
 
 };

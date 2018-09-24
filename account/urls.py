@@ -40,6 +40,9 @@ urlpatterns = [
     url(r'^topic_delete/(?P<q_id>\d+)/(?P<t_id>\d+)/$', question_topic_delete, name='topic_delete'),
     url(r'^topic_add/(?P<q_id>\d+)/(?P<t_id>\d+)/$', question_topic_add, name='topic_add'),
     url(r'^answer_request/(?P<u_id>\d+)/(?P<q_id>\d+)/$', answer_request, name='answer_request'),
+    url(r'^edit_full_name/(?P<u_id>\d+)/$', edit_full_name, name='edit_full_name'),
+    url(r'^edit_main_credential/(?P<u_id>\d+)/$', edit_main_credential, name='edit_main_credential'),
+    url(r'^edit_bio/(?P<u_id>\d+)/$', edit_bio, name='edit_bio'),
 
     url(r'^$', home, name='home'),
     # url(r'^', include('account.urls', namespace="account`")),

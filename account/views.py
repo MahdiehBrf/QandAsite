@@ -271,3 +271,32 @@ def model_form_upload(request):
     return render(request, 'edit_profile.html', {
         'form': form
     })
+
+
+def edit_full_name(request, u_id):
+    first_name = request.GET['first_name']
+    last_name = request.GET['last_name']
+    selected_user = User.objects.get(id=u_id)
+    if request.user == selected_user:
+        selected_user.first_name = first_name
+        selected_user.last_name = last_name
+        selected_user.save()
+    return JsonResponse({})
+
+
+def edit_main_credential(request, u_id):
+    text = request.GET['text']
+    selected_user = User.objects.get(id=u_id)
+    if request.user == selected_user:
+        selected_user.main_credential = text
+        selected_user.save()
+    return JsonResponse({})
+
+
+def edit_bio(request, u_id):
+    if request.method == 'POST':
+        selected_user = User.objects.get(id=u_id)
+        if request.user == selected_user:
+            selected_user.bio = request.POST['bio']
+            selected_user.save()
+            return HttpResponseRedirect(reverse('account:profile', args={selected_user.id}))

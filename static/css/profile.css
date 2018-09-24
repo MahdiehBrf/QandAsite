@@ -15,14 +15,51 @@
     }
     .profile .action-bar{
         bottom: 0;
-        position: absolute;
+        /*position: absolute;*/
 }
 
 }
 
-.profile .info .full-name{
+
+
+.profile .info .user-value, .profile .info  textarea{
+    margin-left: 5px;
+    font-size: 19px;
+}
+
+.profile .info  .full-name, .profile .info  textarea .first-name, .profile .info  textarea .last-name{
     font-size: 26px;
     font-weight: bold;
+
+}
+.profile .info .edit-input textarea{
+    height: 32px;
+    resize: none;
+    overflow-y: hidden;
+}
+
+.profile .info .edit-input{
+    padding: 0;
+}
+
+.profile .info .edit-input .submit_button, .profile .info .edit-input .profile-cancel-edit{
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.profile .info .edit-input, .profile .info .profile-edit, .profile .follower-count{
+    color: #949494;
+    font-size: 17px;
+    font-weight: normal;
+}
+
+.profile .info .edit-input, .profile .info .edit-input form{
+    width: 100%;
+}
+
+.profile-edit {
+    margin-bottom: 9px;
+    height: 32px;
 }
 
 .profile, .feed-bar, .creditional-bar{
@@ -34,17 +71,12 @@
     border: 1px solid #efefef;
     background-color: #fff;
     border-radius: 4px;
+
 }
 
-/*.profile-page{*/
-    /*background-color: white;*/
-/*}*/
-
-/*.profile .action-bar{*/
-    /*bottom: 0;*/
-    /*position: absolute;*/
-    /*margin-top: 5px;*/
-/*}*/
+.feed-bar .feed-item, .creditional-bar .credit-item, .profile .edit{
+    cursor: pointer;
+}
 
 .profile .action-item.follow  svg path{
     stroke: #329bff;

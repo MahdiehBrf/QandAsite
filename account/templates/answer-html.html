@@ -9,18 +9,20 @@
             </div>
             <div class="info">
                 <span class="full-name">{{ answer.responder }}</span>
+                {% if answer.responder.main_credential %}
                 ،
                 <span class="creditional">
-                    {% if answer.credentional %}
-                        {{ answer.credentional }}
+
+                        {{ answer.responder.main_credential }}
+
+                </span>
+                {% endif %}
+                <div class="bio">
+                    {% if answer.credential %}
+                        {{ answer.credential }}
                     {% elif answer.responder.email == user.email %}
 {#                                    TODO#}
                         انتخاب اعتبار پاسخ
-                    {% endif %}
-                </span>
-                <div class="bio">
-                    {% if answer.responder.bio %}
-                        {{ answer.responder.bio|safe }}
                     {% endif %}
                 </div>
                 <div class="time">{{ answer.pub_date|date:"در y-m-d ساعت G:i:s" }}</div>

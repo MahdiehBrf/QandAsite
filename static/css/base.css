@@ -54,3 +54,8 @@ input, textarea{
     display: grid;
     align-items: center;
 }
+
+
+p{
+    margin-bottom: 2px;
+}

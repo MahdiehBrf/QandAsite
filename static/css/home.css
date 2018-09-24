@@ -118,7 +118,7 @@ textarea.text{
     border-radius: 4px;
 }
 
-.submit_button.comment{
+.submit_button.comment, .submit_button.profile-edit{
     width: 80px;
     margin-right: 8px;
 }

@@ -1,43 +1,43 @@
 {% load static %}
 
 <div class="comment-item" id="c-{{ comment.id }}">
-                                <div class="commenter d-flex align-items-center">
-                                    <div class="photo-wrapper">
-                                        <a href="{% url 'account:profile' comment.commenter.id %}">
-                                            <img class="profile_photo_img" src="{{ comment.commenter.avatar.url }}" alt="{{ comment.commenter }}" height="50" width="50">
-                                        </a>
-                                    </div>
-                                    <div class="info">
-                                        <span class="full-name">{{ comment.commenter }}</span>
-                                        <div class="time">{{ comment.pub_date }}</div>
-                                    </div>
-                                </div>
-                                <div class="text">
-                                    {{ comment.text }}
-                                </div>
-                                <div class="action-bar d-flex justify-content-between">
-                                    <div class="ml-auto d-flex">
-                                        {% if user in comment.voters.all %}
-                                            <div class="action-item vote d-flex selected">
-                                        {% else %}
-                                            <div class="action-item vote d-flex">
-                                        {% endif %}
-                                                <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                    <g id="upvote" class="icon_svg-stroke icon_svg-fill" stroke-width="1.5" stroke="#666" fill="none" fill-rule="evenodd" stroke-linejoin="round">
-                                                        <polygon points="12 4 3 15 9 15 9 20 15 20 15 15 21 15"></polygon>
-                                                    </g>
-                                                </svg>
-                                                رای بده
-                                                <div class="vote-count">
-                                                    {{ comment.voters.count }}
-                                                </div>
-                                        </div>
-                                    </div>
-                                    {% if user.email == comment.commenter.email %}
-                                        <div class="action-item delete d-flex">
-                                            <img src="{% static "/image/garbage .svg" %}">
-                                            <div>حذف</div>
-                                        </div>
-                                    {% endif %}
-                                </div>
-                            </div>
+    <div class="commenter d-flex align-items-center">
+        <div class="photo-wrapper">
+            <a href="{% url 'account:profile' comment.commenter.id %}">
+                <img class="profile_photo_img" src="{{ comment.commenter.avatar.url }}" alt="{{ comment.commenter }}" height="50" width="50">
+            </a>
+        </div>
+        <div class="info">
+            <span class="full-name">{{ comment.commenter }}</span>
+            <div class="time">{{ comment.pub_date }}</div>
+        </div>
+    </div>
+    <div class="text">
+        {{ comment.text }}
+    </div>
+    <div class="action-bar d-flex justify-content-between">
+        <div class="ml-auto d-flex">
+            {% if user in comment.voters.all %}
+                <div class="action-item vote d-flex selected">
+            {% else %}
+                <div class="action-item vote d-flex">
+            {% endif %}
+                    <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g id="upvote" class="icon_svg-stroke icon_svg-fill" stroke-width="1.5" stroke="#666" fill="none" fill-rule="evenodd" stroke-linejoin="round">
+                            <polygon points="12 4 3 15 9 15 9 20 15 20 15 15 21 15"></polygon>
+                        </g>
+                    </svg>
+                    رای بده
+                    <div class="vote-count">
+                        {{ comment.voters.count }}
+                    </div>
+            </div>
+        </div>
+        {% if user.email == comment.commenter.email %}
+            <div class="action-item delete d-flex">
+                <img src="{% static "/image/garbage .svg" %}">
+                <div>حذف</div>
+            </div>
+        {% endif %}
+    </div>
+</div>
