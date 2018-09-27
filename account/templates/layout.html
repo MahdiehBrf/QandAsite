@@ -24,6 +24,8 @@
         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
         <script src="{% static "js/bootstrap.js" %}"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+        <script src="{% static "js/add-credential.js" %}"></script>
+        <script src="{% static "js/document-ready.js" %}"></script>
 
         {% block special_static %}
         {% endblock special_static %}
@@ -507,32 +509,7 @@
 
 
         <script>
-        function prepare_year_selects() {
-            var select = $('select#year');
 
-            for (var i = new Date().getFullYear(); i>=1900; i--){
-                var opt = '<option value='+i+'>'+i+'</option>';
-                select.append(opt);
-            }
-        }
-
-        function prepare_topic_selects() {
-            var select = $('select#topic');
-
-            $.get("/topic_all/", {}, function (data) {
-                for (var topicID in data.topics){
-                    var opt = '<option value='+topicID+'>'+data.topics[topicID]+'</option>';
-                    select.append(opt);
-                }
-            });
-
-        }
-
-        window.onload = function() {
-          fetch_api_data();
-          prepare_year_selects();
-          prepare_topic_selects()
-        };
 
 
 
@@ -642,70 +619,6 @@
             e.stopPropagation();
         });
 
-        $(".choose-credential-form .popup .add-credential").click(function (e) {
-            console.log($(this));
-            $(this).siblings('.credentials').find('.credential-types').removeClass('hide').addClass('show');
-            e.stopPropagation();
-        });
-
-        $(".choose-credential-form .popup-form .credential-types .credit-type-item").on('click', function (e) {
-            var creditType = $(this).attr('class').split(' ')[1];
-            var $popupFormObj = $('.choose-credential-form .popup-form') ;
-            $popupFormObj.find('.main').removeClass('show').addClass('hide');
-            $popupFormObj.find('.add-type-credential#' + creditType).removeClass('hide').addClass('show');
-            e.stopPropagation();
-
-        });
-
-        $(".choose-credential-form .popup-form .add-type-credential .buttons #cancel").on('click', function (e) {
-            $(this).parents('.add-type-credential').removeClass('show').addClass('hide');
-            $('.choose-credential-form .popup-form .main').removeClass('hide').addClass('show');
-            e.stopPropagation()
-        });
-
-
-
-        $(".choose-credential-form .popup .main .submit_button").click(function (e) {
-            var $formObj = $(".choose-credential-form").removeClass('hide').addClass('show');
-            var $checkedCredential = $formObj.find('input[name=\'answer-credential-rdio\']:checked');
-            var credentialID = $checkedCredential[0].id.split('-')[1];
-            var credentialValue = $checkedCredential.parent().find('.credential-name').text();
-            {#console.log(credentialValue);#}
-            if (credentialID !== undefined){
-                var answerID = $formObj[0].id;
-                $.get("/answer_add_credential/"+ answerID + "/" + credentialID + "/", {}, function(data) {
-                    $formObj.removeClass('show').addClass('hide');
-                    $('.overlay').css("opacity", "1").css("position","unset");
-                    var $answerCredentialObj = $(".answer.full#a-"+answerID).find('.info .answer-credential');
-                    $answerCredentialObj.find('.answer-credential-value').text(credentialValue)[0].id = "c-" + credentialID;
-                    $answerCredentialObj.find('.edit-answer-credential').text('ویرایش');
-                });
-            }
-            e.stopPropagation();
-        });
-
-
-
-
-        $('.choose-credential-form .popup-form .add-type-credential').submit(function (e) {
-            event.preventDefault();
-            var creditType = $(this)[0].id;
-            var $creditForm = $(this);
-            $.post("/add_credential/" + creditType + "/", $(this).serializeArray(), function(data) {
-                $creditForm.removeClass('show').addClass('hide');
-                $('.choose-credential-form .popup-form .main').removeClass('hide').addClass('show').find('.credentials ul.'+creditType+'-set').append(data);
-
-            });
-            return false;
-        });
-
-        $('.choose-credential-form .popup-form .add-type-credential .buttons .submit_button').click(function (e) {
-
-        });
-
-        $(".choose-credential-form").click(function (e) {
-            $(this).find('.credentials .credential-types').removeClass('show').addClass('hide');
-        });
 
 
         $(".ask.btn").click(function (e) {

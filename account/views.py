@@ -338,3 +338,8 @@ def topic_all(request):
     for topic in Topic.objects.all():
         topics[topic.id] = topic.name
     return JsonResponse({'topics': topics})
+
+
+def user_credentials_all(request):
+    return render(request, 'profile_credential-bar.html', {'selected_user': request.user})
+

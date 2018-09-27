@@ -47,10 +47,11 @@
     margin-left: 5px;
 }
 
-.profile .info .edit-input, .profile .info .profile-edit, .profile .follower-count{
+.profile .info .edit-input, .profile .info .profile-edit, .profile .follower-count, .creditional-bar .edit{
     color: #949494;
     font-size: 17px;
     font-weight: normal;
+    cursor: pointer;
 }
 
 .profile .info .edit-input, .profile .info .edit-input form{

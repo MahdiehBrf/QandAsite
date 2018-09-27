@@ -241,41 +241,14 @@
 
     <div class="col-md-2">
         <div class="creditional-bar">
+            <div class="d-flex justify-content-between">
             <label>اعتبار‌ها</label>
+            {% if selected_user.email == user.email %}
+                <div class="edit">ویرایش</div>
+            {% endif %}
+            </div>
             <ul>
-                <li class="credit-item">
-                    <div class="icon d-flex">
-                        <img src="{% static "/image/employment.svg" %}">
-                        <div>شغل</div>
-                    </div>
-{#                    <ul>#}
-{#                        <li>مدرس</li>#}
-{#                    </ul>#}
-                </li>
-                <li class="credit-item">
-                    <div class="icon d-flex">
-                        <img src="{% static "/image/educational.svg" %}">
-                        <div>تحصیل</div>
-                    </div>
-                </li>
-                <li class="credit-item">
-                    <div class="icon d-flex">
-                        <img src="{% static "/image/language.svg" %}">
-                        <div>زبان</div>
-                    </div>
-                </li>
-                <li class="credit-item">
-                    <div class="icon d-flex">
-                        <img src="{% static "/image/location.svg" %}">
-                        <div>مکان</div>
-                    </div>
-                </li>
-                <li class="credit-item">
-                    <div class="icon d-flex">
-                        <img src="{% static "/image/experience.svg" %}">
-                        <div>تجربه</div>
-                    </div>
-                </li>
+                {% include "profile_credential-bar.html" with selected_user=selected_user %}
             </ul>
         </div>
     </div>
@@ -284,6 +257,7 @@
 
 <script>
 $(function() {
+
 
     $(".profile .info .edit-input .submit_button").click(function (e) {
         var $submitObj = $(this);
