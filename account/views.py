@@ -5,9 +5,12 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 import json
+from django.views.decorators.csrf import csrf_exempt
 
-from account.forms import SignUpForm, QForm, AForm, UserForm
-from account.models import User, Question, Answer, AnswerComment, NOTIF_TYPE, Topic, AnswerRequest
+
+from account.forms import *
+from account.models import User, Question, Answer, AnswerComment, NOTIF_TYPE, Topic, AnswerRequest, MainCredential, \
+    Credential
 
 
 def home(request):
@@ -288,8 +291,8 @@ def edit_main_credential(request, u_id):
     text = request.GET['text']
     selected_user = User.objects.get(id=u_id)
     if request.user == selected_user:
-        selected_user.main_credential = text
-        selected_user.save()
+        main_credential = MainCredential(user=selected_user, text=text)
+        main_credential.save()
     return JsonResponse({})
 
 
@@ -300,3 +303,38 @@ def edit_bio(request, u_id):
             selected_user.bio = request.POST['bio']
             selected_user.save()
             return HttpResponseRedirect(reverse('account:profile', args={selected_user.id}))
+
+
+def add_answer_credential(request, a_id, c_id):
+    selected_answer = Answer.objects.get(id=a_id)
+    selected_credential = Credential.objects.get(id=c_id)
+    if request.user == selected_answer.responder:
+        selected_answer.credential = selected_credential
+        selected_answer.save()
+    return JsonResponse({})
+
+@csrf_exempt
+def add_credential(request, c_type):
+    uf = None
+    if c_type == 'employment':
+        uf = EmploymentForm(request.POST)
+    elif c_type == 'education':
+        uf = EducationForm(request.POST)
+    elif c_type == 'location':
+        uf = LocationForm(request.POST)
+    elif c_type == 'language':
+        uf = LanguageForm(request.POST)
+    elif c_type == 'experience':
+        uf = ExperienceForm(request.POST)
+    if uf.is_valid():
+        credential = uf.save(commit=False)
+        credential.user = request.user
+        credential.save()
+        return render(request, 'credential_item.html', {'type': c_type, 'credential': credential})
+
+
+def topic_all(request):
+    topics = {}
+    for topic in Topic.objects.all():
+        topics[topic.id] = topic.name
+    return JsonResponse({'topics': topics})

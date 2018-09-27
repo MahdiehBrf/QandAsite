@@ -100,7 +100,7 @@
             <div class="ask-form hide screen-center">
                 <div class="container">
                     <div class="row d-flex justify-content-center">
-                        <div class="question-form col-md-8">
+                        <div class="popup question-form col-md-8">
                             <form method="POST" action="{% url 'account:ask' %}">
                             {% csrf_token %}
                                 <div class="inputs">
@@ -124,11 +124,11 @@
         <div class="ask-answer-form hide screen-center">
                 <div class="container">
                     <div class="row d-flex justify-content-center">
-                        <div class="request-popup col-md-8">
+                        <div class="popup request-popup col-md-8">
                             <div class="title">
                                 درخواست پاسخ
                             </div>
-                            <div class="request-form row">
+                            <div class="popup-form request-form row">
                                 <div class="topics col-md-2">
                                     <label>موضوعات</label>
                                     <ul>
@@ -152,14 +152,333 @@
                 </div>
             </div>
 
+        <div class="choose-credential-form hide screen-center">
+            <div class="container">
+                <div class="row d-flex justify-content-center">
+                    <div class="popup credential-popup col-md-8">
+                        <div class="title">
+                            انتخاب اعتبار پاسخ
+                            <div class="title-description">
+                            به کاربران برای فهمیدن تجربه‌ی شما درمورد این سوال کمک کنید.
+                        </div>
+                        </div>
+
+                        <div class="popup-form credential-form">
+                            <div class="main show">
+                                <div class="add-credential">
+                                    <img src="{% static 'image/plus.svg' %}">
+                                    اضافه کردن اعتبار
+                                </div>
+                                <div class="credentials">
+                                    <ul class="credential-types hide">
+                                        <li class="credit-type-item employment">
+                                            <div class="icon d-flex">
+                                                <img src="{% static "/image/employment.svg" %}">
+                                                <div>شغل</div>
+                                            </div>
+                                        </li>
+                                        <li class="credit-type-item education">
+                                            <div class="icon d-flex">
+                                                <img src="{% static "/image/educational.svg" %}">
+                                                <div>تحصیل</div>
+                                            </div>
+                                        </li>
+                                        <li class="credit-type-item language">
+                                            <div class="icon d-flex">
+                                                <img src="{% static "/image/language.svg" %}">
+                                                <div>زبان</div>
+                                            </div>
+                                        </li>
+                                        <li class="credit-type-item location">
+                                            <div class="icon d-flex">
+                                                <img src="{% static "/image/location.svg" %}">
+                                                <div>مکان</div>
+                                            </div>
+                                        </li>
+                                        <li class="credit-type-item experience">
+                                            <div class="icon d-flex">
+                                                <img src="{% static "/image/experience.svg" %}">
+                                                <div>تجربه</div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="user-credentials show">
+                                        <ul class="main-credential">
+                                        {% if user.maincredential %}
+                                            <li class="credential-item d-flex justify-content-between" >
+                                                <div class="credential-name">{{ user.maincredential }}</div>
+                                                    <input type="radio" name="answer-credential-rdio" id="c-{{ user.maincredential.id }}"/>
+                                            </li>
+                                        {% endif %}
+                                        </ul>
+                                        <ul class="employment-set">
+                                        {% for credential in user.employment_set.all %}
+                                            {% include "credential_item.html" with credential=credential type='employment' %}
+                                        {% endfor %}
+                                        </ul>
+                                        <ul class="education-set">
+                                        {% for credential in user.educational_set.all %}
+                                            {% include "credential_item.html" with credential=credential type='education' %}
+                                        {% endfor %}
+                                        </ul>
+                                        <ul class="location-set">
+                                        {% for credential in user.location_set.all %}
+                                            {% include "credential_item.html" with credential=credential type='location' %}
+                                        {% endfor %}
+                                        </ul>
+                                        <ul class="language-set">
+                                        {% for credential in user.language_set.all %}
+                                            {% include "credential_item.html" with credential=credential type='language' %}
+                                        {% endfor %}
+                                        </ul>
+                                        <ul class="experience-set">
+                                        {% for credential in user.experience_set.all %}
+                                            {% include "credential_item.html" with credential=credential type='experience' %}
+                                        {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <input id="request-done" class="submit_button" type="submit" value="انجام شد">
+                            </div>
+                            <div>
+
+                                <form id="education" class="add-type-credential hide" >
+                                    <div class="icon row">
+                                        <div class="col-md-2">
+                                            <img  src="{% static "/image/educational.svg" %}">
+                                        </div>
+
+                                        <div class="col-md-10 description">
+                                            اعتبار تحصیلی اضافه کنید
+                                        </div>
+                                    </div>
+
+                                    <div class="credential-inputs">
+
+                                        <div class="school row">
+                                            <label class="col-md-2">مدرسه</label>
+                                            <div class="col-md-10">
+                                                <input type="text" maxlength="50" name="school" value="">
+                                            </div>
+                                        </div>
+                                        <div class="field row">
+                                            <label class="col-md-2">رشته</label>
+                                            <div class="col-md-10">
+                                                <input type="text" maxlength="50" name="field" value="">
+                                            </div>
+                                        </div>
+
+                                        <div class="end-year row">
+                                            <label class="col-md-2">مدرک</label>
+                                            <div class="col-md-10">
+                                                <select class="" id="degree" name="degree">
+                                                    <option disabled selected value style="display:none"></option>
+                                                    <option value="A.A.">دانشیار هنر</option>
+                                                    <option value="A.S.">دانشیار علوم</option>
+                                                    <option value="B.A.">لیسانس هنر</option>
+                                                    <option value="B.S.">لیسانس علوم</option>
+                                                    <option value="M.A.">فوق لیسانس هنر</option>
+                                                    <option value="M.S.">فوق لیسانس علوم</option>
+                                                    <option value="Ph.D">دکترا</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="graduation_year row">
+                                            <label class="col-md-2">سال فارغ‌التحصیلی</label>
+                                            <div class="col-md-10">
+                                                <select id="year" name="graduation_year"><option disabled selected value style="display:none"></option></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="buttons d-flex justify-content-end align-items-center">
+                                        <a id="cancel" href="#">
+                                        انصراف
+                                        </a>
+                                        <input class="submit_button" type="submit" value="ثبت">
+
+                                    </div>
+                                </form>
+                                <form id="employment" class="add-type-credential hide" >
+                                    <div class="icon row">
+                                        <div class="col-md-2">
+                                            <img  src="{% static "/image/employment.svg" %}">
+                                        </div>
+
+                                        <div class="col-md-10 description">
+                                            اعتبار شغل اضافه کنید
+                                        </div>
+                                    </div>
+
+                                    <div class="credential-inputs">
+
+                                        <div class="position row">
+                                            <label class="col-md-2">سمت</label>
+                                            <div class="col-md-10">
+                                                <input type="text" maxlength="50" name="position" value="">
+                                            </div>
+                                        </div>
+                                        <div class="company-name row">
+                                            <label class="col-md-2">نام شرکت</label>
+                                            <div class="col-md-10">
+                                                <input type="text" maxlength="50" name="company_name" value="">
+                                            </div>
+                                        </div>
+                                        <div class="start-year row">
+                                            <label class="col-md-2">سال شروع</label>
+                                            <div class="col-md-10">
+                                                <select id="year" name="start_year"><option disabled selected value style="display:none"></option></select>
+                                            </div>
+                                        </div>
+                                        <div class="end-year row">
+                                            <label class="col-md-2">سال پایان</label>
+                                            <div class="col-md-10">
+                                                <select class="" id="year" name="end_year"><option disabled selected value style="display:none"></option></select>
+                                            </div>
+                                        </div>
+                                        <div class="is_current_job d-flex">
+                                            <input type="checkbox" name="is_current_job" value="True">
+                                            <div>الان اینجا کار میکنم</div>
+                                        </div>
+                                    </div>
+                                    <div class="buttons d-flex justify-content-end align-items-center">
+                                        <a id="cancel" href="#">
+                                        انصراف
+                                        </a>
+                                        <input class="submit_button" type="submit" value="ثبت">
+
+                                    </div>
+                                </form>
+                                <form id="language" class="add-type-credential hide" >
+                                    <div class="icon row">
+                                        <div class="col-md-2">
+                                            <img  src="{% static "/image/language.svg" %}">
+                                        </div>
+
+                                        <div class="col-md-10 description">
+                                            اعتبار زبان اضافه کنید
+                                        </div>
+                                    </div>
+
+                                    <div class="credential-inputs">
+
+                                        <div class="name row">
+                                            <label class="col-md-2">زبان</label>
+                                            <div class="col-md-10">
+                                                <input type="text" maxlength="50" name="name" value="">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="buttons d-flex justify-content-end align-items-center">
+                                        <a id="cancel" href="#">
+                                        انصراف
+                                        </a>
+                                        <input class="submit_button" type="submit" value="ثبت">
+
+                                    </div>
+                                </form>
+
+                                <form id="location" action="#" class="add-type-credential hide" >
+                                    <div class="icon row">
+                                        <div class="col-md-2">
+                                            <img  src="{% static "/image/location.svg" %}">
+                                        </div>
+
+                                        <div class="col-md-10 description">
+                                            اعتبار مکان اضافه کنید
+                                        </div>
+                                    </div>
+
+                                    <div class="credential-inputs">
+
+                                        <div class="name row">
+                                            <label class="col-md-2">مکان</label>
+                                            <div class="col-md-10">
+                                                <input type="text" maxlength="50" name="name" value="">
+                                            </div>
+                                        </div>
+
+                                        <div class="start-year row">
+                                            <label class="col-md-2">سال شروع</label>
+                                            <div class="col-md-10">
+                                                <select id="year" name="start_year"><option disabled selected value style="display:none"></option></select>
+                                            </div>
+                                        </div>
+                                        <div class="end-year row">
+                                            <label class="col-md-2">سال پایان</label>
+                                            <div class="col-md-10">
+                                                <select class="" id="year" name="end_year"><option disabled selected value style="display:none"></option></select>
+                                            </div>
+                                        </div>
+                                        <div class="is_current_location d-flex">
+                                            <input type="checkbox" name="is_current_location" value="True">
+                                            <div>الان اینجا زندگی میکنم</div>
+                                        </div>
+                                    </div>
+                                    <div class="buttons d-flex justify-content-end align-items-center">
+                                        <a id="cancel" href="#">
+                                        انصراف
+                                        </a>
+                                        <input class="submit_button" type="submit" value="ثبت">
+
+                                    </div>
+                                </form>
+
+                                <form id="experience" class="add-type-credential hide">
+                                    <div class="icon row">
+                                        <div class="col-md-2">
+                                            <img  src="{% static "/image/experience.svg" %}">
+                                        </div>
+
+                                        <div class="col-md-10 description">
+                                            اعتبار تجربه اضافه کنید
+                                        </div>
+                                    </div>
+
+                                    <div class="credential-inputs">
+
+                                        <div class="topic row">
+                                            <label class="col-md-2">موضوع</label>
+                                            <div class="col-md-10">
+                                                <select id="topic" name="topic"><option disabled selected value style="display:none"></option></select>
+                                            </div>
+                                        </div>
+
+                                        <div class="description row">
+                                            <label class="col-md-2">توضیح</label>
+                                            <div class="col-md-10">
+                                                <textarea  class="text" id="description" name="description" ></textarea>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="buttons d-flex justify-content-end align-items-center">
+                                        <a id="cancel" href="#">
+                                        انصراف
+                                        </a>
+                                        <input class="submit_button" type="submit" value="ثبت">
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <div class="edit-topics-form hide screen-center">
                 <div class="container">
                     <div class="row d-flex justify-content-center">
-                        <div class="edit-topic-popup col-md-4">
+                        <div class="popup edit-topic-popup col-md-4">
                             <div class="title">
                                 ویرایش موضوعات
                             </div>
-                                <div class="question-topics">
+                                <div class="popup-form question-topics">
                                     <label>موضوعات</label>
                                     <div class="search-topic d-flex align-items-center">
                                         <textarea class="topic-text" placeholder="جستجو موضوع"></textarea>
@@ -188,9 +507,35 @@
 
 
         <script>
+        function prepare_year_selects() {
+            var select = $('select#year');
+
+            for (var i = new Date().getFullYear(); i>=1900; i--){
+                var opt = '<option value='+i+'>'+i+'</option>';
+                select.append(opt);
+            }
+        }
+
+        function prepare_topic_selects() {
+            var select = $('select#topic');
+
+            $.get("/topic_all/", {}, function (data) {
+                for (var topicID in data.topics){
+                    var opt = '<option value='+topicID+'>'+data.topics[topicID]+'</option>';
+                    select.append(opt);
+                }
+            });
+
+        }
+
         window.onload = function() {
           fetch_api_data();
+          prepare_year_selects();
+          prepare_topic_selects()
         };
+
+
+
 
         $(".request-form .topics .topic-item").on('click', function (e) {
             e.stopPropagation();
@@ -285,6 +630,83 @@
                 e.stopPropagation();
             });
 
+        $(".answer .info .answer-credential .edit-answer-credential").click(function (e) {
+            var $formObj = $(".choose-credential-form").removeClass('hide').addClass('show');
+            $formObj[0].id = $(this).closest('.answer.full')[0].id.split('-')[1];
+            var answerCredentialID = $(this).siblings('.answer-credential-value')[0].id.split('-')[1];
+            if (answerCredentialID==="0")
+                $formObj.find('input[type=\'radio\']#c-' + {{ user.maincredential.id }}).attr('checked', true);
+            else
+                $formObj.find('input[type=\'radio\']#c-' + answerCredentialID).attr('checked', true);
+            $('.overlay').css("opacity", "0.2").css("position","absolute");
+            e.stopPropagation();
+        });
+
+        $(".choose-credential-form .popup .add-credential").click(function (e) {
+            console.log($(this));
+            $(this).siblings('.credentials').find('.credential-types').removeClass('hide').addClass('show');
+            e.stopPropagation();
+        });
+
+        $(".choose-credential-form .popup-form .credential-types .credit-type-item").on('click', function (e) {
+            var creditType = $(this).attr('class').split(' ')[1];
+            var $popupFormObj = $('.choose-credential-form .popup-form') ;
+            $popupFormObj.find('.main').removeClass('show').addClass('hide');
+            $popupFormObj.find('.add-type-credential#' + creditType).removeClass('hide').addClass('show');
+            e.stopPropagation();
+
+        });
+
+        $(".choose-credential-form .popup-form .add-type-credential .buttons #cancel").on('click', function (e) {
+            $(this).parents('.add-type-credential').removeClass('show').addClass('hide');
+            $('.choose-credential-form .popup-form .main').removeClass('hide').addClass('show');
+            e.stopPropagation()
+        });
+
+
+
+        $(".choose-credential-form .popup .main .submit_button").click(function (e) {
+            var $formObj = $(".choose-credential-form").removeClass('hide').addClass('show');
+            var $checkedCredential = $formObj.find('input[name=\'answer-credential-rdio\']:checked');
+            var credentialID = $checkedCredential[0].id.split('-')[1];
+            var credentialValue = $checkedCredential.parent().find('.credential-name').text();
+            {#console.log(credentialValue);#}
+            if (credentialID !== undefined){
+                var answerID = $formObj[0].id;
+                $.get("/answer_add_credential/"+ answerID + "/" + credentialID + "/", {}, function(data) {
+                    $formObj.removeClass('show').addClass('hide');
+                    $('.overlay').css("opacity", "1").css("position","unset");
+                    var $answerCredentialObj = $(".answer.full#a-"+answerID).find('.info .answer-credential');
+                    $answerCredentialObj.find('.answer-credential-value').text(credentialValue)[0].id = "c-" + credentialID;
+                    $answerCredentialObj.find('.edit-answer-credential').text('ویرایش');
+                });
+            }
+            e.stopPropagation();
+        });
+
+
+
+
+        $('.choose-credential-form .popup-form .add-type-credential').submit(function (e) {
+            event.preventDefault();
+            var creditType = $(this)[0].id;
+            var $creditForm = $(this);
+            $.post("/add_credential/" + creditType + "/", $(this).serializeArray(), function(data) {
+                $creditForm.removeClass('show').addClass('hide');
+                $('.choose-credential-form .popup-form .main').removeClass('hide').addClass('show').find('.credentials ul.'+creditType+'-set').append(data);
+
+            });
+            return false;
+        });
+
+        $('.choose-credential-form .popup-form .add-type-credential .buttons .submit_button').click(function (e) {
+
+        });
+
+        $(".choose-credential-form").click(function (e) {
+            $(this).find('.credentials .credential-types').removeClass('show').addClass('hide');
+        });
+
 
         $(".ask.btn").click(function (e) {
                 var $formObj = $(".ask-form").removeClass('hide').addClass('show').find('form').attr('action', '{% url "account:ask"%}');
@@ -307,7 +729,7 @@
 
         $(document).on('click', '*', function (e) {
             e.stopPropagation();
-            if ((!$(e.target).closest('.edit-topics-form') && !$(e.target).hasClass('read-all') && !$(e.target).closest('.ask-form').length && !$(e.target).closest('.ask-answer-form').length )|| ( (e.target.id === "cancel") || (e.target.id === "request-done") || (e.target.id === "edit-topics-button"))) {
+            if ((!$(e.target).closest('.choose-credential-form') && !$(e.target).closest('.edit-topics-form') && !$(e.target).hasClass('read-all') && !$(e.target).closest('.ask-form').length && !$(e.target).closest('.ask-answer-form').length )|| ( (e.target.id === "cancel") || (e.target.id === "request-done") || (e.target.id === "edit-topics-button"))) {
                 $(".ask-form, .ask-answer-form, .edit-topics-form").removeClass('show').addClass('hide');
                 $('.overlay').css("opacity", "1").css("position","unset");
             }

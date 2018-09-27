@@ -34,15 +34,15 @@
             </div>
 
                 <div class="main-credential d-flex">
-                    {% if selected_user.main_credential %}
-                        <span class="user-value show">{{ selected_user.main_credential }}</span>
+                    {% if selected_user.maincredential %}
+                        <span class="user-value show">{{ selected_user.maincredential }}</span>
 
                         {% if selected_user.email == user.email %}
                             <div class="profile-edit  show">
                                 ویرایش
                             </div>
                             <div class="col-md-8 edit-input d-flex align-items-center hide">
-                                <textarea class="text">{{ selected_user.main_credential }}</textarea>
+                                <textarea class="text">{{ selected_user.maincredential }}</textarea>
                                 <input class="submit_button profile-edit-button edit-main-credential" type="submit" value="ویرایش">
                                 <div class="profile-cancel-edit">انصراف</div>
                             </div>

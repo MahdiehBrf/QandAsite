@@ -12,13 +12,13 @@ from django.urls import reverse
 from QandAsite import settings
 
 DEGREE_CHOICES = (
-    ('A.A.', 'Associate of Arts'),
-    ('A.S.', 'Associate of Science'),
-    ('B.A.', 'Bachelor of Arts'),
-    ('B.S.', 'Bachelor of Science'),
-    ('M.A.', 'Master of Arts'),
-    ('M.S.', 'Master of Science'),
-    ('Ph.D.', 'Doctoral'),
+    ('A.A.', 'دانشیار هنر'),
+    ('A.S.', 'دانشیار علوم'),
+    ('B.A.', 'لیسانس هنر'),
+    ('B.S.', 'لیسانس علوم'),
+    ('M.A.', 'فوق لیسانس هنر'),
+    ('M.S.', 'فوق لیسانس علوم'),
+    ('Ph.D.', 'دکترا'),
 )
 
 NOTIF_TYPE = ['question', 'answer', 'comment', 'edit', 'follow', 'request', 'vote']
@@ -95,7 +95,6 @@ class User(AbstractBaseUser):
     last_name = models.CharField(verbose_name='last name', max_length=30, blank=True)
     avatar = models.ImageField(upload_to='avatars/', default='avatars/default-image.png', null=True, blank=True)
     bio = RichTextField(null=True)
-    main_credential = models.CharField(max_length=200, null=True)
 
     followers = models.ManyToManyField('self', related_name='followees')
     topics = models.ManyToManyField(Topic, related_name='followers')
@@ -116,10 +115,21 @@ class Credential(PolymorphicModel):
     pass
 
 
+class MainCredential(Credential):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=False)
+    text = models.CharField(max_length=200, null=True)
+
+    class Meta:
+        unique_together = (('user'),)
+
+    def __str__(self):
+        return self.text
+
+
 class Employment(Credential):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=False)
-    position = models.CharField(max_length=30)
-    company_name = models.CharField(max_length=30)
+    position = models.CharField(max_length=50)
+    company_name = models.CharField(max_length=50)
     start_year = models.IntegerField(blank=False)
     end_year = models.IntegerField(null=True)
     is_current_job = models.BooleanField(default=False)
@@ -127,16 +137,22 @@ class Employment(Credential):
     class Meta:
         unique_together = (('user', 'company_name', 'position', 'start_year'),)
 
+    def __str__(self):
+        return ('(شغل فعلی) ' if self.is_current_job else '') + self.position + ' در ' + self.company_name + ' (' + str(self.start_year) + '-' + str(self.end_year) + ')'
+
 
 class Educational(Credential):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=False)
-    school = models.CharField(max_length=30)
-    field = models.CharField(max_length=30)
+    school = models.CharField(max_length=50)
+    field = models.CharField(max_length=50)
     degree = models.CharField(max_length=5, choices=DEGREE_CHOICES, default='1', blank=False)
     graduation_year = models.IntegerField(blank=False)
 
     class Meta:
         unique_together = (('user', 'school', 'field', 'degree'),)
+
+    def __str__(self):
+        return self.get_degree_display() + ' ' + self.field + ' در ' + self.school + (' (' + str(self.graduation_year) + ') ' if self.graduation_year is not None else '')
 
 
 class Language(Credential):
@@ -145,6 +161,9 @@ class Language(Credential):
 
     class Meta:
         unique_together = (('user', 'name'),)
+
+    def __str__(self):
+        return 'آشنایی با ' + self.name
 
 
 class Location(Credential):
@@ -157,6 +176,9 @@ class Location(Credential):
     class Meta:
         unique_together = (('user', 'name', 'start_year'),)
 
+    def __str__(self):
+        return ('(مکان فعلی) ' if self.is_current_location else '') + 'سکونت در ' + self.name + ' (' + str(self.start_year) + '-' + str(self.end_year) + ')'
+
 
 class Experience(Credential):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=False)
@@ -165,6 +187,10 @@ class Experience(Credential):
 
     class Meta:
         unique_together = (('user', 'topic'),)
+
+    def __str__(self):
+        return 'تجربه در موضوع ' + str(self.topic) + ' : ' + self.description
+
 
 
 class Question(models.Model):
@@ -205,8 +231,9 @@ class Answer(models.Model):
 
 @receiver(post_save, sender=Answer)
 def my_handler(sender, instance, created, **kwargs):
-    for follower in instance.question.followers.all():
-        notify.send(sender= instance.responder, recipient=follower, verb=" پاسخ داد به ", action_object=instance, target=instance.question, href=reverse('account:question', args={instance.question.id}) + "#a-" + str(instance.id), type='answers')
+    if created:
+        for follower in instance.question.followers.all():
+            notify.send(sender= instance.responder, recipient=follower, verb=" پاسخ داد به ", action_object=instance, target=instance.question, href=reverse('account:question', args={instance.question.id}) + "#a-" + str(instance.id), type='answers')
 
 
 class AnswerRequest(models.Model):
@@ -229,8 +256,6 @@ class AnswerComment(models.Model):
     pub_date = models.DateTimeField('date published', auto_now_add=True)
 
     voters = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='comment_votes')
-
-
 
     def __str__(self):
         return str(self.commenter) + "'s comment on " + str(self.answer)

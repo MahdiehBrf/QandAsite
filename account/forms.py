@@ -1,7 +1,7 @@
 from ckeditor.widgets import CKEditorWidget
 from django.forms import ModelForm, Form
 
-from account.models import User, Question, Answer
+from account.models import User, Question, Answer, Employment, Educational, Language, Location, Experience
 
 
 class SignUpForm(ModelForm):
@@ -26,4 +26,35 @@ class UserForm(ModelForm):
     class Meta:
         model = User
         fields = ('avatar', )
+
+
+class EmploymentForm(ModelForm):
+    class Meta:
+        model = Employment
+        exclude = ['user']
+
+
+class EducationForm(ModelForm):
+    class Meta:
+        model = Educational
+        exclude = ['user']
+
+
+class LocationForm(ModelForm):
+    class Meta:
+        model = Location
+        exclude = ['user']
+
+
+class LanguageForm(ModelForm):
+    class Meta:
+        model = Language
+        exclude = ['user']
+
+
+class ExperienceForm(ModelForm):
+    class Meta:
+        model = Experience
+        exclude = ['user']
+
 

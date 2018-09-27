@@ -17,12 +17,17 @@
 
                 </span>
                 {% endif %}
-                <div class="bio">
+                <div class="answer-credential d-flex">
                     {% if answer.credential %}
-                        {{ answer.credential }}
-                    {% elif answer.responder.email == user.email %}
-{#                                    TODO#}
-                        انتخاب اعتبار پاسخ
+                        <div class="answer-credential-value" id="ac-{{ answer.credential.id }}"> {{ answer.credential }}</div>
+                        {% if answer.responder.email == user.email %}
+                            <div class="edit-answer-credential">ویرایش</div>
+                        {% endif %}
+                    {% else %}
+                        <div class="answer-credential-value" id="ac-0"></div>
+                        {% if answer.responder.email == user.email %}
+                            <div class="edit-answer-credential">انتخاب اعتبار پاسخ</div>
+                        {% endif %}
                     {% endif %}
                 </div>
                 <div class="time">{{ answer.pub_date|date:"در y-m-d ساعت G:i:s" }}</div>

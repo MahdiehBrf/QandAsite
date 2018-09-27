@@ -43,6 +43,9 @@ urlpatterns = [
     url(r'^edit_full_name/(?P<u_id>\d+)/$', edit_full_name, name='edit_full_name'),
     url(r'^edit_main_credential/(?P<u_id>\d+)/$', edit_main_credential, name='edit_main_credential'),
     url(r'^edit_bio/(?P<u_id>\d+)/$', edit_bio, name='edit_bio'),
+    url(r'^answer_add_credential/(?P<a_id>\d+)/(?P<c_id>\d+)/$', add_answer_credential, name='add_answer_credential'),
+    url(r'^add_credential/(?P<c_type>\w+)/$', add_credential, name='add_credential'),
+    url(r'^topic_all/$', topic_all, name='topic_all'),
 
     url(r'^$', home, name='home'),
     # url(r'^', include('account.urls', namespace="account`")),

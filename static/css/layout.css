@@ -227,7 +227,7 @@ a.navbar-brand {
 
  }
 
-.question-form, .request-popup, .edit-topic-popup{
+.popup{
     /*height: 630px;*/
     margin: 32px 0;
     background-color: #fff;
@@ -284,7 +284,7 @@ a.navbar-brand {
 }
 
 
-.request-popup .title, .edit-topic-popup .title{
+.popup .title{
     border-bottom: 1px solid #e2e2e2;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
@@ -293,10 +293,89 @@ a.navbar-brand {
     font-weight: bold;
 }
 
+.popup .title-description{
+    font-size: 15px;
+    font-weight: normal;
+    color: #949494;
+}
+
 .request-form, .question-topics{
+    height: 400px;
+}
+
+.credential-form .add-credential{
+    padding: 16px;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.credential-form .credentials .credential-item {
+    padding: 16px;
+    cursor: pointer;
+    background: #dfeffa;
+    border-bottom: 1px solid #e2e2e2;
+    font-size: 17px;
+}
+
+.credential-form .credentials .credential-item img{
+    margin-left: 5px;
+}
+.credential-form .credentials ul{
+    margin-bottom: 0;
+}
+
+.credential-form .credentials .credential-item input[type='radio']{
+    width: unset;
+    margin: 0;
+}
+
+.credential-form .credentials{
+    position: relative;
+}
+
+.credential-form .credentials .credential-types{
+    width: 140px;
+    position: absolute;
+    z-index: 1100;
+    margin: 5px 0;
+    border-radius: 3px;
+    background: #f7f7f7;
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 3px rgba(200,200,200,0.7);
+    padding: 0;
+    right: 30px;
+}
+
+.credential-form .credentials .credential-types .credit-type-item{
+    list-style: none;
+    border-bottom: 1px solid #e2e2e2;
+    cursor: pointer;
+    padding: 5px 15px 6px 24px;
+}
+
+.credential-form .credentials .credential-types .credit-type-item .icon img{
+    margin-left: 5px;
+}
+
+.credential-form  .add-type-credential{
+    background: #fafafa;
+    padding: 16px;
+    border-bottom: 1px solid #e2e2e2;
+    font-size: 15px;
+}
+
+.credential-form  .add-type-credential input[type='checkbox']{
+    width: inherit;
+    margin-left: 5px;
+    box-shadow: none;
+}
+
+.credential-form  .add-type-credential .icon{
+    margin-bottom: 8px;
+}
+
+.popup-form{
     padding-top: 8px;
     margin: 0;
-    height: 400px;
 }
 
 .request-form .topics, .question-topics{
@@ -319,7 +398,7 @@ a.navbar-brand {
     margin-bottom: 4px;
 }
 
-.request-form ul, .type-filter-bar ul, .question-topics ul{
+.popup-form ul, .type-filter-bar ul{
     padding-right: 0;
 }
 
@@ -328,7 +407,7 @@ a.navbar-brand {
     border-radius: 3px;
 }
 
-.request-form .topic-item, .request-form .user-item, .type-filter-bar .type-item, .question-topics .question-topic-item{
+.request-form .topic-item, .request-form .user-item, .type-filter-bar .type-item, .question-topics .question-topic-item, .credential-form .credential-item{
     color: #666;
     padding: 4px 5px;
     margin: 0 0 0 -5px;
@@ -336,7 +415,7 @@ a.navbar-brand {
     list-style: none;
 }
 
-.request-popup .submit_button, .edit-topic-popup .submit_button{
+.popup .submit_button{
     float: left;
     margin: 10px;
 }
@@ -389,4 +468,8 @@ a.navbar-brand {
 
 .action-bar .action-item{
     cursor: pointer;
+}
+
+.answer-credential .edit-answer-credential{
+    margin-right: 5px;
 }

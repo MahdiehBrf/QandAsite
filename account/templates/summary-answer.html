@@ -24,12 +24,12 @@
 
                 </span>
                 {% endif %}
-                <div class="bio">
+                <div class="answer-credential d-flex">
                     {% if answer.credential %}
                         {{ answer.credential }}
+                        <div class="edit-answer-credential">ویرایش</div>
                     {% elif answer.responder.email == user.email %}
-{#                                    TODO#}
-                        انتخاب اعتبار پاسخ
+                        <div class="choose-answer-credential">انتخاب اعتبار پاسخ</div>
                     {% endif %}
                 </div>
                 <div class="time">{{ answer.pub_date|timesince }}</div>
