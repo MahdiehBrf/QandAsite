@@ -8,10 +8,29 @@
 {% block content %}
 <div class="row name">
     <div class="col-md-2">
-        right bar
+        <div class="feed-bar">
+            <label>Feeds</label>
+            <ul>
+                <li class="feed-item topquestions selected ">
+                    سوال‌ها برای شما
+                </li>
+                <li class="feed-item topanswers">
+                    پاسخ‌ها برای شما
+                </li>
+                <li class="feed-item bookmarks">
+                    پاسخ‌های bookmark شده
+                </li>
+                <li class="feed-item requests">
+                    درخواست‌های پاسخ
+                </li>
+                <li class="feed-item addtopics">
+                    موضوع‌ها
+                </li>
+            </ul>
+        </div>
 
     </div>
-    <div class="col-md-8">
+    <div class="feeds col-md-8">
 
 
         <div class="question summary" id="1">
@@ -114,9 +133,9 @@
                 </div>
                 <div class="responder row">
                     <div class="photo-wrapper col-md-1">
-                        <a href="{% url 'account:profile' answer.responder.id %}">
-                            <img class="profile_photo_img" src="{{ answer.responder.avatar.url }}" alt="{{ user }}" height="50" width="50">
-                        </a>
+{#                        <a href="{% url 'account:profile' answer.responder.id %}">#}
+{#                            <img class="profile_photo_img" src="{{ answer.responder.avatar.url }}" alt="{{ user }}" height="50" width="50">#}
+{#                        </a>#}
                     </div>
                     <div class="info col-md-11">
                         <span class="full-name">مهدیه بهروزی‌فر</span>
@@ -336,6 +355,21 @@
 
 <script>
 $(function() {
+    $('.feed-bar .feed-item').click(function(e) { // limit click to children of main menu
+        var $feedObj = $(this);
+        if(!$feedObj.hasClass('selected')){
+            var feedName = $feedObj.attr('class').split(' ')[1];
+            $('.feed-bar .feed-item').removeClass('selected');
+            $feedObj.addClass('selected');
+            {#$('.feeds > div').removeClass('show').addClass('hide');#}
+            {#$('.feeds div.' + feedName).removeClass('hide').addClass('show');#}
+            $.get("/profile_get_feed/" + {{ user.id }} + "/" + feedName + "/", {}, function (data) {
+                $('.feeds').html(data);
+            });
+        }
+
+        e.stopPropagation();
+    });
     $(".more.id").click(function(e) { // limit click to children of main menu
         $(this).siblings(".full").removeClass('hide').addClass('show');
         $(this).siblings(".less.id").removeClass('hide').addClass('show');

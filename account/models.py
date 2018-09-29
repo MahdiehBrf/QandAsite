@@ -26,6 +26,7 @@ NOTIF_TYPE = ['question', 'answer', 'comment', 'edit', 'follow', 'request', 'vot
 
 class Topic(models.Model):
     name = models.CharField(max_length=30)
+    image = models.ImageField(upload_to='topic_images/', default='avatars/default-image.png', null=True, blank=True)
 
     def __str__(self):
         return self.name

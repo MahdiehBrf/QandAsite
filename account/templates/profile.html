@@ -12,11 +12,21 @@
 
     <div class="profile-page col-md-10">
         <div class="profile row">
-            <div class="photo-wrapper col-md-2 ">
+        <div class="profile-image col-md-2">
+            <div class="photo-wrapper  ">
                 <a href="#">
                     <img class="profile_photo_img" src="{{ selected_user.avatar.url }}" alt="{{ selected_user }}" height="50" width="50">
                 </a>
             </div>
+            {% if selected_user.email == user.email %}
+                <form id="edit_avatar_form" class="edit_image d-flex justify-content-center" method="post" enctype="multipart/form-data" action="{% url 'account:edit_profile' %}">
+                    {% csrf_token %}
+                    <input type="file" name="avatar" id="id_avatar">
+                    <label for="id_avatar">ویرایش</label>
+                  </form>
+            {% endif %}
+        </div>
+
             <div class="info col-md-10">
             <div class="user-name d-flex">
                 <span class="user-value full-name show">{{ selected_user }}</span>
@@ -179,7 +189,7 @@
                         <li class="feed-item edits">
                             ویرایش‌ها
                         </li>
-                        <li class="feed-item liked-topics">
+                        <li class="feed-item usertopics">
                             موضوع‌ها
                         </li>
                     </ul>
@@ -189,45 +199,41 @@
             <div class="col-md-10 feeds">
 
                 <div class="answers show">
-                    {% for answer in selected_user.answer_set.all %}
-                        {% include "summary-answer.html" with answer=answer %}
-                    {% endfor %}
+                    {% include "answers.html" with answers=selected_user.answer_set %}
                 </div>
 
-                <div class="questions hide">
-                    {% for question in selected_user.question_set.all %}
-                        {% include "summary-question.html" with question=question %}
-                    {% endfor %}
-                </div>
-
-                <div class="shares hide">
-                    {% for answer in selected_user.shares.all %}
-                        {% include "summary-answer.html" with answer=answer %}
-                    {% endfor %}
-                </div>
-
-                <div class="followings hide">
+{#                <div class="questions hide">#}
+{#                    {% include "questions.html" with questions=selected_user.question_set.all %}#}
+{#                </div>#}
+{##}
+{#                <div class="shares hide">#}
+{#                    {% for answer in selected_user.shares.all %}#}
+{#                        {% include "summary-answer.html" with answer=answer %}#}
+{#                    {% endfor %}#}
+{#                </div>#}
+{##}
+{#                <div class="followings hide">#}
 {#                  TODO#}
-                    {% include "user_list.html" with users=selected_user.followees.all %}
-
-                </div>
-
-
-                <div class="followers hide">
-                    {% include "user_list.html" with users=selected_user.followers.all %}
-                </div>
-
-                <div class="edits hide">
-                    {% for question in selected_user.edits.all %}
-                        {% include "summary-question.html" with question=question %}
-                    {% endfor %}
-                </div>
-
-                <div class="liked-topics hide">
-                    {% for topic in selected_user.topics.all %}
-                        {% include "summary-question.html" with question=question %}
-                    {% endfor %}
-                </div>
+{#                    {% include "user_list.html" with users=selected_user.followees.all %}#}
+{##}
+{#                </div>#}
+{##}
+{##}
+{#                <div class="followers hide">#}
+{#                    {% include "user_list.html" with users=selected_user.followers.all %}#}
+{#                </div>#}
+{##}
+{#                <div class="edits hide">#}
+{#                    {% for question in selected_user.edits.all %}#}
+{#                        {% include "summary-question.html" with question=question %}#}
+{#                    {% endfor %}#}
+{#                </div>#}
+{##}
+{#                <div class="liked-topics hide">#}
+{#                    {% for topic in selected_user.topics.all %}#}
+{#                        {% include "summary-question.html" with question=question %}#}
+{#                    {% endfor %}#}
+{#                </div>#}
 
 
 
@@ -257,6 +263,11 @@
 
 <script>
 $(function() {
+
+    $(".profile .profile-image #id_avatar").change(function () {
+        $(this).parents('form#edit_avatar_form').submit();
+    });
+
 
 
     $(".profile .info .edit-input .submit_button").click(function (e) {
@@ -345,8 +356,11 @@ $(function() {
             var feedName = $feedObj.attr('class').split(' ')[1];
             $('.feed-bar .feed-item').removeClass('selected');
             $feedObj.addClass('selected');
-            $('.feeds > div').removeClass('show').addClass('hide');
-            $('.feeds div.' + feedName).removeClass('hide').addClass('show');
+            {#$('.feeds > div').removeClass('show').addClass('hide');#}
+            {#$('.feeds div.' + feedName).removeClass('hide').addClass('show');#}
+            $.get("/profile_get_feed/" + {{ selected_user.id }} + "/" + feedName + "/", {}, function (data) {
+                $('.feeds').html(data);
+            });
         }
 
         e.stopPropagation();

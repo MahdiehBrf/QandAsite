@@ -473,3 +473,48 @@ a.navbar-brand {
 .answer-credential .edit-answer-credential{
     margin-right: 5px;
 }
+
+
+.profile, .feed-bar, .creditional-bar{
+    box-sizing: border-box;
+    margin-bottom:30px;
+    padding: 15px;
+    margin-left: 0;
+    margin-right: 0;
+    border: 1px solid #efefef;
+    background-color: #fff;
+    border-radius: 4px;
+
+}
+
+.feed-bar .feed-item, .creditional-bar .credit-item, .profile .edit{
+    cursor: pointer;
+}
+
+
+.feed-bar label, .creditional-bar label{
+    width: 100%;
+    margin-bottom: 8px;
+    color: #333;
+    border-bottom: 1px solid #e2e2e2;
+    padding-bottom: 8px;
+    font-size: 17px;
+    text-transform: none
+}
+
+.feed-bar .feed-item, .creditional-bar .credit-item, .user-list .user-item{
+    color: #666;
+    padding: 4px 5px;
+    margin: 0 0 0 -5px;
+    width: 100%;
+    list-style: none;
+}
+
+.feed-bar ul, .creditional-bar ul, ul.user-list{
+    padding-right: 0;
+}
+
+.feed-bar .feed-item.selected{
+    background: #ececec;
+    border-radius: 3px;
+}

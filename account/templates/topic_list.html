@@ -2,16 +2,16 @@
 
 <ul class="row user-list">
     <div class="col-md-6 odd">
-        {% for specific_user in users.all %}
+        {% for topic in topics.all %}
             {% if not forloop.counter|divisibleby:2 %}
-                {% include "user.html" with specific_user=specific_user %}
+                {% include "topic.html" with topi=topic %}
             {% endif %}
         {% endfor %}
     </div>
     <div class="col-md-6 even">
-        {% for specific_user in users.all %}
+        {% for topic in topics.all %}
             {% if forloop.counter|divisibleby:2 %}
-                {% include "user.html" with specific_user=specific_user %}
+                {% include "topic.html" with topic=topic %}
             {% endif %}
         {% endfor %}
     </div>

@@ -1,0 +1,5 @@
+{% load static %}
+
+{% for answer in answers.all %}
+    {% include "summary-answer.html" with answer=answer %}
+{% endfor %}

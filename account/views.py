@@ -268,7 +268,7 @@ def model_form_upload(request):
         form = UserForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('account:home'))
+            return HttpResponseRedirect(reverse('account:profile', args={request.user.id}))
     else:
         form = UserForm()
     return render(request, 'edit_profile.html', {
@@ -313,6 +313,7 @@ def add_answer_credential(request, a_id, c_id):
         selected_answer.save()
     return JsonResponse({})
 
+
 @csrf_exempt
 def add_credential(request, c_type):
     uf = None
@@ -343,3 +344,60 @@ def topic_all(request):
 def user_credentials_all(request):
     return render(request, 'profile_credential-bar.html', {'selected_user': request.user})
 
+
+def profile_get_feed(request, u_id, f_type):
+    selected_user = User.objects.get(id=u_id)
+    if f_type == 'answers':
+        return render(request, 'answers.html', {'answers': selected_user.answer_set})
+    elif f_type == 'questions':
+        return render(request, 'questions.html', {'questions': selected_user.question_set})
+    elif f_type == 'shares':
+        return render(request, 'answers.html', {'answers': selected_user.shares})
+    elif f_type == 'followings':
+        return render(request, 'user_list.html', {'users': selected_user.followees})
+    elif f_type == 'followers':
+        return render(request, 'user_list.html', {'users': selected_user.followers})
+    elif f_type == 'usertopics':
+        #TODO
+        return render(request, 'topic_list.html', {'topics': selected_user.topics})
+    elif f_type == 'bookmarks':
+        if request.user == selected_user:
+            return render(request, 'answers.html', {'answers': selected_user.bookmarks})
+    elif f_type == 'topquestions':
+        if request.user == selected_user:
+            questions = None
+            for topic in selected_user.topics.all():
+                if questions is None:
+                    questions = topic.questions
+                else:
+                    questions = questions | topic.questions
+            best_questions = questions.annotate(follower_count=Count('followers'), answer_count=Count('answer')).order_by('-follower_count', '-answer_count')
+            return render(request, 'questions.html', {'questions': best_questions})
+    elif f_type == 'topanswers':
+        if request.user == selected_user:
+            answers = None
+            for topic in selected_user.topics.all():
+                if answers is None:
+                    topic_answers = topic.questions.values('answer')
+                    answers = Answer.objects.filter(id__in=topic_answers)
+                else:
+                    answers = answers | topic.questions
+            best_answers = answers.annotate(share_count=Count('shareholders'), vote_count=Count('voters'), bookmark_count=Count('bookmarkers')).order_by('-vote_count', '-share_count', '-bookmark_count')
+            return render(request, 'answers.html', {'answers': best_answers})
+    elif f_type == 'addtopics':
+        if request.user == selected_user:
+            return render(request, 'topics', {'topics': selected_user.bookmarks})
+
+
+def topic_image_upload(request, t_id):
+    if request.method == 'POST':
+        selected_topic = Topic.objects.get(id=t_id)
+        form = TopicForm(request.POST, request.FILES, instance=selected_topic)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('account:home'))
+    else:
+        form = TopicForm()
+    return render(request, 'edit_topic.html', {
+        'form': form
+    })

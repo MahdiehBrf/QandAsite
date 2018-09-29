@@ -1,0 +1,5 @@
+{% load static %}
+
+{% for question in questions.all %}
+    {% include "summary-question.html" with question=question %}
+{% endfor %}

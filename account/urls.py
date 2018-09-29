@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^login/$', views.login, name='login'),
     url(r'^logout/$', views.logout, name='logout'),
     url(r'^edit_profile/$', model_form_upload, name='edit_profile'),
+    url(r'^edit_topic/(?P<t_id>\d+)/$', topic_image_upload, name='edit_topic'),
     url(r'^signup/$', signup, name='signup'),
     url(r'^signin/$', signin, name='signin'),
     url(r'^notifs-readall/$', read_all, name='readall'),
@@ -47,7 +48,7 @@ urlpatterns = [
     url(r'^add_credential/(?P<c_type>\w+)/$', add_credential, name='add_credential'),
     url(r'^topic_all/$', topic_all, name='topic_all'),
     url(r'^user_credentials_all/$', user_credentials_all, name='user_credentials_all'),
-
+    url(r'^profile_get_feed/(?P<u_id>\d+)/(?P<f_type>\w+)/$', profile_get_feed, name='profile_get_feed'),
 
     url(r'^$', home, name='home'),
     # url(r'^', include('account.urls', namespace="account`")),
