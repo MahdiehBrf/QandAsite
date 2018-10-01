@@ -386,7 +386,11 @@ def profile_get_feed(request, u_id, f_type):
             return render(request, 'answers.html', {'answers': best_answers})
     elif f_type == 'addtopics':
         if request.user == selected_user:
-            return render(request, 'topics', {'topics': selected_user.bookmarks})
+            return render(request, 'topic_list.html', {'topics': selected_user.topics})
+    elif f_type == 'requests':
+        if request.user == selected_user:
+            requests = AnswerRequest.objects.filter(askee=selected_user)
+            return render(request, 'requests.html', {'requests': requests})
 
 
 def topic_image_upload(request, t_id):

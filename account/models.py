@@ -243,7 +243,7 @@ class AnswerRequest(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, blank=False)
 
     def __str__(self):
-        return self.asker.get_full_name() + " asks " + self.question + " from " + self.askee.get_full_name()
+        return self.asker.get_full_name() + " asks " + str(self.question) + " from " + self.askee.get_full_name()
 
     class Meta:
         unique_together = (('asker', 'askee', 'question'),)

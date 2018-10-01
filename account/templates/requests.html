@@ -1,0 +1,16 @@
+{% load static %}
+
+{% for request in requests.all %}
+    <div class="request-info d-flex align-items-center">
+        <div class="photo-wrapper">
+            <a href="{% url 'account:profile' request.asker.id %}">
+                <img class="profile_photo_img" src="{{ request.asker.avatar.url }}" alt="{{ request.asker }}" height="50" width="50">
+            </a>
+        </div>
+        <div class="info">
+        {{ request.asker }}
+         از شما خواست تا به سوال زیر پاسخ دهید
+        </div>
+    </div>
+    {% include "summary-question.html" with question=request.question %}
+{% endfor %}
