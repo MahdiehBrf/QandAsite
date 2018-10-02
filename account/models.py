@@ -97,7 +97,7 @@ class User(AbstractBaseUser):
     avatar = models.ImageField(upload_to='avatars/', default='avatars/default-image.png', null=True, blank=True)
     bio = RichTextField(null=True)
 
-    followers = models.ManyToManyField('self', related_name='followees')
+    followers = models.ManyToManyField('self', related_name='followees', symmetrical=False)
     topics = models.ManyToManyField(Topic, related_name='followers')
 
     objects = UserManager()
@@ -201,7 +201,7 @@ class Question(models.Model):
     title = models.CharField(max_length=1000, blank=False, unique=True)
     pub_date = models.DateTimeField('date published', auto_now_add=True)
 
-    followers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='followees')
+    followers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='question_followees')
     editors = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='edits')
     topics = models.ManyToManyField(Topic, related_name='questions')
 

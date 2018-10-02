@@ -6,9 +6,9 @@
 {#        <div class="reason">#}
 {#            سوال . کوئرا . موضوعی که ممکن است دوست داشته باشید#}
 {#        </div>#}
-        <div class="question-title">
+        <a class="question-title" href="{% url 'account:question' question.id %}">
             {{ question.title }}
-        </div>
+        </a>
 
         <div class="answer-count">{{ question.answer_set.count }} پاسخ</div>
 

@@ -1,17 +1,25 @@
 {% load static %}
 
-<ul class="row user-list">
+<ul class="row topic-list">
     <div class="col-md-6 odd">
         {% for topic in topics.all %}
             {% if not forloop.counter|divisibleby:2 %}
-                {% include "topic.html" with topi=topic %}
+                {% if selected_user in topic.followers.all %}
+                    {% include "topic.html" with topic=topic follow=1%}
+                {% else %}
+                    {% include "topic.html" with topic=topic follow=0%}
+                {% endif %}
             {% endif %}
         {% endfor %}
     </div>
     <div class="col-md-6 even">
         {% for topic in topics.all %}
             {% if forloop.counter|divisibleby:2 %}
-                {% include "topic.html" with topic=topic %}
+                {% if selected_user in topic.followers.all %}
+                    {% include "topic.html" with topic=topic follow=1%}
+                {% else %}
+                    {% include "topic.html" with topic=topic follow=0%}
+                {% endif %}
             {% endif %}
         {% endfor %}
     </div>

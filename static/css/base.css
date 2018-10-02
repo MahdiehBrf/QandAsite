@@ -8,10 +8,14 @@
 html,body{
     /*height:100%;*/
     font-family: 'BNazanin', serif;
+    text-align: right;
+    direction: rtl;
 }
 
 .english{
     font-family: serif;
+    direction: ltr;
+    text-align: left;
 }
 
 .hide{

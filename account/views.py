@@ -224,8 +224,12 @@ def question_topic_add(request, q_id, t_id):
 
 def topic_search(request):
     name = request.GET['name']
+    way = request.GET['way']
     topics = Topic.objects.filter(name__contains=name)
-    return render(request, 'topics.html', {'topics': topics})
+    if way == 'summary':
+        return render(request, 'topics.html', {'topics': topics})
+    else:
+        return render(request, 'topic_list.html', {'topics': topics, 'selected_user':request.user})
 
 
 def best_topic_based_users(request, t_id):
@@ -358,8 +362,7 @@ def profile_get_feed(request, u_id, f_type):
     elif f_type == 'followers':
         return render(request, 'user_list.html', {'users': selected_user.followers})
     elif f_type == 'usertopics':
-        #TODO
-        return render(request, 'topic_list.html', {'topics': selected_user.topics})
+        return render(request, 'topic_list.html', {'topics': selected_user.topics, 'selected_user':selected_user})
     elif f_type == 'bookmarks':
         if request.user == selected_user:
             return render(request, 'answers.html', {'answers': selected_user.bookmarks})
@@ -368,25 +371,25 @@ def profile_get_feed(request, u_id, f_type):
             questions = None
             for topic in selected_user.topics.all():
                 if questions is None:
-                    questions = topic.questions
+                    questions = topic.questions.all()
                 else:
-                    questions = questions | topic.questions
+                    questions = questions | topic.questions.all()
             best_questions = questions.annotate(follower_count=Count('followers'), answer_count=Count('answer')).order_by('-follower_count', '-answer_count')
             return render(request, 'questions.html', {'questions': best_questions})
     elif f_type == 'topanswers':
         if request.user == selected_user:
             answers = None
             for topic in selected_user.topics.all():
+                topic_answers = Answer.objects.filter(id__in=topic.questions.values('answer'))
                 if answers is None:
-                    topic_answers = topic.questions.values('answer')
-                    answers = Answer.objects.filter(id__in=topic_answers)
+                    answers = topic_answers
                 else:
-                    answers = answers | topic.questions
+                    answers = answers | topic_answers.all()
             best_answers = answers.annotate(share_count=Count('shareholders'), vote_count=Count('voters'), bookmark_count=Count('bookmarkers')).order_by('-vote_count', '-share_count', '-bookmark_count')
             return render(request, 'answers.html', {'answers': best_answers})
     elif f_type == 'addtopics':
         if request.user == selected_user:
-            return render(request, 'topic_list.html', {'topics': selected_user.topics})
+            return render(request, 'all-topics.html', {'topics': Topic.objects.all()})
     elif f_type == 'requests':
         if request.user == selected_user:
             requests = AnswerRequest.objects.filter(askee=selected_user)
@@ -405,3 +408,23 @@ def topic_image_upload(request, t_id):
     return render(request, 'edit_topic.html', {
         'form': form
     })
+
+
+def follow_topic(request, t_id):
+    is_follow = int(request.GET['follow'])
+    selected_topic = Topic.objects.get(id=t_id)
+    if is_follow == 1:
+        request.user.topics.add(selected_topic)
+    else:
+        request.user.topics.remove(selected_topic)
+    return JsonResponse({'count': selected_topic.followers.count()})
+
+
+def follow_user(request, u_id):
+    is_follow = int(request.GET['follow'])
+    selected_user = User.objects.get(id=u_id)
+    if is_follow == 1:
+        request.user.followers.add(selected_user)
+    else:
+        request.user.followers.remove(selected_user)
+    return JsonResponse({'count': selected_user.followers.count()})

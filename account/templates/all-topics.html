@@ -1,0 +1,11 @@
+{% load static %}
+
+<div class="search-topic d-flex align-items-center">
+    <textarea class="topic-text" placeholder="جستجو موضوع"></textarea>
+    <img src="{% static "/image/search.png" %}">
+</div>
+<ul class="searched-topics">
+
+</ul>
+
+{% include 'topic_list.html' with topics=topics selected_user=user%}

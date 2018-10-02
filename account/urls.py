@@ -49,6 +49,8 @@ urlpatterns = [
     url(r'^topic_all/$', topic_all, name='topic_all'),
     url(r'^user_credentials_all/$', user_credentials_all, name='user_credentials_all'),
     url(r'^profile_get_feed/(?P<u_id>\d+)/(?P<f_type>\w+)/$', profile_get_feed, name='profile_get_feed'),
+    url(r'^follow_topic/(?P<t_id>\d+)/$', follow_topic, name='topic_follow'),
+    url(r'^follow_user/(?P<u_id>\d+)/$', follow_user, name='user_follow'),
 
     url(r'^$', home, name='home'),
     # url(r'^', include('account.urls', namespace="account`")),
