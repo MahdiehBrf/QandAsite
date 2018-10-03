@@ -105,8 +105,21 @@
     </div>
 
     <div class="col-md-2">
-            left bar
+        <div class="question-stat-bar">
+        <label>آمار سوال</label>
+        <ul>
+            <li class="stat-item"> زمان ایجاد:
+                {{ question.pub_date|date:"در y-m-d ساعت G:i:s" }}</li>
+            <li class="stat-item"> تعداد دنبال‌کنندگان:
+                {{ question.followers.count }}</li>
 
+            <li class="stat-item"> تعداد ویرایش‌ها: {{ question.editors.count }}</li>
+            <li class="stat-item"> تعداد موضوعات: {{ question.topics.count }}</li>
+            <li class="stat-item"> تعداد پاسخ‌ها: {{ question.answer_set.count }}</li>
+            <li class="stat-item"> تعداد درخواست پاسخ‌ها: {{ question.answerrequest_set.count }}</li>
+
+
+        </ul>
     </div>
 </div>
 

@@ -417,7 +417,7 @@ def follow_topic(request, t_id):
         request.user.topics.add(selected_topic)
     else:
         request.user.topics.remove(selected_topic)
-    return JsonResponse({'count': selected_topic.followers.count()})
+    return JsonResponse({'count': selected_topic.followers.count(), 'name': selected_topic.name, 'url': selected_topic.image.url})
 
 
 def follow_user(request, u_id):

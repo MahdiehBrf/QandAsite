@@ -475,7 +475,7 @@ a.navbar-brand {
 }
 
 
-.profile, .feed-bar, .creditional-bar{
+.profile, .feed-bar, .creditional-bar, .question-stat-bar, .user-topic-bar{
     box-sizing: border-box;
     margin-bottom:30px;
     padding: 15px;
@@ -492,7 +492,7 @@ a.navbar-brand {
 }
 
 
-.feed-bar label, .creditional-bar label{
+.feed-bar label, .creditional-bar label, .question-stat-bar label, .user-topic-bar label{
     width: 100%;
     margin-bottom: 8px;
     color: #333;
@@ -502,7 +502,7 @@ a.navbar-brand {
     text-transform: none
 }
 
-.feed-bar .feed-item, .creditional-bar .credit-item, .user-list .user-item{
+.feed-bar .feed-item, .creditional-bar .credit-item, .user-list .user-item, .question-stat-bar .stat-item, .user-topic-bar .user-topic-item{
     color: #666;
     padding: 4px 5px;
     margin: 0 0 0 -5px;
@@ -510,7 +510,7 @@ a.navbar-brand {
     list-style: none;
 }
 
-.feed-bar ul, .creditional-bar ul, ul.user-list{
+.feed-bar ul, .creditional-bar ul, ul.user-list, .question-stat-bar ul, .user-topic-bar ul{
     padding-right: 0;
 }
 
@@ -547,4 +547,14 @@ a.navbar-brand {
 .follow-action-item .name{
     border-left: 1px solid #bbcadc;
     padding-left: 5px;
+}
+
+.photo-wrapper.small-icon img {
+    width: 30px;
+    height: 30px;
+}
+
+.user-topic-bar .info, .comment-input{
+    padding: 0;
+    padding-right: 5px;
 }

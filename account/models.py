@@ -97,7 +97,7 @@ class User(AbstractBaseUser):
     avatar = models.ImageField(upload_to='avatars/', default='avatars/default-image.png', null=True, blank=True)
     bio = RichTextField(null=True)
 
-    followers = models.ManyToManyField('self', related_name='followees', symmetrical=False)
+    followers = models.ManyToManyField('self', related_name='followees')
     topics = models.ManyToManyField(Topic, related_name='followers')
 
     objects = UserManager()
