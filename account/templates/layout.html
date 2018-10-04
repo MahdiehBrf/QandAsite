@@ -99,7 +99,8 @@
             {% endblock content %}
         </div>
         </div>
-            <div class="ask-form hide screen-center">
+
+        <div class="ask-form hide screen-center">
                 <div class="container">
                     <div class="row d-flex justify-content-center">
                         <div class="popup question-form col-md-8">
@@ -123,6 +124,7 @@
                     </div>
                 </div>
             </div>
+
         <div class="ask-answer-form hide screen-center">
                 <div class="container">
                     <div class="row d-flex justify-content-center">
@@ -509,8 +511,30 @@
 
 
         <script>
+        $(document).ready(function() {
 
+            $('.profile .action-bar .action-item.follow, .answer .action-bar .action-item.follow').click(function(e) { // limit click to children of main menu
+            var $followObj = $(this);
+            console.log($followObj);
+            var userID;
+            if ($followObj.closest('.user').length===1)
+                userID = $followObj.closest('.user')[0].id.split('-')[1];
+            else
+                userID = $followObj.closest('.profile')[0].id.split('-')[1];
+                if ($(this).hasClass('selected')){
+                    $.get("/follow_user/" + userID + "/", {'follow':'0'}, function (data) {
+                        $followObj.parent().siblings('.follower-count').removeClass('selected')[0].innerHTML = data.count + ' دنبال‌کننده';
+                        $followObj.removeClass('selected');
+                    });
+                }else {
+                    $.get("/follow_user/" + userID + "/", {'follow':'1'}, function (data) {
+                        $followObj.parent().siblings('.follower-count').addClass('selected')[0].innerHTML = data.count + ' دنبال‌کننده';
+                        $followObj.addClass('selected');
+                    });
+                }
 
+            e.stopPropagation();
+        });
 
 
 
@@ -666,6 +690,7 @@
             keypress: function(e){
                 if(e.which == 13) e.preventDefault();
             }
+        });
         });
 
     </script>

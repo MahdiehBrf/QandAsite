@@ -44,7 +44,9 @@ def edit(request, q_id):
     if request.method == 'POST':
         uf = QForm(request.POST, instance=Question.objects.get(id=q_id))
         if uf.is_valid():
-            question = uf.save()
+            question = uf.save(commit=False)
+            question.editors.add(request.user)
+            question.save()
             return HttpResponseRedirect(reverse('account:question', args={q_id}))
         else:
             print()
@@ -374,7 +376,7 @@ def profile_get_feed(request, u_id, f_type):
                     questions = topic.questions.all()
                 else:
                     questions = questions | topic.questions.all()
-            best_questions = questions.annotate(follower_count=Count('followers'), answer_count=Count('answer')).order_by('-follower_count', '-answer_count')
+            best_questions = questions.annotate(follower_count=Count('followers'), answer_count=Count('answer')).order_by('-follower_count', 'answer_count')
             return render(request, 'questions.html', {'questions': best_questions})
     elif f_type == 'topanswers':
         if request.user == selected_user:

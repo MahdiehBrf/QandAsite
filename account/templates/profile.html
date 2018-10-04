@@ -11,7 +11,7 @@
 <div class="row name">
 
     <div class="profile-page col-md-10">
-        <div class="profile row">
+        <div class="profile row" id="u-{{ selected_user.id }}">
         <div class="profile-image col-md-2">
             <div class="photo-wrapper  ">
                 <a href="#">
@@ -214,25 +214,29 @@
 
 <script>
 $(function() {
+    $('.profile .action-bar .action-item.follow, .answer .action-bar .action-item.follow').click(function(e) { // limit click to children of main menu
+            var $followObj = $(this);
+            console.log($followObj);
+            var userID;
+            if ($followObj.closest('.user').length===1)
+                userID = $followObj.closest('.user')[0].id.split('-')[1];
+            else
+                userID = $followObj.closest('.profile')[0].id.split('-')[1];
+                if ($(this).hasClass('selected')){
+                    $.get("/follow_user/" + userID + "/", {'follow':'0'}, function (data) {
+                        $followObj.parent().siblings('.follower-count').removeClass('selected')[0].innerHTML = data.count + ' دنبال‌کننده';
+                        $followObj.removeClass('selected');
+                    });
+                }else {
+                    $.get("/follow_user/" + userID + "/", {'follow':'1'}, function (data) {
+                        $followObj.parent().siblings('.follower-count').addClass('selected')[0].innerHTML = data.count + ' دنبال‌کننده';
+                        $followObj.addClass('selected');
+                    });
+                }
 
-    $('.profile .action-bar .action-item.follow').click(function(e) { // limit click to children of main menu
-        var $followObj = $(this);
-        console.log($followObj);
-        var userID = {{ selected_user.id }};
-            if ($(this).hasClass('selected')){
-                $.get("/follow_user/" + userID + "/", {'follow':'0'}, function (data) {
-                    $followObj.parent().siblings('.follower-count')[0].innerHTML = data.count + ' دنبال‌کننده';
-                    $followObj.removeClass('selected');
-                });
-            }else {
-                $.get("/follow_user/" + userID + "/", {'follow':'1'}, function (data) {
-                    $followObj.parent().siblings('.follower-count')[0].innerHTML = data.count + ' دنبال‌کننده';
-                    $followObj.addClass('selected');
-                });
-            }
+            e.stopPropagation();
+        });
 
-        e.stopPropagation();
-    });
 
     $('.feeds').on('click', '.user-list .user-item .action-item', function (e) {
         var $userObj = $(this).parents('.user-item');

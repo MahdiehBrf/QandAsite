@@ -63,3 +63,7 @@ input, textarea{
 p{
     margin-bottom: 2px;
 }
+
+.selected{
+        color: #329bff;
+}

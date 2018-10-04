@@ -46,3 +46,31 @@
 .topics .topic-item.edit_topics img{
     margin-left: 5px;
 }
+
+.answer.full{
+    position: relative;
+}
+
+
+.answer .user{
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #e2e2e2;
+    border-radius: 3px;
+    right: 16px;
+    display: none;
+    font-size: 14px;
+    z-index: 100;
+}
+
+/*.answer .responder:hover + .row .user{*/
+    /*display: unset;*/
+/*}*/
+
+.answer .user .credentials .credential-item input[type='radio']{
+    display: none;
+}
+
+.answer .user .credentials .credential-item{
+    padding-bottom: 5px;
+}

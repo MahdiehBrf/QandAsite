@@ -106,24 +106,38 @@
 
     <div class="col-md-2">
         <div class="question-stat-bar">
-        <label>آمار سوال</label>
-        <ul>
-            <li class="stat-item"> زمان ایجاد:
-                {{ question.pub_date|date:"در y-m-d ساعت G:i:s" }}</li>
-            <li class="stat-item"> تعداد دنبال‌کنندگان:
-                {{ question.followers.count }}</li>
+            <label>آمار سوال</label>
+            <ul>
+                <li class="stat-item"> زمان ایجاد:
+                    {{ question.pub_date|date:"در y-m-d ساعت G:i:s" }}</li>
+                <li class="stat-item"> تعداد دنبال‌کنندگان:
+                    {{ question.followers.count }}</li>
 
-            <li class="stat-item"> تعداد ویرایش‌ها: {{ question.editors.count }}</li>
-            <li class="stat-item"> تعداد موضوعات: {{ question.topics.count }}</li>
-            <li class="stat-item"> تعداد پاسخ‌ها: {{ question.answer_set.count }}</li>
-            <li class="stat-item"> تعداد درخواست پاسخ‌ها: {{ question.answerrequest_set.count }}</li>
+                <li class="stat-item"> تعداد ویرایش‌ها: {{ question.editors.count }}</li>
+                <li class="stat-item"> تعداد موضوعات: {{ question.topics.count }}</li>
+                <li class="stat-item"> تعداد پاسخ‌ها: {{ question.answer_set.count }}</li>
+                <li class="stat-item"> تعداد درخواست پاسخ‌ها: {{ question.answerrequest_set.count }}</li>
 
 
-        </ul>
+            </ul>
+        </div>
     </div>
 </div>
 
 <script>
+
+      $(".answer .photo-wrapper, .answer .info .full-name").mouseover(function() {
+          var answerID = $(this).closest('.answer.full')[0].id.split('-')[1];
+          var userID = $(this).parents('.responder')[0].id.split('-')[1];
+        $(".answer#a-" + answerID + " .user#u-" + userID).fadeIn();
+      });
+
+      $(".answer .photo-wrapper, .answer .info .full-name, .answer .user").mouseleave(function() {
+        $(".answer .user").fadeOut();
+      });
+      $(".answer .user").mouseover(function() {
+        $(this).stop(true, true).show();
+      });
 
     $(".question .qu.action-bar .action-item.edit").click(function (e) { // limit click to children of mainmenue
         var $formObj = $(".ask-form").removeClass('hide').addClass('show').find('form').attr('action', '{% url "account:edit" question.id %}');
@@ -252,7 +266,7 @@
         e.stopPropagation();
     });
 
-    $('.question .action-bar .action-item.follow').click(function(e) { // limit click to children of main menu
+    $('.question .qu.action-bar .action-item.follow').click(function(e) { // limit click to children of main menu
         var $editObj = $(this);
         var questionID = $(e.target).closest('.question.full')[0].id.split('-')[1];
             if ($(this).hasClass('selected')){

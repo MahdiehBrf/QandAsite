@@ -316,14 +316,14 @@ a.navbar-brand {
     font-size: 17px;
 }
 
-.credential-form .credentials .credential-item img{
+ .credentials .credential-item img{
     margin-left: 5px;
 }
-.credential-form .credentials ul{
+.credentials ul{
     margin-bottom: 0;
 }
 
-.credential-form .credentials .credential-item input[type='radio']{
+.credentials .credential-item input[type='radio']{
     width: unset;
     margin: 0;
 }
@@ -398,7 +398,7 @@ a.navbar-brand {
     margin-bottom: 4px;
 }
 
-.popup-form ul, .type-filter-bar ul{
+.popup-form ul, .type-filter-bar ul, .credentials ul{
     padding-right: 0;
 }
 

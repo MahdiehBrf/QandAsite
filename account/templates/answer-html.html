@@ -1,7 +1,7 @@
 {% load static %}
 
 <div class="answer full {{ way }}" id="a-{{ answer.id }}">
-        <div class="responder d-flex align-items-center">
+        <div class="responder d-flex align-items-center" id="u-{{ answer.responder.id }}">
             <div class="photo-wrapper">
                 <a href="{% url 'account:profile' answer.responder.id %}">
                     <img class="profile_photo_img" src="{{ answer.responder.avatar.url }}" alt="{{ answer.responder }}" height="50" width="50">
@@ -33,6 +33,7 @@
                 <div class="time">{{ answer.pub_date|date:"در y-m-d ساعت G:i:s" }}</div>
             </div>
         </div>
+        {% include 'user_summary.html' with selected_user=answer.responder %}
         <div class="response">
             <div class="full">
                 <div class="text full">
@@ -135,3 +136,8 @@
             </div>
         </div>
 </div>
+
+<script>
+
+
+</script>
