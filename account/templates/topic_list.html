@@ -1,27 +1,53 @@
 {% load static %}
 
-<ul class="row topic-list">
-    <div class="col-md-6 odd">
-        {% for topic in topics.all %}
-            {% if not forloop.counter|divisibleby:2 %}
-                {% if selected_user in topic.followers.all %}
-                    {% include "topic.html" with topic=topic follow=1%}
-                {% else %}
-                    {% include "topic.html" with topic=topic follow=0%}
-                {% endif %}
-            {% endif %}
-        {% endfor %}
-    </div>
-    <div class="col-md-6 even">
-        {% for topic in topics.all %}
-            {% if forloop.counter|divisibleby:2 %}
-                {% if selected_user in topic.followers.all %}
-                    {% include "topic.html" with topic=topic follow=1%}
-                {% else %}
-                    {% include "topic.html" with topic=topic follow=0%}
-                {% endif %}
-            {% endif %}
-        {% endfor %}
-    </div>
+{% if way == 'full' %}
 
-</ul>
+    <ul class="row topic-list">
+        <div class="col-md-6 odd">
+            {% for topic in topics.all %}
+                {% if not forloop.counter|divisibleby:2 %}
+                    {% if selected_user in topic.followers.all %}
+                        {% include "topic.html" with topic=topic follow=1 %}
+                    {% else %}
+                        {% include "topic.html" with topic=topic follow=0 %}
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="col-md-6 even">
+            {% for topic in topics.all %}
+                {% if forloop.counter|divisibleby:2 %}
+                    {% if selected_user in topic.followers.all %}
+                        {% include "topic.html" with topic=topic follow=1 %}
+                    {% else %}
+                        {% include "topic.html" with topic=topic follow=0 %}
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </div>
+
+    </ul>
+
+{% elif way == 'summary' %}
+    {% for topic in topics.all %}
+        <li id="t-{{ topic.id }}" class="question-topic-item d-flex align-items-center">
+            <svg width="22px" height="22px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g class="icon_svg-stroke" stroke="#666" stroke-width="1.5" fill="none" fill-rule="evenodd">
+                    <path d="M12,7 L12,17" stroke-linecap="round"></path>
+                    <path d="M7,12 L17,12" stroke-linecap="round"></path>
+                    <circle cx="12" cy="12" r="9"></circle>
+                </g>
+            </svg>
+            <div>{{ topic.name }}</div>
+        </li>
+    {% endfor %}
+{% elif way == 'empty' %}
+    <li class="topic-item selected" id="all">
+        همه موضوعات
+    </li>
+    {% for topic in topics.all %}
+        <li class="topic-item" id="t-{{ topic.id }}">
+            {{ topic.name }}
+        </li>
+    {% endfor %}
+{% endif %}

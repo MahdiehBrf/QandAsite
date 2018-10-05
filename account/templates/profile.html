@@ -4,6 +4,13 @@
 {% block special_static %}
     {% load static %}
         <link rel="stylesheet" type="text/css" href="{% static "css/profile.css" %}"/>
+        <script src="{% static "js/user-action-bar.js" %}"></script>
+        <script src="{% static "js/add-credential.js" %}"></script>
+        <script src="{% static "js/topic-action-bar.js" %}"></script>
+        <script src="{% static "js/profile-action-bar.js" %}"></script>
+        <script src="{% static "js/question-action-bar.js" %}"></script>
+        <script src="{% static "js/answer-action-bar.js" %}"></script>
+
 
 {% endblock special_static %}
 
@@ -162,7 +169,7 @@
                         <li class="feed-item answers selected ">
                             پاسخ‌ها
                         </li>
-                        <li class="feed-item questions">
+                        <li class="feed-item questions ">
                             سوال‌ها
                         </li>
                         <li class="feed-item shares">
@@ -184,7 +191,7 @@
                 </div>
             </div>
 
-            <div class="col-md-10 feeds">
+            <div class="col-md-10 main-section feeds">
 
                 <div class="answers show">
                     {% include "answers.html" with answers=selected_user.answer_set %}
@@ -214,98 +221,7 @@
 
 <script>
 $(function() {
-    $('.profile .action-bar .action-item.follow, .answer .action-bar .action-item.follow').click(function(e) { // limit click to children of main menu
-            var $followObj = $(this);
-            console.log($followObj);
-            var userID;
-            if ($followObj.closest('.user').length===1)
-                userID = $followObj.closest('.user')[0].id.split('-')[1];
-            else
-                userID = $followObj.closest('.profile')[0].id.split('-')[1];
-                if ($(this).hasClass('selected')){
-                    $.get("/follow_user/" + userID + "/", {'follow':'0'}, function (data) {
-                        $followObj.parent().siblings('.follower-count').removeClass('selected')[0].innerHTML = data.count + ' دنبال‌کننده';
-                        $followObj.removeClass('selected');
-                    });
-                }else {
-                    $.get("/follow_user/" + userID + "/", {'follow':'1'}, function (data) {
-                        $followObj.parent().siblings('.follower-count').addClass('selected')[0].innerHTML = data.count + ' دنبال‌کننده';
-                        $followObj.addClass('selected');
-                    });
-                }
 
-            e.stopPropagation();
-        });
-
-
-    $('.feeds').on('click', '.user-list .user-item .action-item', function (e) {
-        var $userObj = $(this).parents('.user-item');
-        var userID = $userObj[0].id.split('-')[1];
-        if ($(this).hasClass('follow')){
-            $.get("/follow_user/" + userID + "/", {'follow':'1'}, function (data) {
-                var $userItems = $('.feeds .user-list .user-item#u-' + userID );
-                $userItems.find('.follow.action-item').removeClass('show').addClass('hide');
-                $userItems.find('.unfollow.action-item').removeClass('hide').addClass('show').find('.follower-count').text(data.count);
-            });
-        }else {
-            $.get("/follow_user/" + userID + "/", {'follow':'0'}, function (data) {
-                var $userItems = $('.feeds .user-list .user-item#u-' + userID );
-                $userItems.find('.unfollow.action-item').removeClass('show').addClass('hide');
-                $userItems.find('.follow.action-item').removeClass('hide').addClass('show').find('.follower-count').text(data.count);
-            });
-        }
-
-            e.stopPropagation();
-    });
-
-    $(".profile .profile-image #id_avatar").change(function () {
-        $(this).parents('form#edit_avatar_form').submit();
-    });
-
-
-
-    $(".profile .info .edit-input .submit_button").click(function (e) {
-        var $submitObj = $(this);
-        console.log($submitObj);
-        var action = $submitObj.attr('class').split(' ')[2];
-        if (action === 'edit-full-name'){
-            var firstName = $submitObj.siblings("textarea.first-name")[0].value;
-            var lastName = $submitObj.siblings("textarea.last-name")[0].value;
-            $.get("/edit_full_name/" + {{ selected_user.id }} + "/", {'first_name':firstName, 'last_name':lastName}, function (data) {
-                $submitObj.parent().removeClass('show').addClass('hide');
-                $submitObj.parent().siblings(".user-value").removeClass('hide').addClass('show').text(firstName + " " + lastName);
-                $submitObj.parent().siblings(".profile-edit").removeClass('hide').addClass('show');
-            });
-        }else if(action === "add-main-credential" || action === "edit-main-credential"){
-            var text = $submitObj.siblings("textarea")[0].value;
-            $.get("/edit_main_credential/" + {{ selected_user.id }} + "/", {'text':text}, function (data) {
-                $submitObj.parent().removeClass('show').addClass('hide');
-                $submitObj.parent().siblings(".user-value").removeClass('hide').addClass('show').text(text);
-                $submitObj.parent().siblings(".profile-edit").removeClass('hide').addClass('show').text('ویرایش');
-            });
-        }
-
-            e.stopPropagation();
-    });
-
-    $(".profile .info .profile-edit").click(function(e) { // limit click to children of main menu
-        $(this).siblings(".edit-input").removeClass('hide').addClass('show');
-        $(this).siblings(".user-value").removeClass('show').addClass('hide');
-        $(this).removeClass('show').addClass('hide');
-
-
-        e.stopPropagation();
-    });
-
-    $(".profile .info .edit-input .profile-cancel-edit").click(function(e) { // limit click to children of main menu
-        var $parent = $(this).parents(".edit-input");
-        $parent.removeClass('show').addClass('hide');
-        $parent.siblings(".user-value").removeClass('hide').addClass('show');
-        $parent.siblings(".profile-edit").removeClass('hide').addClass('show');
-
-
-        e.stopPropagation();
-    });
     $(".more.id").click(function(e) { // limit click to children of main menu
         $(this).siblings(".full").removeClass('hide').addClass('show');
         $(this).siblings(".less.id").removeClass('hide').addClass('show');
@@ -323,42 +239,6 @@ $(function() {
         e.stopPropagation();
     });
 
-    var span = $('<span>').css('display','inline-block')
-    .css('word-break','break-all').appendTo('body').css('visibility','hidden');
-    function initSpan(textarea){
-      span.text(textarea.text())
-          .width(textarea.width())
-          .css('font',textarea.css('font'));
-    }
-    $('textarea.text').on({
-        input: function(){
-          var text = $(this).val();
-          span.text(text);
-          $(this).height(text ? span.height() : '1.1em');
-        },
-        focus: function(){
-         initSpan($(this));
-        },
-        keypress: function(e){
-            if(e.which == 13) e.preventDefault();
-        }
-    });
-
-    $('.feed-bar .feed-item').click(function(e) { // limit click to children of main menu
-        var $feedObj = $(this);
-        if(!$feedObj.hasClass('selected')){
-            var feedName = $feedObj.attr('class').split(' ')[1];
-            $('.feed-bar .feed-item').removeClass('selected');
-            $feedObj.addClass('selected');
-            {#$('.feeds > div').removeClass('show').addClass('hide');#}
-            {#$('.feeds div.' + feedName).removeClass('hide').addClass('show');#}
-            $.get("/profile_get_feed/" + {{ selected_user.id }} + "/" + feedName + "/", {}, function (data) {
-                $('.feeds').html(data);
-            });
-        }
-
-        e.stopPropagation();
-    });
 });
 </script>
 

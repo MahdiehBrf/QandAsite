@@ -11,7 +11,7 @@
                 <span class="full-name">{{ answer.responder }}</span>
                 {% if answer.responder.main_credential %}
                 ،
-                <span class="creditional">
+                <span class="creditional" id="umc-{{ answer.responder.main_credential }}">
 
                         {{ answer.responder.main_credential }}
 
@@ -100,11 +100,11 @@
                 {% if user.email == answer.responder.email %}
                     <form class="editor hide" method="POST" action="{% url 'account:answer_edit' answer.id %}">
                         {% csrf_token %}
-                        <textarea name="cke-{{ answer.id}}" id="cke-{{ answer.id}}" rows="10" cols="80" placeholder="پاسخ خود را بنویسید"></textarea>
+                        <textarea name="ckea-{{ answer.id}}" id="ckea-{{ answer.id}}" rows="10" cols="80" placeholder="پاسخ خود را بنویسید"></textarea>
                         <script>
                             {% autoescape off %}
-                            CKEDITOR.replace( 'cke-{{ answer.id}}', {customConfig: '/static/js/editor-config.js'});
-                            CKEDITOR.instances['cke-{{ answer.id}}'].setData('{{ answer.text |safe|escapejs}}');
+                            CKEDITOR.replace( 'ckea-{{ answer.id}}', {customConfig: '/static/js/editor-config.js'});
+                            CKEDITOR.instances['ckea-{{ answer.id}}'].setData('{{ answer.text |safe|escapejs}}');
                             {% endautoescape %}
                         </script>
                         <div class="get-inside d-flex justify-content-end">
@@ -136,8 +136,3 @@
             </div>
         </div>
 </div>
-
-<script>
-
-
-</script>

@@ -4,15 +4,22 @@
 {% block special_static %}
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static "css/question.css" %}"/>
+    <script src="{% static "js/question-action-bar.js" %}"></script>
+    <script src="{% static "js/add-credential.js" %}"></script>
+    <script src="{% static "js/answer-action-bar.js" %}"></script>
+    <script src="{% static "js/question-edit-topics.js" %}"></script>
+
+
 {% endblock special_static %}
 
 {% block content %}
 <div class="row name">
 
-    <div class="col-md-10">
+    <div class="col-md-10 main-section">
 
         <div class="question full" id="q-{{ question.id }}">
             <div class="box">
+
                 <div class="topics d-flex">
                     {% if question.topics.all.0 %}
                     <div class="topic-item">{{ question.topics.all.0 }}</div>
@@ -28,9 +35,11 @@
                         <div>ویرایش</div>
                     </div>
                 </div>
+
                 <div class="question-title">
                     {{ question.title|safe }}
                 </div>
+
                 <div class="qu action-bar d-flex justify-content-between">
                     <div class="ml-auto d-flex">
                         <div class="action-item answer">
@@ -83,9 +92,9 @@
 
                 <form class="editor hide" method="POST" action="{% url 'account:answer' question.id %}">
                     {% csrf_token %}
-                    <textarea name="text" id="text" rows="10" cols="80" placeholder="پاسخ خود را بنویسید"></textarea>
+                    <textarea name="ckeq-{{ question.id}}" id="ckeq-{{ question.id}}" rows="10" cols="80" placeholder="پاسخ خود را بنویسید"></textarea>
                     <script>
-                        CKEDITOR.replace( 'text', {customConfig: '/static/js/editor-config.js'});
+                        CKEDITOR.replace( 'ckeq-{{ question.id}}', {customConfig: '/static/js/editor-config.js'});
                     </script>
                     <div class="get-inside d-flex justify-content-end">
                         <input class="submit_button" type="submit" value="post">
@@ -143,13 +152,7 @@
         $(this).stop(true, true).show();
       });
 
-    $(".question .qu.action-bar .action-item.edit").click(function (e) { // limit click to children of mainmenue
-        var $formObj = $(".ask-form").removeClass('hide').addClass('show').find('form').attr('action', '{% url "account:edit" question.id %}');
-        $formObj.find('textarea').text('{{ question.title }}');
-        $formObj.find('input')[1].value = 'ویرایش';
-        $('.overlay').css("opacity", "0.2").css("position","absolute");
-        e.stopPropagation();
-    });
+
 
 
 
@@ -176,68 +179,20 @@
     });
 
 
-    $('.answer .answ.action-bar .action-item.vote').click(function(e) { // limit click to children of main menu
-        var $voteObj = $(this);
-        var answerID = $(e.target).closest('.answer.full')[0].id.split('-')[1];
-        console.log(answerID);
-            if ($voteObj.hasClass('selected')){
-                $.get("/devote/"+ answerID + "/", {}, function(data) {
-                    $voteObj.find('.vote-count')[0].innerHTML = data.vote_count;
-                    $voteObj.removeClass('selected');
-                });
-            }else {
-                $.get("/vote/"+ answerID + "/", {}, function(data) {
-                    $voteObj.find('.vote-count')[0].innerHTML = data.vote_count;
-                    $voteObj.addClass('selected');
-                });
-            }
+    $('').click(function(e) { // limit click to children of main menu
 
-        e.stopPropagation();
     });
 
-    $('.answer .answ.action-bar .action-item.bookmark').click(function(e) { // limit click to children of main menu
-        var $bookmarkObj = $(this);
-        var answerID = $(e.target).closest('.answer.full')[0].id.split('-')[1];
-            if ($bookmarkObj.hasClass('selected')){
-                $.get("/unbookmark/"+ answerID + "/", {}, function(data) {
-                    $bookmarkObj.find('img').attr('src','{% static "/image/bookmark add.svg" %}');
-                    $bookmarkObj.find('div').text("اضافه به نشانه‌ها");
-                    $bookmarkObj.removeClass('selected');
-                });
-            }else {
-                $.get("/bookmark/"+ answerID + "/", {}, function(data) {
-                    $bookmarkObj.find('img').attr('src','{% static "/image/bookmark remove.svg" %}');
-                    $bookmarkObj.find('div').text("حذف از نشانه‌ها");
-                    $bookmarkObj.addClass('selected');
-                });
-            }
-         e.stopPropagation();
+    $('').click(function(e) { // limit click to children of main menu
+
     });
 
-    $('.answer .answ.action-bar .action-item.share').click(function(e) { // limit click to children of main menu
-        var $shareObj = $(this);
-        var answerID = $(e.target).closest('.answer.full')[0].id.split('-')[1];
-            if ($shareObj.hasClass('selected')){
-                $.get("/unshare/"+ answerID + "/", {}, function(data) {
-                    $shareObj.removeClass('selected');
-                });
-            }else {
-                $.get("/share/"+ answerID + "/", {}, function(data) {
-                    $shareObj.addClass('selected');
-                });
-            }
-         e.stopPropagation();
+    $('').click(function(e) { // limit click to children of main menu
+
     });
 
-    $('.answer .answ.action-bar .action-item.delete').click(function(e) { // limit click to children of main menu
-        var $deleteObj = $(this);
-        var answerID = $(e.target).closest('.answer.full')[0].id.split('-')[1];
-        console.log(answerID);
-            var $answer_question = $(e.target).closest('.question.full');
-            $.get("/answer_delete/" + answerID + "/", {}, function (data) {
-                $answer_question.find('.answers .answer.full#a-'+ answerID).remove();
-            });
-         e.stopPropagation();
+    $('').click(function(e) { // limit click to children of main menu
+
     });
 
 
@@ -256,37 +211,9 @@
         e.stopPropagation();
     });
 
-    $('.answer .action-bar .action-item.edit, .question .action-bar .action-item.answer').click(function(e) { // limit click to children of main menu
 
-        var $editorObj = $(e.target).parents('.action-bar').siblings('form.editor');
-        if ($editorObj.hasClass('hide')){
-            $(this).addClass('selected');
-            $editorObj.removeClass('hide').addClass('show');
-        }else{
-            $(this).removeClass('selected');
-            $editorObj.removeClass('show').addClass('hide');
-        }
 
-        e.stopPropagation();
-    });
 
-    $('.question .qu.action-bar .action-item.follow').click(function(e) { // limit click to children of main menu
-        var $editObj = $(this);
-        var questionID = $(e.target).closest('.question.full')[0].id.split('-')[1];
-            if ($(this).hasClass('selected')){
-                $.get("/unfollow/"+ questionID + "/", {}, function(data) {
-                    $editObj.find('.follower-count')[0].innerHTML = data.follower_count;
-                    $editObj.removeClass('selected');
-                });
-            }else {
-                $.get("/follow/"+ questionID + "/", {}, function(data) {
-                    $editObj.find('.follower-count')[0].innerHTML = data.follower_count;
-                    $editObj.addClass('selected');
-                });
-            }
-
-        e.stopPropagation();
-    });
 
     //good point :) :O
     //if you append an html you have to use jquery like bellow unless it won't work

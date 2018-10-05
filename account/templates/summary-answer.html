@@ -5,34 +5,41 @@
 {#        <div class="reason">#}
 {#            پاسخ . کوئرا . پاسخی که ممکن است دوست داشته باشید#}
 {#        </div>#}
+        <div class="question" id="q-{{ answer.question.id }}">
         <div class="question-title">
             {{ answer.question.title }}
         </div>
-        <div class="responder d-flex align-items-center">
+        </div>
+        <div class="responder d-flex align-items-center" id="u-{{ answer.responder.id }}">
             <div class="photo-wrapper">
                 <a href="{% url 'account:profile' answer.responder.id %}">
                     <img class="profile_photo_img" src="{{ answer.responder.avatar.url }}" alt="{{ answer.responder }}" height="50" width="50">
                 </a>
             </div>
-            <div class="info col-md-11">
+            <div class="info">
                 <span class="full-name">{{ answer.responder }}</span>
-                {% if answer.responder.main_credential %}
+                {% if answer.responder.maincredential %}
                 ،
-                <span class="creditional">
+                <span class="creditional" id="umc-{{ answer.responder.maincredential.id }}">
 
-                        {{ answer.responder.main_credential }}
+                        {{ answer.responder.maincredential }}
 
                 </span>
                 {% endif %}
                 <div class="answer-credential d-flex">
                     {% if answer.credential %}
-                        {{ answer.credential }}
-                        <div class="edit-answer-credential">ویرایش</div>
-                    {% elif answer.responder.email == user.email %}
-                        <div class="choose-answer-credential">انتخاب اعتبار پاسخ</div>
+                        <div class="answer-credential-value" id="ac-{{ answer.credential.id }}"> {{ answer.credential }}</div>
+                        {% if answer.responder.email == user.email %}
+                            <div class="edit-answer-credential">ویرایش</div>
+                        {% endif %}
+                    {% else %}
+                        <div class="answer-credential-value" id="ac-0"></div>
+                        {% if answer.responder.email == user.email %}
+                            <div class="edit-answer-credential">انتخاب اعتبار پاسخ</div>
+                        {% endif %}
                     {% endif %}
                 </div>
-                <div class="time">{{ answer.pub_date|timesince }}</div>
+                <div class="time">{{ answer.pub_date|date:"در y-m-d ساعت G:i:s" }}</div>
             </div>
         </div>
         <div class="response">
@@ -113,11 +120,11 @@
                 {% if user.email == answer.responder.email %}
                     <form class="editor hide" method="POST" action="{% url 'account:answer_edit' answer.id %}">
                         {% csrf_token %}
-                        <textarea name="cke-{{ answer.id}}" id="cke-{{ answer.id}}" rows="10" cols="80" placeholder="پاسخ خود را بنویسید"></textarea>
+                        <textarea name="ckea-{{ answer.id}}" id="ckea-{{ answer.id}}" rows="10" cols="80" placeholder="پاسخ خود را بنویسید"></textarea>
                         <script>
                             {% autoescape off %}
-                            CKEDITOR.replace( 'cke-{{ answer.id}}', {customConfig: '/static/js/editor-config.js'});
-                            CKEDITOR.instances['cke-{{ answer.id}}'].setData('{{ answer.text |safe|escapejs}}');
+                            CKEDITOR.replace( 'ckea-{{ answer.id}}', {customConfig: '/static/js/editor-config.js'});
+                            CKEDITOR.instances['ckea-{{ answer.id}}'].setData('{{ answer.text |safe|escapejs}}');
                             {% endautoescape %}
                         </script>
                         <div class="get-inside d-flex justify-content-end">

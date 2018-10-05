@@ -1,5 +1,23 @@
 $(document).ready(function() {
 
+    $(".answer .info .answer-credential .edit-answer-credential").click(function (e) {
+        var $formObj = $(".choose-credential-form").removeClass('hide').addClass('show');
+        // console.log($formObj);
+        $formObj[0].id = $(this).closest('.answer')[0].id.split('-')[1];
+        var answerCredentialID = $(this).siblings('.answer-credential-value')[0].id.split('-')[1];
+        if (answerCredentialID==="0") {
+
+            if( $(this).parent().siblings('.creditional').length !== 0){
+                var userMCID = $(this).parent().siblings('.creditional')[0].id.split('-')[1];
+                $formObj.find('input[type=\'radio\']#c-' + userMCID).attr('checked', true);
+            }
+        }else
+            $formObj.find('input[type=\'radio\']#c-' + answerCredentialID).attr('checked', true);
+        $('.overlay').css("opacity", "0.2").css("position","absolute");
+        e.stopPropagation();
+    });
+
+
     $(".choose-credential-form .popup .add-credential").click(function (e) {
         console.log($(this));
         $(this).siblings('.credentials').find('.credential-types').removeClass('hide').addClass('show');
@@ -40,7 +58,7 @@ $(document).ready(function() {
                 $.get("/answer_add_credential/" + answerID + "/" + credentialID + "/", {}, function (data) {
                     $formObj.removeClass('show').addClass('hide');
                     $('.overlay').css("opacity", "1").css("position", "unset");
-                    var $answerCredentialObj = $(".answer.full#a-" + answerID).find('.info .answer-credential');
+                    var $answerCredentialObj = $(".answer#a-" + answerID).find('.info .answer-credential');
                     $answerCredentialObj.find('.answer-credential-value').text(credentialValue)[0].id = "c-" + credentialID;
                     $answerCredentialObj.find('.edit-answer-credential').text('ویرایش');
                 });

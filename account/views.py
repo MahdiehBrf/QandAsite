@@ -54,17 +54,11 @@ def edit(request, q_id):
 
 def answer(request, q_id):
     if request.method == 'POST':
-        uf = AForm(request.POST)
-        if uf.is_valid():
-            answer_f = uf.save(commit=False)
-            answer_f.responder = request.user
-            answer_f.question = Question.objects.get(id=q_id)
-            answer_f.save()
-            return render(request, 'answer.html', {'answer': answer_f, 'way': 'single'})
-        else:
-            print()
-    else:
-        answer_f = Answer.objects.get(id=q_id)
+        answer_f = Answer()
+        answer_f.responder = request.user
+        answer_f.text = request.POST['ckeq-'+q_id]
+        answer_f.question = Question.objects.get(id=q_id)
+        answer_f.save()
         return render(request, 'answer.html', {'answer': answer_f, 'way': 'single'})
 
 
@@ -172,7 +166,7 @@ def answer_edit(request, a_id):
     if request.method == 'POST':
         selected_answer = Answer.objects.get(id=a_id)
         if request.user == selected_answer.responder:
-            selected_answer.text = request.POST['cke-'+a_id]
+            selected_answer.text = request.POST['ckea-'+a_id]
             selected_answer.save()
         return render(request, 'answer.html', {'answer': selected_answer, 'way': 'single'})
 
@@ -229,14 +223,15 @@ def topic_search(request):
     way = request.GET['way']
     topics = Topic.objects.filter(name__contains=name)
     if way == 'summary':
-        return render(request, 'topics.html', {'topics': topics})
+        return render(request, 'topic_list.html', {'topics': topics, 'way': 'summary'})
     else:
-        return render(request, 'topic_list.html', {'topics': topics, 'selected_user':request.user})
+        return render(request, 'topic_list.html', {'topics': topics, 'way': 'full', 'selected_user': request.user})
 
 
-def best_topic_based_users(request, t_id):
+def best_topic_based_users(request, t_id, q_id):
+    question = Question.objects.get(id=q_id)
     topic = Topic.objects.get(id=t_id)
-    user_subtract_set = AnswerRequest.objects.filter(asker=request.user).values_list('askee', flat=True)
+    user_subtract_set = AnswerRequest.objects.filter(asker=request.user, question=question).values_list('askee', flat=True)
     user_count = get_user_count(topic, user_subtract_set, request.user)
     return render(request, 'user_answer_counts.html', {'user_count':user_count, 'topic':topic})
 
@@ -253,7 +248,7 @@ def get_user_count(topic, user_subtract_set, asker):
 def best_question_based_users(request, q_id):
     question = Question.objects.get(id=q_id)
     user_topic_count = {}
-    user_subtract_set = AnswerRequest.objects.filter(asker=request.user).values_list('askee', flat=True)
+    user_subtract_set = AnswerRequest.objects.filter(asker=request.user, question=question).values_list('askee', flat=True)
     for topic in question.topics.all():
         user_count = get_user_count(topic, user_subtract_set, request.user)
         for user, count in user_count:
@@ -366,7 +361,7 @@ def profile_get_feed(request, u_id, f_type):
     elif f_type == 'followers':
         return render(request, 'user_list.html', {'users': selected_user.followers})
     elif f_type == 'usertopics':
-        return render(request, 'topic_list.html', {'topics': selected_user.topics, 'selected_user':selected_user})
+        return render(request, 'topic_list.html', {'topics': selected_user.topics, 'way': 'full', 'selected_user':selected_user})
     elif f_type == 'bookmarks':
         if request.user == selected_user:
             return render(request, 'answers.html', {'answers': selected_user.bookmarks})
@@ -432,3 +427,8 @@ def follow_user(request, u_id):
     else:
         request.user.followers.remove(selected_user)
     return JsonResponse({'count': selected_user.followers.count()})
+
+
+def question_topic(request, q_id):
+    topics = Question.objects.get(id=q_id).topics
+    return render(request, 'topic_list.html', {'topics': topics, 'way': 'empty'})

@@ -1,6 +1,6 @@
 {% load static %}
 
-<div class="question summary" id="1">
+<div class="question summary" id='q-{{ question.id }}'>
 
     <div class="box">
 {#        <div class="reason">#}
@@ -64,9 +64,9 @@
 
                 <form class="editor hide" method="POST" action="{% url 'account:answer' question.id %}">
                     {% csrf_token %}
-                    <textarea name="text" id="text" rows="10" cols="80" placeholder="پاسخ خود را بنویسید"></textarea>
+                        <textarea name="ckeq-{{ question.id}}" id="ckeq-{{ question.id}}" rows="10" cols="80" placeholder="پاسخ خود را بنویسید"></textarea>
                     <script>
-                        CKEDITOR.replace( 'text', {customConfig: '/static/js/editor-config.js'});
+                        CKEDITOR.replace( 'ckeq-{{ question.id}}', {customConfig: '/static/js/editor-config.js'});
                     </script>
                     <div class="get-inside d-flex justify-content-end">
                         <input class="submit_button" type="submit" value="post">

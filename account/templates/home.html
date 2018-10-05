@@ -3,6 +3,12 @@
 
 {% block special_static %}
     {% load static %}
+    <script src="{% static "js/home-feeds-bar.js" %}"></script>
+    <script src="{% static "js/add-credential.js" %}"></script>
+    <script src="{% static "js/topic-action-bar.js" %}"></script>
+    <script src="{% static "js/question-action-bar.js" %}"></script>
+    <script src="{% static "js/answer-action-bar.js" %}"></script>
+
 {% endblock special_static %}
 
 {% block content %}
@@ -31,7 +37,7 @@
         </div>
 
     </div>
-    <div class="feeds col-md-8">
+    <div class="feeds col-md-8 main-section">
 
     </div>
     <div class="col-md-2">
@@ -52,6 +58,7 @@
                 {% endfor %}
             </ul>
         </div>
+    </div>
 </div>
 
 <script>
@@ -60,63 +67,6 @@ $(function() {
       $('.feed-bar .feed-item.topquestions').trigger('click');
     };
 
-    var $feeds = $(".feeds");
-
-    $feeds.on('click', '.search-topic img', function (e) {
-        var name = $(this).siblings('textarea')[0].value;
-        $.get("/search-topic/", {'name':name, 'way':'full'}, function (data) {
-            $('.feeds .searched-topics').html(data);
-        });
-            e.stopPropagation();
-    });
-
-    $feeds.on('click', '.topic-list .topic-item .action-item', function (e) {
-        var $topicObj = $(this).parents('.topic-item');
-        var topicID = $topicObj[0].id.split('-')[1];
-        if ($(this).hasClass('follow')){
-            $.get("/follow_topic/" + topicID + "/", {'follow':'1'}, function (data) {
-                var $topicItems = $feeds.find('.topic-list .topic-item#t-' + topicID );
-                $topicItems.find('.follow.action-item').removeClass('show').addClass('hide');
-                $topicItems.find('.unfollow.action-item').removeClass('hide').addClass('show').find('.follower-count').text(data.count);
-                var topicHtml = '<li class="user-topic-item row d-flex align-items-center" id="t-' + topicID +'">\n' +
-                    '                        <div class="photo-wrapper small-icon col-md-4">\n' +
-                    '                            <a href="#">\n' +
-                    '                                <img class="profile_photo_img" src="' + data.url +'"  alt="' + data.name +'" height="50" width="50">\n' +
-                    '                            </a>\n' +
-                    '                        </div>\n' +
-                    '                        <div class="info col-md-8">\n' +
-                    '                            <div class="full-name">'+ data.name +'</div>\n' +
-                    '                        </div>\n' +
-                    '                    </li>';
-                $('.user-topic-bar ul').append(topicHtml);
-            });
-        }else {
-            $.get("/follow_topic/" + topicID + "/", {'follow':'0'}, function (data) {
-                var $topicItems = $feeds.find('.topic-list .topic-item#t-' + topicID );
-                $topicItems.find('.follow.action-item').removeClass('hide').addClass('show').find('.follower-count').text(data.count);
-                $topicItems.find('.unfollow.action-item').removeClass('show').addClass('hide');
-                $('.user-topic-bar ul li#t-' + topicID).remove();
-            });
-        }
-
-            e.stopPropagation();
-    });
-
-    $('.feed-bar .feed-item').click(function(e) { // limit click to children of main menu
-        var $feedObj = $(this);
-        if(!$feedObj.hasClass('selected')){
-            var feedName = $feedObj.attr('class').split(' ')[1];
-            $('.feed-bar .feed-item').removeClass('selected');
-            $feedObj.addClass('selected');
-            {#$('.feeds > div').removeClass('show').addClass('hide');#}
-            {#$('.feeds div.' + feedName).removeClass('hide').addClass('show');#}
-            $.get("/profile_get_feed/" + {{ user.id }} + "/" + feedName + "/", {}, function (data) {
-                $('.feeds').html(data);
-            });
-        }
-
-        e.stopPropagation();
-    });
     $(".more.id").click(function(e) { // limit click to children of main menu
         $(this).siblings(".full").removeClass('hide').addClass('show');
         $(this).siblings(".less.id").removeClass('hide').addClass('show');
@@ -134,37 +84,6 @@ $(function() {
         $(this).siblings(".full").removeClass('show').addClass('hide');
         e.stopPropagation();
     });
-    $(".action-item.bookmark").click(function(e) { // limit click to children of main menu
-        var text = $(this).find('div').text();
-        if (text==="حذف از نشانه‌ها"){
-            $(this).find('img').attr('src','{% static "/image/bookmark add.svg" %}');
-            $(this).find('div').text("اضافه به نشانه‌ها");
-        }else{
-            $(this).find('img').attr('src','{% static "/image/bookmark remove.svg" %}');
-            $(this).find('div').text("حذف از نشانه‌ها");
-        }
-        e.stopPropagation();
-    });
-});
-var span = $('<span>').css('display','inline-block')
-.css('word-break','break-all').appendTo('body').css('visibility','hidden');
-function initSpan(textarea){
-  span.text(textarea.text())
-      .width(textarea.width())
-      .css('font',textarea.css('font'));
-}
-$('textarea').on({
-    input: function(){
-      var text = $(this).val();
-      span.text(text);
-      $(this).height(text ? span.height() : '1.1em');
-    },
-    focus: function(){
-     initSpan($(this));
-    },
-    keypress: function(e){
-        if(e.which == 13) e.preventDefault();
-    }
 });
 </script>
 
