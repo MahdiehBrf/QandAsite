@@ -517,7 +517,7 @@
             var $followObj = $(this);
             console.log($followObj);
             var userID;
-            if ($followObj.closest('.user').length===1)
+            if ($followObj.closest('.user').length===0)
                 userID = $followObj.closest('.user')[0].id.split('-')[1];
             else
                 userID = $followObj.closest('.profile')[0].id.split('-')[1];
@@ -617,6 +617,25 @@
                 e.stopPropagation();
         });
 
+        $(".edit-topics-form .popup .submit_button").click(function (e) {
+
+            var $topics = $(this).siblings('.popup-form').find('.added-topics li');
+            var newHtml = '';
+            for (var i=0; i < $topics.length; i++) {
+                if (i < 2)
+                    newHtml += '<div class="topic-item">' + $topics[i].children[1].innerText + '</div>';
+                else {
+                    newHtml += '<div class="topic-item">+'+ ($topics.length - 2) +'</div>';
+                    break
+                }
+            }
+            newHtml  += '<div class="topic-item edit_topics d-flex">\n' +
+                        '    <img src="{% static "/image/edit.svg" %}">\n' +
+                        '    <div>ویرایش</div>\n' +
+                        '</div>';
+            $('.question .topics').html(newHtml);
+        });
+
 
         $(".question .qu.action-bar .action-item.request").click(function (e) {
                 var $formObj = $(".ask-answer-form").removeClass('hide').addClass('show');
@@ -625,7 +644,7 @@
                 e.stopPropagation();
             });
 
-        $(".question .topics .topic-item.edit_topics").click(function (e) {
+        $(".question .topics").on('click', '.topic-item.edit_topics', function (e) {
                 var $formObj = $(".edit-topics-form").removeClass('hide').addClass('show');
                 $('.overlay').css("opacity", "0.2").css("position","absolute");
                 e.stopPropagation();

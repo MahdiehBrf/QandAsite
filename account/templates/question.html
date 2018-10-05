@@ -14,8 +14,12 @@
         <div class="question full" id="q-{{ question.id }}">
             <div class="box">
                 <div class="topics d-flex">
+                    {% if question.topics.all.0 %}
                     <div class="topic-item">{{ question.topics.all.0 }}</div>
+                    {% endif %}
+                    {% if question.topics.all.1 %}
                     <div class="topic-item">{{ question.topics.all.1 }}</div>
+                    {% endif %}
                     {% if question.topics.count > 2 %}
                     <div class="topic-item">+{{ question.topics.count|add:"-2" }}</div>
                     {% endif %}
