@@ -12,7 +12,7 @@ $(document).ready(function() {
         e.stopPropagation();
     });
 
-    $mainSection.on('click','.answer .action-bar .action-item.edit, .question .qu.action-bar .action-item.answer', function (e) {
+    $mainSection.on('click','.question .qu.action-bar .action-item.answer', function (e) {
         var $editorObj = $(e.target).parents('.action-bar').siblings('form.editor');
         if ($editorObj.hasClass('hide')){
             $(this).addClass('selected');

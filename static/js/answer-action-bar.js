@@ -63,10 +63,24 @@ $(document).ready(function() {
             if ($answer_question.length !== 0)
                 $answer_question.find('.answers .answer#a-'+ answerID).remove();
             else
-                $('.feeds .answers .answer#a-' + answerID).remove()
+                $('.answer#a-' + answerID).remove()
         });
          e.stopPropagation();
     });
+
+    $mainSection.on('click','.answer .action-bar .action-item.edit', function (e) {
+        var $editorObj = $(e.target).parents('.action-bar').siblings('form.editor');
+        if ($editorObj.hasClass('hide')){
+            $(this).addClass('selected');
+            $editorObj.removeClass('hide').addClass('show');
+        }else{
+            $(this).removeClass('selected');
+            $editorObj.removeClass('show').addClass('hide');
+        }
+
+        e.stopPropagation();
+    });
+
 
     // $mainSection.on('click','', function (e) {
     //

@@ -4,19 +4,57 @@
 {% block special_static %}
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static "css/question.css" %}"/>
+    <script src="{% static "js/add-credential.js" %}"></script>
+     <script src="{% static "js/answer-action-bar.js" %}"></script>
+    <style>
+    .creditional-bar .edit{
+        color: #949494;
+        font-size: 17px;
+        font-weight: normal;
+        cursor: pointer;
+    }
+    .return-to-question{
+        padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #e2e2e2;
+    margin-top: 8px;
+
+    text-align: center;
+    background: #fff;
+    font-weight: bold;
+    }
+    .return-to-question a{
+        color: #949494;
+    }
+    </style>
 {% endblock special_static %}
 
 {% block content %}
 <div class="row name">
 
-    <div class="col-md-10">
+    <div class="col-md-10 main-section">
 
         {% include "answer-html.html" with answer=answer %}
+
+        <div class="return-to-question">
+            <a href="{% url "account:question" answer.question.id %}">
+                        بازگشت به سوال
+
+            </a>
+        </div>
 
     </div>
 
     <div class="col-md-2">
-            left bar
+            <div class="creditional-bar">
+            <div class="d-flex justify-content-between">
+            <label>اعتبار‌های پاسخ‌دهنده</label>
+                <div class="edit">ویرایش</div>
+            </div>
+            <ul>
+                {% include "profile_credential-bar.html" with selected_user=user %}
+            </ul>
+        </div>
 
     </div>
 </div>
