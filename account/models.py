@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, m2m_changed
 from django.dispatch import receiver
 from notifications.signals import notify
 from polymorphic.models import PolymorphicModel
@@ -97,7 +97,7 @@ class User(AbstractBaseUser):
     avatar = models.ImageField(upload_to='avatars/', default='avatars/default-image.png', null=True, blank=True)
     bio = RichTextField(null=True)
 
-    followers = models.ManyToManyField('self', related_name='followees')
+    followees = models.ManyToManyField('self', symmetrical=False, related_name='followers')
     topics = models.ManyToManyField(Topic, related_name='followers')
 
     objects = UserManager()
@@ -193,7 +193,6 @@ class Experience(Credential):
         return 'تجربه در موضوع ' + str(self.topic) + ' : ' + self.description
 
 
-
 class Question(models.Model):
     asker = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=False)
 
@@ -206,12 +205,35 @@ class Question(models.Model):
     topics = models.ManyToManyField(Topic, related_name='questions')
 
     def __str__(self):
-        return "سوال " + str(self.asker) + " درمورد: " + self.title
+        return self.title
 
 
 @receiver(post_save, sender=Question)
 def question_handler(sender, instance, created, **kwargs):
     instance.followers.add(instance.asker)
+
+
+@receiver(post_save, sender=Question)
+def question_notifier(sender, instance, created, **kwargs):
+    if created:
+        for follower in instance.asker.followers.all():
+            notify.send(sender= instance.asker, recipient=follower, verb=" پرسید سوال ", target=instance, href=reverse('account:question', args={instance.id}), sender_href=reverse('account:profile', args={instance.asker.id}), type='questions')
+
+
+@receiver(m2m_changed, sender=Question.editors.through)
+def question_edit_notifier(sender, action, instance, pk_set, **kwargs):
+    if action == "post_add" and pk_set != set():
+        editor = User.objects.get(id=pk_set.pop())
+        if editor != instance.asker:
+            notify.send(sender=editor, recipient=instance.asker, verb=" ویرایش کرد سوال ", target=instance, href=reverse('account:question', args={instance.id}), sender_href=reverse('account:profile', args={editor.id}), type='edits')
+
+
+@receiver(m2m_changed, sender=Question.followers.through)
+def question_follow_notifier(sender, action, instance, pk_set, **kwargs):
+    if action == "post_add" and pk_set != set():
+        follower = User.objects.get(id=pk_set.pop())
+        if follower != instance.asker:
+            notify.send(sender=follower, recipient=instance.asker, verb=" پیروی کرد سوال ", target=instance, href=reverse('account:question', args={instance.id}), sender_href=reverse('account:profile', args={follower.id}), type='follows')
 
 
 class Answer(models.Model):
@@ -227,14 +249,31 @@ class Answer(models.Model):
     shareholders = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='shares')
 
     def __str__(self):
-        return "پاسخ " + str(self.responder) + " به: " + str(self.question)
+        return str(self.responder) + " به: " + str(self.question)
 
 
 @receiver(post_save, sender=Answer)
-def my_handler(sender, instance, created, **kwargs):
+def answer_notifier(sender, instance, created, **kwargs):
     if created:
         for follower in instance.question.followers.all():
-            notify.send(sender= instance.responder, recipient=follower, verb=" پاسخ داد به ", action_object=instance, target=instance.question, href=reverse('account:question', args={instance.question.id}) + "#a-" + str(instance.id), type='answers')
+            if instance.responder != follower:
+                notify.send(sender=instance.responder, recipient=follower, verb=" پاسخ داد به ", action_object=instance, target=instance.question, href=reverse('account:question', args={instance.question.id}) + "#a-" + str(instance.id), sender_href=reverse('account:profile', args={instance.responder.id}), type='answers')
+
+
+@receiver(m2m_changed, sender=Answer.voters.through)
+def answer_vote_notifier(sender, action, instance, pk_set, **kwargs):
+    if action == "post_add" and pk_set != set():
+        voter = User.objects.get(id=pk_set.pop())
+        if voter != instance.responder:
+            notify.send(sender=voter, recipient=instance.responder, verb=" رای داد به پاسخ شما به ", target=instance.question, href=reverse('account:question', args={instance.question.id}) + "#a-" + str(instance.id), sender_href=reverse('account:profile', args={voter.id}), type='votes')
+
+
+@receiver(m2m_changed, sender=Answer.shareholders.through)
+def answer_vote_notifier(sender, action, instance, pk_set, **kwargs):
+    if action == "post_add" and pk_set != set():
+        shareholder = User.objects.get(id=pk_set.pop())
+        if shareholder != instance.responder:
+            notify.send(sender=shareholder, recipient=instance.responder, verb=" به اشتراک گذاشت پاسخ شما را به سوال ", target=instance.question, href=reverse('account:question', args={instance.question.id}) + "#a-" + str(instance.id), sender_href=reverse('account:profile', args={shareholder.id}), type='votes')
 
 
 class AnswerRequest(models.Model):
@@ -249,6 +288,12 @@ class AnswerRequest(models.Model):
         unique_together = (('asker', 'askee', 'question'),)
 
 
+@receiver(post_save, sender=AnswerRequest)
+def answer_notifier(sender, instance, created, **kwargs):
+    if created:
+        notify.send(sender=instance.asker, recipient=instance.askee, verb=" درخواست پاسخ فرستاد برای شما برای سوال ", target=instance.question, href=reverse('account:question', args={instance.question.id}), sender_href=reverse('account:profile', args={instance.asker.id}), type='requests')
+
+
 class AnswerComment(models.Model):
     commenter = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=False)
     answer = models.ForeignKey(Answer, on_delete=models.CASCADE, blank=False)
@@ -260,3 +305,18 @@ class AnswerComment(models.Model):
 
     def __str__(self):
         return str(self.commenter) + "'s comment on " + str(self.answer)
+
+
+@receiver(post_save, sender=AnswerComment)
+def answer_notifier(sender, instance, created, **kwargs):
+    if created:
+        if instance.commenter != instance.answer.responder:
+            notify.send(sender=instance.commenter, recipient=instance.answer.responder, verb=" نظر داد به پاسخ شما به سوال ", target=instance.answer.question, href=reverse('account:question', args={instance.answer.question.id}) + "#c-" + str(instance.id), sender_href=reverse('account:profile', args={instance.commenter.id}), type='comments')
+
+
+@receiver(m2m_changed, sender=AnswerComment.voters.through)
+def answer_vote_notifier(sender, action, instance, pk_set, **kwargs):
+    if action == "post_add" and pk_set != set():
+        voter = User.objects.get(id=pk_set.pop())
+        if voter != instance.commenter:
+            notify.send(sender=voter, recipient=instance.commenter, verb=" رای داد به نظر شما به پاسخ سوال ", target=instance.answer.question, href=reverse('account:question', args={instance.answer.question.id}) + "#c-" + str(instance.id), sender_href=reverse('account:profile', args={voter.id}), type='votes')

@@ -29,7 +29,7 @@ def ask_question(request):
             question = uf.save(commit=False)
             question.asker = request.user
             question.save()
-
+            return HttpResponseRedirect(reverse('account:question', args={question.id}))
         else:
             print()
     else:
@@ -45,6 +45,7 @@ def edit(request, q_id):
         uf = QForm(request.POST, instance=Question.objects.get(id=q_id))
         if uf.is_valid():
             question = uf.save(commit=False)
+            # if request.user not in question.editors.all():
             question.editors.add(request.user)
             question.save()
             return HttpResponseRedirect(reverse('account:question', args={q_id}))
@@ -423,9 +424,9 @@ def follow_user(request, u_id):
     is_follow = int(request.GET['follow'])
     selected_user = User.objects.get(id=u_id)
     if is_follow == 1:
-        request.user.followers.add(selected_user)
+        request.user.followees.add(selected_user)
     else:
-        request.user.followers.remove(selected_user)
+        request.user.followees.remove(selected_user)
     return JsonResponse({'count': selected_user.followers.count()})
 
 

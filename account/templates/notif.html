@@ -10,7 +10,9 @@
                 <li class="notif-item read">
             {% endif %}
                 <div class="notif-sentence">
-                    {{ notif.actor }}
+                    <a href="{{ notif.data.sender_href }}">
+                        {{ notif.actor }}
+                    </a>
                     {{ notif.verb }}
                     <a href="{{ notif.data.href }}">
                         {{ notif.target }}

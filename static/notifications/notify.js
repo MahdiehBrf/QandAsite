@@ -23,7 +23,7 @@ function fill_notification_list(data) {
         var messages = data.unread_list.map(function (item) {
             var message = "";
             if(typeof item.actor !== 'undefined'){
-                message = "<div class='notif-sentence'>" + item.actor + "";
+                message = "<div class='notif-sentence'>" + "<a href='" + item.data.sender_href + "'>" + item.actor+ "</a>" + "";
             }
             if(typeof item.verb !== 'undefined'){
                 message = message + " " + "" + item.verb + "";
