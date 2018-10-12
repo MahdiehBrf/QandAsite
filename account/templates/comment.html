@@ -15,6 +15,7 @@
     <div class="text">
         {{ comment.text }}
     </div>
+    {% if user.is_authenticated %}
     <div class="action-bar d-flex justify-content-between">
         <div class="ml-auto d-flex">
             {% if user in comment.voters.all %}
@@ -40,4 +41,5 @@
             </div>
         {% endif %}
     </div>
+    {% endif %}
 </div>

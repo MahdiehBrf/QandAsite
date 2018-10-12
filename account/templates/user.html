@@ -10,6 +10,7 @@
             <div class="creditional">{{ specific_user.maincredential }}</div>
         </div>
     </div>
+    {% if user.is_authenticated %}
 
     {% if user in specific_user.followers.all%}
 
@@ -51,6 +52,7 @@
             </div>
             <div class="follower-count">{{ specific_user.followers.count }}</div>
         </div>
+    {% endif %}
 
 
 </li>

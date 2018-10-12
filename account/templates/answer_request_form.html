@@ -1,0 +1,32 @@
+{% load static %}
+
+<div class="ask-answer-form hide screen-center">
+                <div class="container">
+                    <div class="row d-flex justify-content-center">
+                        <div class="popup request-popup col-md-8">
+                            <div class="title">
+                                درخواست پاسخ
+                            </div>
+                            <div class="popup-form request-form row">
+                                <div class="topics col-md-2">
+                                    <label>موضوعات</label>
+                                    <ul>
+{#                                        <li class="topic-item selected" id="all">#}
+{#                                            همه موضوعات#}
+{#                                        </li>#}
+{#                                        {% for topic in question.topics.all %}#}
+{#                                            <li class="topic-item" id="t-{{ topic.id }}">#}
+{#                                                {{ topic.name }}#}
+{#                                            </li>#}
+{#                                        {% endfor %}#}
+                                    </ul>
+                                </div>
+                                <div class="users col-md-10">
+                                </div>
+                            </div>
+                            <input id="request-done" class="submit_button" type="submit" value="انجام شد">
+
+                        </div>
+                    </div>
+                </div>
+            </div>

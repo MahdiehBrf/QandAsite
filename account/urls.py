@@ -7,6 +7,7 @@ app_name = 'account'
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^test/$', test, name='login'),
     url(r'^login/$', views.login, name='login'),
     url(r'^logout/$', views.logout, name='logout'),
     url(r'^edit_profile/$', model_form_upload, name='edit_profile'),

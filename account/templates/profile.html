@@ -130,7 +130,7 @@
 
                 <div class="follower-count">{{ selected_user.followers.count }} دنبال‌کننده </div>
 
-                {% if selected_user.email != user.email %}
+                {% if user.is_authenticated and selected_user.email != user.email %}
 
                 <div class="action-bar d-flex ">
 {#                    <div class="ml-auto d-flex">#}

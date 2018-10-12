@@ -9,7 +9,7 @@
             <div class="full-name">{{ topic }}</div>
         </div>
     </div>
-
+    {% if user.is_authenticated %}
     {% if follow == 1%}
 
         <div class="unfollow action-item d-flex justify-content-between show">
@@ -50,6 +50,8 @@
             </div>
             <div class="follower-count">{{ topic.followers.count }}</div>
         </div>
+
+    {% endif %}
 
 
 </li>

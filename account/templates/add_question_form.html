@@ -1,0 +1,26 @@
+{%  load static %}
+
+<div class="ask-form hide screen-center">
+                <div class="container">
+                    <div class="row d-flex justify-content-center">
+                        <div class="popup question-form col-md-8">
+                            <form method="POST" action="{% url 'account:ask' %}">
+                            {% csrf_token %}
+                                <div class="inputs">
+                                    <div class="asker">
+                                    {{ user }} می پرسد :
+                                    </div>
+                                    <textarea  class="text" id="title" name="title" placeholder="سوال خود را با 'چگونه'، 'چه'، 'چرا' و غیره شروع کنید."></textarea>
+                                </div>
+                                <div class="buttons d-flex justify-content-end align-items-center">
+                                    <a id="cancel" href="#">
+                                    انصراف
+                                    </a>
+                                    <input class="submit_button" type="submit" value="ایجاد سوال">
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>

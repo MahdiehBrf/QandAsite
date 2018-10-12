@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
 from django.db.models import Count
 from django.http import HttpResponseRedirect, JsonResponse
@@ -12,7 +13,7 @@ from account.forms import *
 from account.models import User, Question, Answer, AnswerComment, NOTIF_TYPE, Topic, AnswerRequest, MainCredential, \
     Credential
 
-
+@login_required
 def home(request):
     if request.user.is_authenticated:
         return render(request, 'home.html', {'unread_count': request.user.notifications.unread().count(),
@@ -461,3 +462,8 @@ def follow_user(request, u_id):
 def question_topic(request, q_id):
     topics = Question.objects.get(id=q_id).topics
     return render(request, 'topic_list.html', {'topics': topics, 'way': 'empty'})
+
+
+def test(request):
+    uf = EmploymentForm()
+    return render(request,'test.html',{'form':uf})

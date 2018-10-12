@@ -44,11 +44,11 @@
                             <input class="english" type="password" name="password" placeholder="Password" w2cid="iNaJen4">
                           </div>
                           <div class="form_column">
-                              <span class="login_options">
-                                  <a class="forgot_password" href="#" >
-                                      رمز عبور  خود را فراموش کرده‌اید؟
-                                  </a>
-                              </span>
+{#                              <span class="login_options">#}
+{#                                  <a class="forgot_password" href="#" >#}
+{#                                      رمز عبور  خود را فراموش کرده‌اید؟#}
+{#                                  </a>#}
+{#                              </span>#}
                               <input class="submit_button" type="submit" value="ورود">
                           </div>
                       </div>
@@ -59,7 +59,7 @@
                       <div class="quick-login show">
                           <div class="google-auth">
                               <img src="/static/image/gmail-logo.png">
-                              <a href="{% url 'social:begin' 'google-oauth2' %}">ورود با گوگل</a><br>
+                              <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.GET.next }}">ورود با گوگل</a><br>
                           </div>
                           <div class="policy ">
                               <a href="#" class="with-email ">ادامه با ایمیل.</a> با ثبت نام کردن شما نشان می‌دهید که

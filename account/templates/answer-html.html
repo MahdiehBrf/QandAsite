@@ -39,7 +39,7 @@
                 <div class="text full">
                     {{ answer.text|safe }}
                 </div>
-
+                {% if user.is_authenticated %}
                 <div class="answ action-bar d-flex justify-content-between">
                     <div class="ml-auto d-flex">
                         {% if user in answer.voters.all %}
@@ -112,20 +112,23 @@
                         </div>
                     </form>
                 {% endif %}
-
+                {% endif %}
+                {% if answer.answercomment_set.count != 0 or user.is_authenticated %}
                 <div class="comment-section">
-                    <div class="comment-item self row">
-                        <div class="photo-wrapper col-md-1">
-                            <a href="{% url 'account:profile' user.id %}">
-                                <img class="profile_photo_img" src="{{ user.avatar.url }}" alt="{{ user }}" height="50" width="50">
-                            </a>
-                        </div>
-                        <div class="col-md-11 comment-input d-flex align-items-center">
-                            <textarea  class="text"></textarea>
-                            <input class="submit_button comment" type="submit" value="ثبت نظر">
-                        </div>
+                    {% if user.is_authenticated %}
+                        <div class="comment-item self row">
+                            <div class="photo-wrapper col-md-1">
+                                <a href="{% url 'account:profile' user.id %}">
+                                    <img class="profile_photo_img" src="{{ user.avatar.url }}" alt="{{ user }}" height="50" width="50">
+                                </a>
+                            </div>
+                            <div class="col-md-11 comment-input d-flex align-items-center">
+                                <textarea  class="text"></textarea>
+                                <input class="submit_button comment" type="submit" value="ثبت نظر">
+                            </div>
 
-                    </div>
+                        </div>
+                    {% endif %}
                     <div class="comments">
                         {% for comment in answer.answercomment_set.all %}
                             {% include "comment.html" with comment=comment %}
@@ -133,6 +136,7 @@
                     </div>
 
                 </div>
+                {% endif %}
             </div>
         </div>
 </div>

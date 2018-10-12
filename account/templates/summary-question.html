@@ -11,7 +11,7 @@
         </a>
 
         <div class="answer-count">{{ question.answer_set.count }} پاسخ</div>
-
+        {% if user.is_authenticated %}
         <div class="qu action-bar d-flex justify-content-between">
                     <div class="ml-auto d-flex">
                         <div class="action-item answer">
@@ -72,6 +72,7 @@
                         <input class="submit_button" type="submit" value="post">
                     </div>
                 </form>
+        {% endif %}
 
 
 

@@ -133,14 +133,14 @@ class Employment(Credential):
     position = models.CharField(max_length=50)
     company_name = models.CharField(max_length=50)
     start_year = models.IntegerField(blank=False)
-    end_year = models.IntegerField(null=True)
+    end_year = models.IntegerField(null=True, blank=True)
     is_current_job = models.BooleanField(default=False)
 
     class Meta:
         unique_together = (('user', 'company_name', 'position', 'start_year'),)
 
     def __str__(self):
-        return ('(شغل فعلی) ' if self.is_current_job else '') + self.position + ' در ' + self.company_name + ' (' + str(self.start_year) + '-' + str(self.end_year) + ')'
+        return ('(شغل فعلی) ' if self.is_current_job else '') + self.position + ' در ' + self.company_name + ' (' + str(self.start_year) + ('-' + str(self.end_year) if self.end_year else '')  + ')'
 
 
 class Educational(Credential):
@@ -148,7 +148,7 @@ class Educational(Credential):
     school = models.CharField(max_length=50)
     field = models.CharField(max_length=50)
     degree = models.CharField(max_length=5, choices=DEGREE_CHOICES, default='1', blank=False)
-    graduation_year = models.IntegerField(blank=False)
+    graduation_year = models.IntegerField(null=True, blank=True)
 
     class Meta:
         unique_together = (('user', 'school', 'field', 'degree'),)
@@ -172,7 +172,7 @@ class Location(Credential):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=False)
     name = models.CharField(max_length=30)
     start_year = models.IntegerField(blank=False)
-    end_year = models.IntegerField(null=True)
+    end_year = models.IntegerField(null=True, blank=True)
     is_current_location = models.BooleanField(default=False)
 
     class Meta:
@@ -185,7 +185,7 @@ class Location(Credential):
 class Experience(Credential):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=False)
     topic = models.OneToOneField(Topic, on_delete=models.CASCADE)
-    description = models.CharField(max_length=500, blank=False)
+    description = models.TextField(blank=False)
 
     class Meta:
         unique_together = (('user', 'topic'),)

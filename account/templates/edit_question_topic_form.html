@@ -1,0 +1,34 @@
+{% load static %}
+
+
+<div class="edit-topics-form hide screen-center">
+                <div class="container">
+                    <div class="row d-flex justify-content-center">
+                        <div class="popup edit-topic-popup col-md-4">
+                            <div class="title">
+                                ویرایش موضوعات
+                            </div>
+                                <div class="popup-form question-topics">
+                                    <label>موضوعات</label>
+                                    <div class="search-topic d-flex align-items-center">
+                                        <textarea class="topic-text" placeholder="جستجو موضوع"></textarea>
+                                        <img src="{% static "/image/search.png" %}">
+                                    </div>
+                                    <ul class="searched-topics">
+
+                                    </ul>
+                                    <ul class="added-topics">
+                                        {% for topic in question.topics.all %}
+                                        <li id="t-{{ topic.id }}" class="question-topic-item d-flex align-items-center">
+                                            <img src="{% static "/image/delete.png" %}">
+                                            <div>{{ topic.name }}</div>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                            </div>
+                            <input id="edit-topics-button" class="submit_button" type="submit" value="انجام شد">
+
+                        </div>
+                    </div>
+                </div>
+            </div>

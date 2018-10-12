@@ -3,6 +3,7 @@ $(document).ready(function() {
     $(".answer .info .answer-credential .edit-answer-credential").click(function (e) {
         var $formObj = $(".choose-credential-form").removeClass('hide').addClass('show');
         // console.log($formObj);
+        $formObj.find('input[type=\'radio\']').removeClass('hide');
         $formObj[0].id = $(this).closest('.answer')[0].id.split('-')[1];
         var answerCredentialID = $(this).siblings('.answer-credential-value')[0].id.split('-')[1];
         if (answerCredentialID==="0") {
@@ -75,8 +76,10 @@ $(document).ready(function() {
         var $creditForm = $(this);
         $.post("/add_credential/" + creditType + "/", $(this).serializeArray(), function (data) {
             $creditForm.removeClass('show').addClass('hide');
-            $('.choose-credential-form .popup-form .main').removeClass('hide').addClass('show').find('.credentials ul.' + creditType + '-set').append(data);
-
+            var $mainObj = $('.choose-credential-form .popup-form .main').removeClass('hide').addClass('show').find('.credentials ul.' + creditType + '-set').append(data);
+            if ( $('.choose-credential-form').hasClass('edit')){
+                $mainObj.find('input[type=\'radio\']').addClass('hide');
+            }
         });
         return false;
     });
@@ -90,7 +93,7 @@ $(document).ready(function() {
     });
 
     $(".creditional-bar .edit").click(function (e) {
-        var $formObj = $(".choose-credential-form").removeClass('hide').addClass('show');
+        var $formObj = $(".choose-credential-form").removeClass('hide').addClass('show').addClass('edit');
         $formObj[0].id = 0;
         $formObj.find('input[type=\'radio\']').addClass('hide');
         $('.overlay').css("opacity", "0.2").css("position","absolute");

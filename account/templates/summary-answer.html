@@ -60,6 +60,7 @@
                 <div class="text full">
                     {{ answer.text|safe }}
                 </div>
+                {% if user.is_authenticated %}
                 <div class="answ action-bar d-flex justify-content-between">
                     <div class="ml-auto d-flex">
                         {% if user in answer.voters.all %}
@@ -132,8 +133,10 @@
                         </div>
                     </form>
                 {% endif %}
-
+                {% endif %}
+                {% if answer.answercomment_set.count != 0 or user.is_authenticated %}
                 <div class="comment-section">
+                    {% if user.is_authenticated %}
                     <div class="comment-item self row">
                         <div class="photo-wrapper col-md-1">
                             <a href="{% url 'account:profile' user.id %}">
@@ -146,6 +149,7 @@
                         </div>
 
                     </div>
+                    {% endif %}
                     <div class="comments">
                         {% for comment in answer.answercomment_set.all %}
                             {% include "comment.html" with comment=comment %}
@@ -153,6 +157,7 @@
                     </div>
 
             </div>
+                    {% endif %}
         </div>
     </div>
 </div>
