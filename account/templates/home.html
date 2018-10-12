@@ -37,7 +37,19 @@
         </div>
 
     </div>
-    <div class="feeds col-md-8 main-section">
+    <div class="col-md-8 main-section">
+        {% if user.first_login %}
+        <div class="first-login">
+            از آنجایی که برای اولین بار به حساب خود وارد شده اید بهتر است موضوعات مورد علاقه‌ی خود را از
+            <a href="#" class="topics">
+            این قسمت
+            </a>
+            انتخاب کنید.
+        </div>
+        {% endif %}
+        <div class="feeds">
+
+        </div>
 
     </div>
     <div class="col-md-2">
@@ -66,6 +78,11 @@ $(function() {
     window.onload = function() {
       $('.feed-bar .feed-item.topquestions').trigger('click');
     };
+
+    $('.first-login .topics').click(function (e) {
+        $(this).parent().addClass('hide');
+        $('.feed-bar .feed-item.addtopics').trigger('click');
+    });
 
     $(".more.id").click(function(e) { // limit click to children of main menu
         $(this).siblings(".full").removeClass('hide').addClass('show');

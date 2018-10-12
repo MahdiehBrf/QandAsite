@@ -368,14 +368,25 @@ def profile_get_feed(request, u_id, f_type):
             return render(request, 'answers.html', {'answers': selected_user.bookmarks})
     elif f_type == 'topquestions':
         if request.user == selected_user:
+            if request.user.first_login:
+                request.user.first_login = False
+                request.user.save()
             questions = None
             for topic in selected_user.topics.all():
                 if questions is None:
                     questions = topic.questions.all()
                 else:
                     questions = questions | topic.questions.all()
-            best_questions = questions.annotate(follower_count=Count('followers'), answer_count=Count('answer')).order_by('-follower_count', 'answer_count')
-            return render(request, 'questions.html', {'questions': best_questions})
+            best_questions = None
+            last_questions = None
+            if questions:
+                best_questions = questions.annotate(follower_count=Count('followers'), answer_count=Count('answer')).order_by('-follower_count', 'answer_count')
+                if best_questions.count() < 20:
+                    last_questions = Question.objects.exclude(id__in=best_questions).order_by('-pub_date')[:20-best_questions.count()]
+            else:
+                last_questions = Question.objects.order_by('-pub_date')[:20]
+
+            return render(request, 'questions.html', {'user_questions': best_questions, 'questions': last_questions})
     elif f_type == 'topanswers':
         if request.user == selected_user:
             answers = None
@@ -385,8 +396,25 @@ def profile_get_feed(request, u_id, f_type):
                     answers = topic_answers
                 else:
                     answers = answers | topic_answers.all()
-            best_answers = answers.annotate(share_count=Count('shareholders'), vote_count=Count('voters'), bookmark_count=Count('bookmarkers')).order_by('-vote_count', '-share_count', '-bookmark_count')
-            return render(request, 'answers.html', {'answers': best_answers})
+            best_answers = None
+            top_answers = None
+            if answers:
+                best_answers = answers.annotate(share_count=Count('shareholders'), vote_count=Count('voters'),
+                                                bookmark_count=Count('bookmarkers')).order_by('-vote_count',
+                                                                                              '-share_count',
+                                                                                              '-bookmark_count')
+                if best_answers.count() < 20:
+                    top_answers = Answer.objects.exclude(id__in=best_answers).annotate(share_count=Count('shareholders'), vote_count=Count('voters'),
+                                                bookmark_count=Count('bookmarkers')).order_by('-vote_count',
+                                                                                              '-share_count',
+                                                                                              '-bookmark_count')[:20-best_answers.count()]
+            else:
+                top_answers = Answer.objects.annotate(share_count=Count('shareholders'), vote_count=Count('voters'),
+                                                bookmark_count=Count('bookmarkers')).order_by('-vote_count',
+                                                                                              '-share_count',
+                                                                                              '-bookmark_count')[:20]
+
+            return render(request, 'answers.html', {'user_answers': best_answers, 'answers': top_answers})
     elif f_type == 'addtopics':
         if request.user == selected_user:
             return render(request, 'all-topics.html', {'topics': Topic.objects.all()})

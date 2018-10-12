@@ -9,7 +9,7 @@
         </div>
         <div class="info">
             <span class="full-name">{{ comment.commenter }}</span>
-            <div class="time">{{ comment.pub_date }}</div>
+            <div class="time">{{ comment.pub_date|date:"در d-m-Y ساعت G:i" }}</div>
         </div>
     </div>
     <div class="text">

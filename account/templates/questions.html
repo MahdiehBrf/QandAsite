@@ -1,5 +1,25 @@
 {% load static %}
+{#<div class="reason">#}
+{#                پاسخ . کوئرا . پاسخی که ممکن است دوست داشته باشید#}
+{#            </div>#}
+
+
+{% for question in user_questions.all %}
+    {% if forloop.first %}
+        <div class="questions-header">
+            <img src="{% static "/image/question.svg" %}">
+            سوال‌ها برای شما
+        </div>
+    {% endif %}
+    {% include "summary-question.html" with question=question %}
+{% endfor %}
 
 {% for question in questions.all %}
+    {% if forloop.first and user_questions %}
+        <div class="questions-header">
+            <img src="{% static "/image/question.svg" %}">
+            جدیدترین سوالات
+        </div>
+    {% endif %}
     {% include "summary-question.html" with question=question %}
 {% endfor %}

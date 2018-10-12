@@ -73,13 +73,16 @@ a.question-title:hover{
     height: 24px;
 }
 
-.questions-header{
-    padding: 16px;
-    padding-top: 12px;
-    border-bottom: 1px solid #e2e2e2;
+.questions-header,.answers-header{
+     padding: 16px;
+    /* margin-top: 0; */
+    border: 1px solid #efefef;
+    background-color: #fff;
+    border-radius: 4px;
+    margin-bottom: 8px;
 }
 
-.questions-header img{
+.questions-header img, .answers-header img{
     display: inline-block;
     width: 24px;
     height: 24px;
@@ -180,4 +183,13 @@ textarea.text{
 
 .feeds ul{
     list-style: none;
+}
+
+.first-login{
+    padding: 16px;
+    /* margin-top: 0; */
+    border: 1px solid #efefef;
+    background-color: #fff;
+    border-radius: 4px;
+    margin-bottom: 8px;
 }

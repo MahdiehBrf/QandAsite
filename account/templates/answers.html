@@ -1,5 +1,23 @@
 {% load static %}
 
+
+
+{% for answer in user_answers.all %}
+    {% if forloop.first %}
+        <div class="answers-header">
+            <img src="{% static "/image/question.svg" %}">
+            پاسخ‌ها برای شما
+        </div>
+    {% endif %}
+    {% include "summary-answer.html" with answer=answer %}
+{% endfor %}
+
 {% for answer in answers.all %}
+    {% if forloop.first and user_answers %}
+        <div class="answers-header">
+            <img src="{% static "/image/question.svg" %}">
+            بهترین پاسخ‌ها
+        </div>
+    {% endif %}
     {% include "summary-answer.html" with answer=answer %}
 {% endfor %}

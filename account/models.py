@@ -96,6 +96,7 @@ class User(AbstractBaseUser):
     last_name = models.CharField(verbose_name='last name', max_length=30, blank=True)
     avatar = models.ImageField(upload_to='avatars/', default='avatars/default-image.png', null=True, blank=True)
     bio = RichTextField(null=True)
+    first_login = models.BooleanField(default=True)
 
     followees = models.ManyToManyField('self', symmetrical=False, related_name='followers')
     topics = models.ManyToManyField(Topic, related_name='followers')
@@ -269,7 +270,7 @@ def answer_vote_notifier(sender, action, instance, pk_set, **kwargs):
 
 
 @receiver(m2m_changed, sender=Answer.shareholders.through)
-def answer_vote_notifier(sender, action, instance, pk_set, **kwargs):
+def answer_share_notifier(sender, action, instance, pk_set, **kwargs):
     if action == "post_add" and pk_set != set():
         shareholder = User.objects.get(id=pk_set.pop())
         if shareholder != instance.responder:
@@ -289,7 +290,7 @@ class AnswerRequest(models.Model):
 
 
 @receiver(post_save, sender=AnswerRequest)
-def answer_notifier(sender, instance, created, **kwargs):
+def answer_request_notifier(sender, instance, created, **kwargs):
     if created:
         notify.send(sender=instance.asker, recipient=instance.askee, verb=" درخواست پاسخ فرستاد برای شما برای سوال ", target=instance.question, href=reverse('account:question', args={instance.question.id}), sender_href=reverse('account:profile', args={instance.asker.id}), type='requests')
 
@@ -308,14 +309,14 @@ class AnswerComment(models.Model):
 
 
 @receiver(post_save, sender=AnswerComment)
-def answer_notifier(sender, instance, created, **kwargs):
+def answer_comment_notifier(sender, instance, created, **kwargs):
     if created:
         if instance.commenter != instance.answer.responder:
             notify.send(sender=instance.commenter, recipient=instance.answer.responder, verb=" نظر داد به پاسخ شما به سوال ", target=instance.answer.question, href=reverse('account:question', args={instance.answer.question.id}) + "#c-" + str(instance.id), sender_href=reverse('account:profile', args={instance.commenter.id}), type='comments')
 
 
 @receiver(m2m_changed, sender=AnswerComment.voters.through)
-def answer_vote_notifier(sender, action, instance, pk_set, **kwargs):
+def answer_comment_vote_notifier(sender, action, instance, pk_set, **kwargs):
     if action == "post_add" and pk_set != set():
         voter = User.objects.get(id=pk_set.pop())
         if voter != instance.commenter:
