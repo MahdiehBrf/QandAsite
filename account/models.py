@@ -12,6 +12,7 @@ from django.urls import reverse
 from QandAsite import settings
 
 DEGREE_CHOICES = (
+    ('D.', 'دیپلم'),
     ('A.A.', 'دانشیار هنر'),
     ('A.S.', 'دانشیار علوم'),
     ('B.A.', 'لیسانس هنر'),
@@ -26,14 +27,14 @@ NOTIF_TYPE = ['question', 'answer', 'comment', 'edit', 'follow', 'request', 'vot
 
 class Topic(models.Model):
     name = models.CharField(max_length=30)
-    image = models.ImageField(upload_to='topic_images/', default='avatars/default-image.png', null=True, blank=True)
+    image = models.ImageField(upload_to='topic_images/', default='topic_images/default_topic_image.png', null=True, blank=True)
 
     def __str__(self):
         return self.name
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, password, first_name, last_name, **kwargs):
+    def create_user2(self, email, password, first_name, last_name, **kwargs):
         """
         Creates and saves a User with the given email, date of
         birth and password.
@@ -72,7 +73,7 @@ class UserManager(BaseUserManager):
         Creates and saves a superuser with the given email, date of
         birth and password.
         """
-        user = self.create_user(
+        user = self.create_user2(
             email,
             password=password,
             first_name=first_name,
@@ -111,6 +112,22 @@ class User(AbstractBaseUser):
 
     def get_full_name(self):
         return self.first_name + " " + self.last_name
+
+    def has_perm(self, perm, obj=None):
+        "Does the user have a specific permission?"
+        # Simplest possible answer: Yes, always
+        return True
+
+    def has_module_perms(self, app_label):
+        "Does the user have permissions to view the app `app_label`?"
+        # Simplest possible answer: Yes, always
+        return True
+
+    @property
+    def is_staff(self):
+        "Is the user a member of staff?"
+        # Simplest possible answer: All admins are staff
+        return self.is_admin
 
 
 class Credential(PolymorphicModel):
@@ -179,7 +196,7 @@ class Location(Credential):
         unique_together = (('user', 'name', 'start_year'),)
 
     def __str__(self):
-        return ('(مکان فعلی) ' if self.is_current_location else '') + 'سکونت در ' + self.name + ' (' + str(self.start_year) + '-' + str(self.end_year) + ')'
+        return ('(مکان فعلی) ' if self.is_current_location else '') + 'سکونت در ' + self.name + ' (' + str(self.start_year) + ('-' + str(self.end_year) if self.end_year else '')  + ')'
 
 
 class Experience(Credential):

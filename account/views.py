@@ -69,8 +69,9 @@ def signup(request):
         uf = SignUpForm(request.POST)
         if uf.is_valid():
             info = uf.instance
-            user = User.objects.create_user(info.email, info.password, info.first_name, info.last_name)
+            user = User.objects.create_user2(info.email, info.password, info.first_name, info.last_name)
             user.save()
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             return HttpResponseRedirect(reverse('account:home'))
 
 

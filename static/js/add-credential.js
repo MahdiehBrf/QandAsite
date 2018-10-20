@@ -47,9 +47,7 @@ $(document).ready(function() {
         if (answerID === '0') {
             $formObj.removeClass('show').addClass('hide');
             $('.overlay').css("opacity", "1").css("position", "unset");
-            $.get("/user_credentials_all/", {}, function (data) {
-                $('.creditional-bar ul').html(data);
-            });
+
         } else {
             var $checkedCredential = $formObj.find('input[name=\'answer-credential-rdio\']:checked');
             var credentialID = $checkedCredential[0].id.split('-')[1];
@@ -65,6 +63,9 @@ $(document).ready(function() {
                 });
             }
         }
+         $.get("/user_credentials_all/", {}, function (data) {
+                $('.creditional-bar ul').html(data);
+            });
 
         e.stopPropagation();
     });
