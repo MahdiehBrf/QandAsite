@@ -6,7 +6,7 @@ $(document).ready(function() {
         var $topicObj = $(this).parents('.topic-item');
         var topicID = $topicObj[0].id.split('-')[1];
         if ($(this).hasClass('follow')) {
-            $.get("/follow_topic/" + topicID + "/", {'follow': '1'}, function (data) {
+            $.get("/account/follow_topic/" + topicID + "/", {'follow': '1'}, function (data) {
                 var $topicItems = $feeds.find('.topic-list .topic-item#t-' + topicID);
                 $topicItems.find('.follow.action-item').removeClass('show').addClass('hide');
                 $topicItems.find('.unfollow.action-item').removeClass('hide').addClass('show').find('.follower-count').text(data.count);
@@ -23,7 +23,7 @@ $(document).ready(function() {
                 $('.user-topic-bar ul').append(topicHtml);
             });
         } else {
-            $.get("/follow_topic/" + topicID + "/", {'follow': '0'}, function (data) {
+            $.get("/account/follow_topic/" + topicID + "/", {'follow': '0'}, function (data) {
                 var $topicItems = $feeds.find('.topic-list .topic-item#t-' + topicID);
                 $topicItems.find('.follow.action-item').removeClass('hide').addClass('show').find('.follower-count').text(data.count);
                 $topicItems.find('.unfollow.action-item').removeClass('show').addClass('hide');

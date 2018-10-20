@@ -54,7 +54,7 @@ $(document).ready(function() {
             var credentialValue = $checkedCredential.parent().find('.credential-name').text();
             if (credentialID !== undefined) {
 
-                $.get("/answer_add_credential/" + answerID + "/" + credentialID + "/", {}, function (data) {
+                $.get("/account/answer_add_credential/" + answerID + "/" + credentialID + "/", {}, function (data) {
                     $formObj.removeClass('show').addClass('hide');
                     $('.overlay').css("opacity", "1").css("position", "unset");
                     var $answerCredentialObj = $(".answer#a-" + answerID).find('.info .answer-credential');
@@ -63,7 +63,7 @@ $(document).ready(function() {
                 });
             }
         }
-         $.get("/user_credentials_all/", {}, function (data) {
+         $.get("/account/user_credentials_all/", {}, function (data) {
                 $('.creditional-bar ul').html(data);
             });
 
@@ -75,7 +75,7 @@ $(document).ready(function() {
         event.preventDefault();
         var creditType = $(this)[0].id;
         var $creditForm = $(this);
-        $.post("/add_credential/" + creditType + "/", $(this).serializeArray(), function (data) {
+        $.post("/account/add_credential/" + creditType + "/", $(this).serializeArray(), function (data) {
             $creditForm.removeClass('show').addClass('hide');
             var $mainObj = $('.choose-credential-form .popup-form .main').removeClass('hide').addClass('show').find('.credentials ul.' + creditType + '-set').append(data);
             if ( $('.choose-credential-form').hasClass('edit')){

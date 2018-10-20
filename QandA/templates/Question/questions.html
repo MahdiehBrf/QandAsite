@@ -11,7 +11,7 @@
             سوال‌ها برای شما
         </div>
     {% endif %}
-    {% include "summary-question.html" with question=question %}
+    {% include "Question/summary-question.html" with question=question %}
 {% endfor %}
 
 {% for question in questions.all %}
@@ -21,5 +21,5 @@
             جدیدترین سوالات
         </div>
     {% endif %}
-    {% include "summary-question.html" with question=question %}
+    {% include "Question/summary-question.html" with question=question %}
 {% endfor %}

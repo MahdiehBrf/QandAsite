@@ -90,7 +90,7 @@
                     </div>
                 </div>
 
-                <form class="editor hide" method="POST" action="{% url 'account:answer' question.id %}">
+                <form class="editor hide" method="POST" action="{% url 'QandA:answer' question.id %}">
                     {% csrf_token %}
                     <textarea name="ckeq-{{ question.id}}" id="ckeq-{{ question.id}}" rows="10" cols="80" placeholder="پاسخ خود را بنویسید"></textarea>
                     <script>
@@ -106,7 +106,7 @@
 
                 <div class="answers">
                     {% for answer in question.answer_set.all %}
-                        {% include "answer-html.html" with answer=answer %}
+                        {% include "Answer/answer-html.html" with answer=answer %}
                     {% endfor %}
                 </div>
 
@@ -178,25 +178,6 @@
             if(e.which == 13) e.preventDefault();
         }
     });
-
-
-    $('').click(function(e) { // limit click to children of main menu
-
-    });
-
-    $('').click(function(e) { // limit click to children of main menu
-
-    });
-
-    $('').click(function(e) { // limit click to children of main menu
-
-    });
-
-    $('').click(function(e) { // limit click to children of main menu
-
-    });
-
-
 
 
     $('.submit_button.comment').click(function(e) { // limit click to children of main menu

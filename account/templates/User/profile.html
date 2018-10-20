@@ -26,7 +26,7 @@
                 </a>
             </div>
             {% if selected_user.email == user.email %}
-                <form id="edit_avatar_form" class="edit_image d-flex justify-content-center" method="post" enctype="multipart/form-data" action="{% url 'account:edit_profile' %}">
+                <form id="edit_avatar_form" class="edit_image d-flex justify-content-center" method="post" enctype="multipart/form-data" action="{% url 'account:edit_avatar' %}">
                     {% csrf_token %}
                     <input type="file" name="avatar" id="id_avatar">
                     <label for="id_avatar">ویرایش</label>
@@ -176,10 +176,10 @@
                             به اشتراک گذاشته‌ها
                         </li>
                         <li class="feed-item followings">
-                            followings
+                            پیروی‌ها
                         </li>
                         <li class="feed-item followers">
-                            followers
+                            پیروها
                         </li>
 {#                        <li class="feed-item edits">#}
 {#                            ویرایش‌ها#}
@@ -194,7 +194,7 @@
             <div class="col-md-10 main-section feeds">
 
                 <div class="answers show">
-                    {% include "answers.html" with answers=selected_user.answer_set %}
+                    {% include "Answer/answers.html" with answers=selected_user.answer_set %}
                 </div>
             </div>
         </div>
@@ -212,7 +212,7 @@
             {% endif %}
             </div>
             <ul>
-                {% include "profile_credential-bar.html" with selected_user=selected_user %}
+                {% include "User/profile_credential-bar.html" with selected_user=selected_user %}
             </ul>
         </div>
     </div>

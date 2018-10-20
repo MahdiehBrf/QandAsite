@@ -9,7 +9,7 @@ $(document).ready(function() {
             var feedName = $feedObj.attr('class').split(' ')[1];
             $('.feed-bar .feed-item').removeClass('selected');
             $feedObj.addClass('selected');
-            $.get("/profile_get_feed/" + userID + "/" + feedName + "/", {}, function (data) {
+            $.get("/account/profile_get_feed/" + userID + "/" + feedName + "/", {}, function (data) {
                 $('.feeds').html(data);
             });
         }
@@ -21,7 +21,7 @@ $(document).ready(function() {
 
      $feeds.on('click', '.search-topic img', function (e) {
         var name = $(this).siblings('textarea')[0].value;
-        $.get("/search-topic/", {'name':name, 'way':'full'}, function (data) {
+        $.get("/account/search-topic/", {'name':name, 'way':'full'}, function (data) {
             $('.feeds .searched-topics').html(data);
         });
             e.stopPropagation();

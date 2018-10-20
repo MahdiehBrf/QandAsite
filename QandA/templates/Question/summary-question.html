@@ -6,7 +6,7 @@
 {#        <div class="reason">#}
 {#            سوال . کوئرا . موضوعی که ممکن است دوست داشته باشید#}
 {#        </div>#}
-        <a class="question-title" href="{% url 'account:question' question.id %}">
+        <a class="question-title" href="{% url 'QandA:question' question.id %}">
             {{ question.title }}
         </a>
 
@@ -62,7 +62,7 @@
                     </div>
                 </div>
 
-                <form class="editor hide" method="POST" action="{% url 'account:answer' question.id %}">
+                <form class="editor hide" method="POST" action="{% url 'QandA:answer' question.id %}">
                     {% csrf_token %}
                         <textarea name="ckeq-{{ question.id}}" id="ckeq-{{ question.id}}" rows="10" cols="80" placeholder="پاسخ خود را بنویسید"></textarea>
                     <script>

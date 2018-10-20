@@ -45,7 +45,7 @@
     <div class="col-md-10">
 
         <div class="notifications">
-            {% include "notif.html" with notifs=notifs %}
+            {% include "notifications/notif.html" with notifs=notifs %}
         </div>
 
     </div>
@@ -61,7 +61,7 @@ $(".type-filter-bar .type-item").on('click', function (e) {
     var $typeObj = $(this);
     var type = $typeObj.attr('class').split(' ')[1];
     if (!$typeObj.hasClass('selected')) {
-        $.get("/notifs-type_based/", {'type': type}, function (data) {
+        $.get("/account/notifs-type_based/", {'type': type}, function (data) {
             $('.notifications').html(data);
             $('.type-filter-bar .type-item').removeClass('selected');
             $typeObj.addClass('selected');

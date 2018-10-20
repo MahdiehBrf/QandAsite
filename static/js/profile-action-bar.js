@@ -8,12 +8,12 @@ $(document).ready(function() {
         else
             userID = $followObj.closest('.profile')[0].id.split('-')[1];
             if ($(this).hasClass('selected')){
-                $.get("/follow_user/" + userID + "/", {'follow':'0'}, function (data) {
+                $.get("/account/follow_user/" + userID + "/", {'follow':'0'}, function (data) {
                     $followObj.parent().siblings('.follower-count').removeClass('selected')[0].innerHTML = data.count + ' دنبال‌کننده';
                     $followObj.removeClass('selected');
                 });
             }else {
-                $.get("/follow_user/" + userID + "/", {'follow':'1'}, function (data) {
+                $.get("/account/follow_user/" + userID + "/", {'follow':'1'}, function (data) {
                     $followObj.parent().siblings('.follower-count').addClass('selected')[0].innerHTML = data.count + ' دنبال‌کننده';
                     $followObj.addClass('selected');
                 });
@@ -34,14 +34,14 @@ $(document).ready(function() {
         if (action === 'edit-full-name'){
             var firstName = $submitObj.siblings("textarea.first-name")[0].value;
             var lastName = $submitObj.siblings("textarea.last-name")[0].value;
-            $.get("/edit_full_name/" + userID + "/", {'first_name':firstName, 'last_name':lastName}, function (data) {
+            $.get("/account/edit_full_name/" + userID + "/", {'first_name':firstName, 'last_name':lastName}, function (data) {
                 $submitObj.parent().removeClass('show').addClass('hide');
                 $submitObj.parent().siblings(".user-value").removeClass('hide').addClass('show').text(firstName + " " + lastName);
                 $submitObj.parent().siblings(".profile-edit").removeClass('hide').addClass('show');
             });
         }else if(action === "add-main-credential" || action === "edit-main-credential"){
             var text = $submitObj.siblings("textarea")[0].value;
-            $.get("/edit_main_credential/" + userID + "/", {'text':text}, function (data) {
+            $.get("/account/edit_main_credential/" + userID + "/", {'text':text}, function (data) {
                 $submitObj.parent().removeClass('show').addClass('hide');
                 $submitObj.parent().siblings(".user-value").removeClass('hide').addClass('show').text(text);
                 $submitObj.parent().siblings(".profile-edit").removeClass('hide').addClass('show').text('ویرایش');
@@ -78,7 +78,7 @@ $(document).ready(function() {
             var feedName = $feedObj.attr('class').split(' ')[1];
             $('.feed-bar .feed-item').removeClass('selected');
             $feedObj.addClass('selected');
-            $.get("/profile_get_feed/" + userID + "/" + feedName + "/", {}, function (data) {
+            $.get("/account/profile_get_feed/" + userID + "/" + feedName + "/", {}, function (data) {
                 $('.feeds').html(data);
             });
         }

@@ -1,0 +1,4 @@
+
+{% for topic in topics.all %}
+    {% include "Topic/topic.html" with topic=topic way='summary'%}
+{% endfor %}

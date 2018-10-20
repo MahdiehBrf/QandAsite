@@ -20,7 +20,7 @@ $(document).ready(function() {
 
     $(".question-topics .search-topic img").click(function (e) {
         var name = $(this).siblings('textarea')[0].value;
-        $.get("/search-topic/", {'name': name, 'way': 'summary'}, function (data) {
+        $.get("/account/search-topic/", {'name': name, 'way': 'summary'}, function (data) {
             $('.question-topics .searched-topics').html(data);
         });
         e.stopPropagation();

@@ -34,10 +34,10 @@
 
     <div class="col-md-10 main-section">
 
-        {% include "answer-html.html" with answer=answer %}
+        {% include "Answer/answer-html.html" with answer=answer %}
 
         <div class="return-to-question">
-            <a href="{% url "account:question" answer.question.id %}">
+            <a href="{% url "QandA:question" answer.question.id %}">
                         بازگشت به سوال
 
             </a>
@@ -52,7 +52,7 @@
                 <div class="edit">ویرایش</div>
             </div>
             <ul>
-                {% include "profile_credential-bar.html" with selected_user=user %}
+                {% include "User/profile_credential-bar.html" with selected_user=user %}
             </ul>
         </div>
 

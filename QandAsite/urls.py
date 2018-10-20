@@ -23,7 +23,8 @@ from QandAsite import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^', include('account.urls', namespace="account`")),
+    url(r'^account/', include('account.urls', namespace="account`")),
+    url(r'^', include('QandA.urls', namespace="QandA`")),
     url(r'^auth/', include('social_django.urls', namespace='social')),  # <- Here
     url('^inbox/notifications/', include(notifications.urls, namespace='notifications')),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),

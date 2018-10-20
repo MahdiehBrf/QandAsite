@@ -21,9 +21,9 @@ html,body {
 
 .logo{
     width: 224px;
-    height: 82px;
-    background-size: 224px 63px;
-    background-image: url(//qsf.fs.quoracdn.net/-3-images.logo.wordmark_default.svg-26-bfa6b94bc0d6af2e.svg);
+    height: 118px;
+    background-size: 224px 118px;
+    background-image: url("/static/image/site-name.png");
     background-repeat: no-repeat;
     background-position: center center;
     position: relative;

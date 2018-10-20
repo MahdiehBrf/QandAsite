@@ -96,12 +96,12 @@
                     {% if user in answer.bookmarkers.all %}
                         <div class="action-item bookmark d-flex selected">
                             <img src="{% static "/image/bookmark remove.svg" %}">
-                            <div>حذف از نشانه‌ها</div>
+                            <div>حذف از ذخیره‌ها</div>
                         </div>
                     {% else %}
                         <div class="action-item bookmark d-flex">
                             <img src="{% static "/image/bookmark add.svg" %}">
-                            <div>اضافه به نشانه‌ها</div>
+                            <div>اضافه به ذخیره‌ها</div>
                         </div>
                     {% endif %}
                     {% if user.email == answer.responder.email %}
@@ -119,7 +119,7 @@
 
                 </div>
                 {% if user.email == answer.responder.email %}
-                    <form class="editor hide" method="POST" action="{% url 'account:answer_edit' answer.id %}">
+                    <form class="editor hide" method="POST" action="{% url 'QandA:answer_edit' answer.id %}">
                         {% csrf_token %}
                         <textarea name="ckea-{{ answer.id}}" id="ckea-{{ answer.id}}" rows="10" cols="80" placeholder="پاسخ خود را بنویسید"></textarea>
                         <script>
@@ -152,7 +152,7 @@
                     {% endif %}
                     <div class="comments">
                         {% for comment in answer.answercomment_set.all %}
-                            {% include "comment.html" with comment=comment %}
+                            {% include "Comment/comment.html" with comment=comment %}
                         {% endfor %}
                     </div>
 

@@ -23,27 +23,27 @@
         <div class="credentials">
             <ul class="employment-set">
             {% for credential in selected_user.employment_set.all %}
-                {% include "credential_item.html" with credential=credential type='employment' %}
+                {% include "User/credential_item.html" with credential=credential type='employment' %}
             {% endfor %}
             </ul>
             <ul class="education-set">
             {% for credential in selected_user.educational_set.all %}
-                {% include "credential_item.html" with credential=credential type='education' %}
+                {% include "User/credential_item.html" with credential=credential type='education' %}
             {% endfor %}
             </ul>
             <ul class="location-set">
             {% for credential in selected_user.location_set.all %}
-                {% include "credential_item.html" with credential=credential type='location' %}
+                {% include "User/credential_item.html" with credential=credential type='location' %}
             {% endfor %}
             </ul>
             <ul class="language-set">
             {% for credential in selected_user.language_set.all %}
-                {% include "credential_item.html" with credential=credential type='language' %}
+                {% include "User/credential_item.html" with credential=credential type='language' %}
             {% endfor %}
             </ul>
             <ul class="experience-set">
             {% for credential in selected_user.experience_set.all %}
-                {% include "credential_item.html" with credential=credential type='experience' %}
+                {% include "User/credential_item.html" with credential=credential type='experience' %}
             {% endfor %}
             </ul>
         </div>

@@ -33,7 +33,7 @@
               <div class="d-flex justify-content-center">
 
                   <div id="sign-in" class="side sign-in">
-                      <form  method="POST" action="/signin/">
+                      <form  method="POST" action="/account/signin/">
                           {% csrf_token %}
                       <div class="form-title">ورود</div>
                       <div class="form_inputs">
@@ -76,7 +76,7 @@
                       <div class="sign-up hide">
                           <div>
                               <div class="form-title">ثبت نام</div>
-                              <form method="post" action="/signup/">
+                              <form method="post" action="/account/signup/">
                                   {% csrf_token %}
                                       <div class="EmailSignupForm">
                                           <div class="row name">
@@ -131,7 +131,7 @@
               </div>
               <div class="home-footer">
 {#                  TODO#}
-                  footer
+{#                  footer#}
               </div>
           </div>
         </div>

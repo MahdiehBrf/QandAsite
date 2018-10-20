@@ -9,7 +9,7 @@
             پاسخ‌ها برای شما
         </div>
     {% endif %}
-    {% include "summary-answer.html" with answer=answer %}
+    {% include "Answer/summary-answer.html" with answer=answer %}
 {% endfor %}
 
 {% for answer in answers.all %}
@@ -19,5 +19,5 @@
             بهترین پاسخ‌ها
         </div>
     {% endif %}
-    {% include "summary-answer.html" with answer=answer %}
+    {% include "Answer/summary-answer.html" with answer=answer %}
 {% endfor %}

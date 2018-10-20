@@ -1,8 +1,6 @@
-from ckeditor.widgets import CKEditorWidget
-from django.forms import ModelForm, Form
+from django.forms import ModelForm
 
-from account.models import User, Question, Answer, Employment, Educational, Language, Location, Experience, Topic
-
+from account.models import User, Employment, Educational, Language, Location, Experience, Topic
 
 
 class SignUpForm(ModelForm):
@@ -11,28 +9,10 @@ class SignUpForm(ModelForm):
         fields = ['email', 'password', 'first_name', 'last_name']
 
 
-class QForm(ModelForm):
-    class Meta:
-        model = Question
-        fields = ['title']
-
-
-class AForm(ModelForm):
-    class Meta:
-        model = Answer
-        fields = ['text']
-
-
 class UserForm(ModelForm):
     class Meta:
         model = User
         fields = ('avatar', )
-
-
-class TopicForm(ModelForm):
-    class Meta:
-        model = Topic
-        fields = ('image', )
 
 
 class EmploymentForm(ModelForm):
@@ -65,3 +45,7 @@ class ExperienceForm(ModelForm):
         exclude = ['user']
 
 
+class TopicForm(ModelForm):
+    class Meta:
+        model = Topic
+        fields = ('image', )

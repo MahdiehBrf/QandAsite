@@ -34,7 +34,7 @@ $(document).ready(function() {
         function prepare_topic_selects() {
             var select = $('select#topic');
 
-            $.get("/topic_all/", {}, function (data) {
+            $.get("/account/topic_all/", {}, function (data) {
                 for (var topicID in data.topics){
                     var opt = '<option value='+topicID+'>'+data.topics[topicID]+'</option>';
                     select.append(opt);

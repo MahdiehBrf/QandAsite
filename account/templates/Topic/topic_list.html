@@ -7,9 +7,9 @@
             {% for topic in topics.all %}
                 {% if not forloop.counter|divisibleby:2 %}
                     {% if selected_user in topic.followers.all %}
-                        {% include "topic.html" with topic=topic follow=1 %}
+                        {% include "Topic/topic.html" with topic=topic follow=1 %}
                     {% else %}
-                        {% include "topic.html" with topic=topic follow=0 %}
+                        {% include "Topic/topic.html" with topic=topic follow=0 %}
                     {% endif %}
                 {% endif %}
             {% endfor %}
@@ -18,9 +18,9 @@
             {% for topic in topics.all %}
                 {% if forloop.counter|divisibleby:2 %}
                     {% if selected_user in topic.followers.all %}
-                        {% include "topic.html" with topic=topic follow=1 %}
+                        {% include "Topic/topic.html" with topic=topic follow=1 %}
                     {% else %}
-                        {% include "topic.html" with topic=topic follow=0 %}
+                        {% include "Topic/topic.html" with topic=topic follow=0 %}
                     {% endif %}
                 {% endif %}
             {% endfor %}

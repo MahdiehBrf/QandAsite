@@ -27,13 +27,13 @@ $(document).ready(function() {
             if ($bookmarkObj.hasClass('selected')){
                 $.get("/unbookmark/"+ answerID + "/", {}, function(data) {
                     $bookmarkObj.find('img').attr('src','/static/image/bookmark add.svg');
-                    $bookmarkObj.find('div').text("اضافه به نشانه‌ها");
+                    $bookmarkObj.find('div').text("اضافه به ذخیره‌ها");
                     $bookmarkObj.removeClass('selected');
                 });
             }else {
                 $.get("/bookmark/"+ answerID + "/", {}, function(data) {
                     $bookmarkObj.find('img').attr('src',"/static/image/bookmark remove.svg");
-                    $bookmarkObj.find('div').text("حذف از نشانه‌ها");
+                    $bookmarkObj.find('div').text("حذف از ذخیره‌ها");
                     $bookmarkObj.addClass('selected');
                 });
             }
