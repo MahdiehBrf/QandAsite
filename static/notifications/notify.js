@@ -39,7 +39,7 @@ function fill_notification_list(data) {
         }).join('');
 
         for (var i = 0; i < menus.length; i++){
-            menus[i].innerHTML = "<div class='before-menu d-flex justify-content-between' ><a class='show-all' href='/notifs-showall/'>مشاهده‌ی تمام اطلاع‌ها</a><a class='read-all' href='#'>قراردادن همه به عنوان خوانده‌شده‌ها</a></div> <div class='notifs'>" + messages + "</div>";
+            menus[i].innerHTML = "<div class='before-menu d-flex justify-content-between' ><a class='show-all' href='/account/notifs-showall/'>مشاهده‌ی تمام اطلاع‌ها</a><a class='read-all' href='#'>قراردادن همه به عنوان خوانده‌شده‌ها</a></div> <div class='notifs'>" + messages + "</div>";
         }
     }
 }

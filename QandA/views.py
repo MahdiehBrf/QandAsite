@@ -168,7 +168,7 @@ def question_topic_add(request, q_id, t_id):
     return JsonResponse({'topic_id': selected_topic.id, 'topic_name': selected_topic.name, 'included': included})
 
 
-def best_topic_based_users(request, t_id, q_id):
+def best_topic_based_users_for_question(request, t_id, q_id):
     question = Question.objects.get(id=q_id)
     topic = Topic.objects.get(id=t_id)
     user_subtract_set = AnswerRequest.objects.filter(asker=request.user, question=question).values_list('askee', flat=True)
@@ -176,11 +176,20 @@ def best_topic_based_users(request, t_id, q_id):
     return render(request, 'Request/user_answer_counts.html', {'user_count':user_count, 'topic':topic})
 
 
-def get_user_count(topic, user_subtract_set, asker):
+def best_topic_based_users(request, t_id):
+    topic = Topic.objects.get(id=t_id)
+    user_count = get_user_count(topic)
+    return render(request, 'User/best_topic_based_users.html', {'user_count': user_count})
+
+
+def get_user_count(topic, user_subtract_set=None, asker=None):
     answers = topic.questions.values_list('answer', flat=True)
     users = Answer.objects.filter(id__in=answers).values('responder').order_by()
     user_count = users.annotate(answer_count=Count('responder')).order_by('-answer_count')[:20]
-    users = User.objects.filter(id__in=user_count.values_list('responder', flat=True)).exclude(id__in=user_subtract_set).exclude(id=asker.id)
+    if user_subtract_set and asker:
+        users = User.objects.filter(id__in=user_count.values_list('responder', flat=True)).exclude(id__in=user_subtract_set).exclude(id=asker.id)
+    else:
+        users = User.objects.filter(id__in=user_count.values_list('responder', flat=True))
     counts = user_count.values_list('answer_count', flat=True)
     return zip(users, counts)
 

@@ -26,4 +26,6 @@ urlpatterns = [
     url(r'^profile_get_feed/(?P<u_id>\d+)/(?P<f_type>\w+)/$', profile_get_feed, name='profile_get_feed'),
     url(r'^follow_topic/(?P<t_id>\d+)/$', follow_topic, name='topic_follow'),
     url(r'^follow_user/(?P<u_id>\d+)/$', follow_user, name='user_follow'),
+    url(r'^topic_page/(?P<t_id>\d+)/$', topic_page, name='topic_page'),
+
 ]

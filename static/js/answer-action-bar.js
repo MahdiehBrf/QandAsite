@@ -86,6 +86,49 @@ $(document).ready(function() {
     //
     // });
 
+    $mainSection.on('click','.answer .submit_button.comment', function (e) {
+        var $selected_answer = $(e.target).closest('.answer');
+        var $textarea = $(e.target).siblings('textarea.text');
+        if ($textarea[0].value !== '') {
+            $.get("/comment/" + $selected_answer[0].id.split('-')[1] + "/", {'text': $textarea[0].value}, function (data) {
+                $selected_answer.find('.comments').append(data);
+                $textarea[0].value = '';
+            });
+        }
+
+        e.stopPropagation();
+    });
+
+
+    $mainSection.on('click','.answer .comment-item .action-bar', function (e) {
+        e.stopPropagation();
+        var $voteObj = $(e.target).closest('.vote');
+        if ($voteObj.length) {
+            var commentID = $(e.target).closest('.comment-item')[0].id.split('-')[1];
+            if ($voteObj.hasClass('selected')) {
+                $.get("/comment_devote/" + commentID + "/", {}, function (data) {
+                    $voteObj.find('.vote-count')[0].innerHTML = data.vote_count;
+                    $voteObj.removeClass('selected');
+                });
+            } else {
+                $.get("/comment_vote/" + commentID + "/", {}, function (data) {
+                    $voteObj.find('.vote-count')[0].innerHTML = data.vote_count;
+                    $voteObj.addClass('selected');
+                });
+            }
+
+        }
+        var $deleteObj = $(e.target).closest('.delete');
+        if ($deleteObj.length) {
+            var commentID = $(e.target).closest('.comment-item')[0].id.split('-')[1];
+            var $comment_answer = $(e.target).closest('.answer');
+            $.get("/comment_delete/" + commentID + "/", {}, function (data) {
+                $comment_answer.find('.comment-section .comment-item#c-'+ commentID).remove();
+            });
+
+        }
+    });
+
 
 
 });

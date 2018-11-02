@@ -47,7 +47,7 @@
     margin-left: 5px;
 }
 
-.profile .info .edit-input, .profile .info .profile-edit, .profile .follower-count, .creditional-bar .edit, .profile .edit_image label{
+.profile .info .edit-input, .profile .info .profile-edit, .profile .follower-count, .profile .question-count, .creditional-bar .edit, .profile .edit_image label{
     color: #949494;
     font-size: 17px;
     font-weight: normal;

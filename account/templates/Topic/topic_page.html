@@ -1,0 +1,130 @@
+{% extends "layout.html" %}
+
+
+{% block special_static %}
+    {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static "css/profile.css" %}"/>
+        <script src="{% static "js/user-action-bar.js" %}"></script>
+        <script src="{% static "js/topic-action-bar.js" %}"></script>
+        <script src="{% static "js/question-action-bar.js" %}"></script>
+
+
+{% endblock special_static %}
+
+{% block content %}
+<div class="row name">
+
+    <div class="profile-page col-md-12">
+        <div class="profile topic row" id="t-{{ topic.id }}">
+            <div class="profile-image col-md-2">
+                <div class="photo-wrapper  ">
+                    <a href="#">
+                        <img class="profile_photo_img" src="{{ topic.image.url }}" alt="{{ topic }}" height="50" width="50">
+                    </a>
+                </div>
+            </div>
+
+            <div class="info col-md-10">
+            <div class="topic-name d-flex">
+                <span class="topic-value full-name show">{{ topic }}</span>
+            </div>
+
+
+
+                <div class="question-count">{{ topic.questions.count }} سوال </div>
+
+                <div class="follower-count">{{ topic.followers.count }} دنبال‌کننده </div>
+
+
+                {% if user.is_authenticated %}
+
+                <div class="action-bar d-flex ">
+                        {% if user in topic.followers.all %}
+                            <div class="action-item follow d-flex selected">
+                        {% else %}
+                            <div class="action-item follow d-flex">
+                        {% endif %}
+                            <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g stroke="none" fill="none" fill-rule="evenodd">
+                                    <g id="user-follow">
+                                        <g class="icon_svg-unpressed icon_svg-stroke" transform="translate(4.400000, 4.000000)" stroke="#666" fill="none" stroke-width="1.5">
+                                            <path d="M10.5999999,12.5 C10.5999999,10.8431458 9.25685415,9.5 7.5999999,9.5 C5.94314566,9.5 4.5999999,10.8431458 4.5999999,12.5 M7.5999999,8.5 C8.84264059,8.5 9.8499999,7.49264069 9.8499999,6.25 C9.8499999,5.00735931 8.84264059,4 7.5999999,4 C6.35735922,4 5.3499999,5.00735931 5.3499999,6.25 C5.3499999,7.49264069 6.35735922,8.5 7.5999999,8.5 Z" id="profile"></path>
+                                            <path d="M15.0999999,13 L15.0999999,18 M12.5999999,15.5 L17.5999999,15.5" id="plus" stroke-linecap="round"></path>
+                                            <path d="M9.0999999,15.5 L3.0999999,15.5 C1.44314566,15.5 0.0999999046,14.1568542 0.0999999046,12.5 L0.0999999046,3.5 C0.0999999046,1.84314575 1.44314566,0.5 3.0999999,0.5 L12.0999999,0.5 C13.7568542,0.5 15.0999999,1.84314575 15.0999999,3.5 L15.0999999,9.5" id="outline" stroke-linecap="round"></path>
+                                        </g>
+                                        <g class="icon_svg-pressed" transform="translate(3.000000, 3.000000)">
+                                            <path d="M7.73218309,9.96973049 C6.28500703,10.4895228 5.25,11.873892 5.25,13.5 L12.75,13.5 C12.75,11.873892 11.714993,10.4895228 10.2678169,9.96973049 C11.2910047,9.49195022 12,8.45377247 12,7.25 C12,5.59314575 10.6568542,4.25 9,4.25 C7.34314575,4.25 6,5.59314575 6,7.25 C6,8.45377247 6.70899528,9.49195022 7.73218309,9.96973049 Z M17.25,11.3388626 C16.9783814,11.4955 16.7318899,11.7061926 16.5273952,11.9688404 L14.7662908,14.2307581 C13.7898614,13.2559226 12.2080519,13.2564142 11.232233,14.232233 C10.4142783,15.0501878 10.2816074,16.2939234 10.8342204,17.25 L4.5,17.25 C2.42893219,17.25 0.75,15.5710678 0.75,13.5 L0.75,4.5 C0.75,2.42893219 2.42893219,0.75 4.5,0.75 L13.5,0.75 C15.5710678,0.75 17.25,2.42893219 17.25,4.5 L17.25,11.3388626 Z" id="filled" class="icon_svg-fill" fill="none" fill-rule="nonzero"></path>
+                                            <polyline id="check" class="icon_svg-stroke" stroke="#666" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" points="13 16 15 18 18.5 13.5046888"></polyline>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                            پیروی
+                        </div>
+                </div>
+            {% endif %}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+                <div class="feed-bar">
+                    <label>منو</label>
+                    <ul>
+                        <li class="feed-item questions selected ">
+                            سوالات
+                        </li>
+                        <li class="feed-item best-topic-users ">
+                            متخصصین
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-10 main-section feeds">
+
+                <div class="questions show">
+                    {% include "Question/questions.html" with questions=topic.questions %}
+                </div>
+
+                <div class="best-topic-users hide">
+
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+
+</div>
+</div>
+
+<script>
+
+$('.feed-bar .feed-item').click(function(e) {
+    var $feedItemObj = $(this);
+    $('.feed-bar .feed-item').removeClass('selected');
+    $feedItemObj.addClass('selected');
+    if($feedItemObj.hasClass('questions')){
+        $('.feeds .best-topic-users').removeClass('show').addClass('hide');
+        $('.feeds .questions').removeClass('hide').addClass('show');
+    }else{
+        var topicID = $('.profile.topic')[0].id.split('-')[1];
+        $.get("/best_topic_based_users/" + topicID + "/", function (data) {
+            $('.feeds .best-topic-users').html(data).removeClass('hide').addClass('show');
+            $('.feeds .questions').removeClass('show').addClass('hide');
+        });
+    }
+    e.stopPropagation();
+});
+
+</script>
+
+
+
+
+
+{% endblock content %}

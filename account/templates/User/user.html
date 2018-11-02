@@ -8,6 +8,10 @@
         <div class="info">
             <div class="full-name">{{ specific_user }}</div>
             <div class="creditional">{{ specific_user.maincredential }}</div>
+            {% if count %}
+             {{ count }}
+                پاسخ
+            {% endif %}
         </div>
     </div>
     {% if user.is_authenticated %}

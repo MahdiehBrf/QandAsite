@@ -1,0 +1,6 @@
+{% load static %}
+<div class="user-list">
+{% for best_user,count in user_count %}
+    {% include "User/user.html" with specific_user=best_user count=count %}
+{% endfor %}
+</div>

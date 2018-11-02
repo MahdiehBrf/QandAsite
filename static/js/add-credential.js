@@ -54,7 +54,7 @@ $(document).ready(function() {
             var credentialValue = $checkedCredential.parent().find('.credential-name').text();
             if (credentialID !== undefined) {
 
-                $.get("/account/answer_add_credential/" + answerID + "/" + credentialID + "/", {}, function (data) {
+                $.get("/answer_add_credential/" + answerID + "/" + credentialID + "/", {}, function (data) {
                     $formObj.removeClass('show').addClass('hide');
                     $('.overlay').css("opacity", "1").css("position", "unset");
                     var $answerCredentialObj = $(".answer#a-" + answerID).find('.info .answer-credential');

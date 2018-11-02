@@ -34,4 +34,23 @@ $(document).ready(function() {
         e.stopPropagation();
     });
 
+    $('.profile.topic .action-bar .action-item.follow').click(function(e) {
+        var $topicObj = $(this).parents('.profile');
+        var topicID = $topicObj[0].id.split('-')[1];
+        var $followObj = $(this);
+        if ($(this).hasClass('selected')) {
+            $.get("/account/follow_topic/" + topicID + "/", {'follow': '0'}, function (data) {
+                 $topicObj.find('.follower-count').removeClass('selected')[0].innerHTML = data.count + ' دنبال‌کننده';
+                 $followObj.removeClass('selected');
+            });
+        } else {
+            $.get("/account/follow_topic/" + topicID + "/", {'follow': '1'}, function (data) {
+                $topicObj.find('.follower-count').addClass('selected')[0].innerHTML = data.count + ' دنبال‌کننده';
+                $followObj.addClass('selected');
+            });
+        }
+
+        e.stopPropagation();
+    });
+
 });

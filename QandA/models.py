@@ -37,7 +37,7 @@ def question_handler(sender, instance, created, **kwargs):
 def question_notifier(sender, instance, created, **kwargs):
     if created:
         for follower in instance.asker.followers.all():
-            notify.send(sender= instance.asker, recipient=follower, verb=" پرسید سوال ", target=instance, href=reverse('account:question', args={instance.id}), sender_href=reverse('account:profile', args={instance.asker.id}), type='questions')
+            notify.send(sender= instance.asker, recipient=follower, verb=" پرسید سوال ", target=instance, href=reverse('QandA:question', args={instance.id}), sender_href=reverse('account:profile', args={instance.asker.id}), type='questions')
 
 
 @receiver(m2m_changed, sender=Question.editors.through)
@@ -45,7 +45,7 @@ def question_edit_notifier(sender, action, instance, pk_set, **kwargs):
     if action == "post_add" and pk_set != set():
         editor = apps.get_model('account', 'User').objects.get(id=pk_set.pop())
         if editor != instance.asker:
-            notify.send(sender=editor, recipient=instance.asker, verb=" ویرایش کرد سوال ", target=instance, href=reverse('account:question', args={instance.id}), sender_href=reverse('account:profile', args={editor.id}), type='edits')
+            notify.send(sender=editor, recipient=instance.asker, verb=" ویرایش کرد سوال ", target=instance, href=reverse('QandA:question', args={instance.id}), sender_href=reverse('account:profile', args={editor.id}), type='edits')
 
 
 @receiver(m2m_changed, sender=Question.followers.through)
@@ -53,7 +53,7 @@ def question_follow_notifier(sender, action, instance, pk_set, **kwargs):
     if action == "post_add" and pk_set != set():
         follower = apps.get_model('account', 'User').objects.get(id=pk_set.pop())
         if follower != instance.asker:
-            notify.send(sender=follower, recipient=instance.asker, verb=" پیروی کرد سوال ", target=instance, href=reverse('account:question', args={instance.id}), sender_href=reverse('account:profile', args={follower.id}), type='follows')
+            notify.send(sender=follower, recipient=instance.asker, verb=" پیروی کرد سوال ", target=instance, href=reverse('QandA:question', args={instance.id}), sender_href=reverse('account:profile', args={follower.id}), type='follows')
 
 
 class Answer(models.Model):
@@ -77,7 +77,7 @@ def answer_notifier(sender, instance, created, **kwargs):
     if created:
         for follower in instance.question.followers.all():
             if instance.responder != follower:
-                notify.send(sender=instance.responder, recipient=follower, verb=" پاسخ داد به ", action_object=instance, target=instance.question, href=reverse('account:question', args={instance.question.id}) + "#a-" + str(instance.id), sender_href=reverse('account:profile', args={instance.responder.id}), type='answers')
+                notify.send(sender=instance.responder, recipient=follower, verb=" پاسخ داد به ", action_object=instance, target=instance.question, href=reverse('QandA:question', args={instance.question.id}) + "#a-" + str(instance.id), sender_href=reverse('account:profile', args={instance.responder.id}), type='answers')
 
 
 @receiver(m2m_changed, sender=Answer.voters.through)
@@ -85,7 +85,7 @@ def answer_vote_notifier(sender, action, instance, pk_set, **kwargs):
     if action == "post_add" and pk_set != set():
         voter = apps.get_model('account', 'User').objects.get(id=pk_set.pop())
         if voter != instance.responder:
-            notify.send(sender=voter, recipient=instance.responder, verb=" رای داد به پاسخ شما به ", target=instance.question, href=reverse('account:question', args={instance.question.id}) + "#a-" + str(instance.id), sender_href=reverse('account:profile', args={voter.id}), type='votes')
+            notify.send(sender=voter, recipient=instance.responder, verb=" رای داد به پاسخ شما به ", target=instance.question, href=reverse('QandA:question', args={instance.question.id}) + "#a-" + str(instance.id), sender_href=reverse('account:profile', args={voter.id}), type='votes')
 
 
 @receiver(m2m_changed, sender=Answer.shareholders.through)
@@ -93,7 +93,7 @@ def answer_share_notifier(sender, action, instance, pk_set, **kwargs):
     if action == "post_add" and pk_set != set():
         shareholder = apps.get_model('account', 'User').objects.get(id=pk_set.pop())
         if shareholder != instance.responder:
-            notify.send(sender=shareholder, recipient=instance.responder, verb=" به اشتراک گذاشت پاسخ شما را به سوال ", target=instance.question, href=reverse('account:question', args={instance.question.id}) + "#a-" + str(instance.id), sender_href=reverse('account:profile', args={shareholder.id}), type='votes')
+            notify.send(sender=shareholder, recipient=instance.responder, verb=" به اشتراک گذاشت پاسخ شما را به سوال ", target=instance.question, href=reverse('QandA:question', args={instance.question.id}) + "#a-" + str(instance.id), sender_href=reverse('account:profile', args={shareholder.id}), type='votes')
 
 
 class AnswerRequest(models.Model):
@@ -111,7 +111,7 @@ class AnswerRequest(models.Model):
 @receiver(post_save, sender=AnswerRequest)
 def answer_request_notifier(sender, instance, created, **kwargs):
     if created:
-        notify.send(sender=instance.asker, recipient=instance.askee, verb=" درخواست پاسخ فرستاد برای شما برای سوال ", target=instance.question, href=reverse('account:question', args={instance.question.id}), sender_href=reverse('account:profile', args={instance.asker.id}), type='requests')
+        notify.send(sender=instance.asker, recipient=instance.askee, verb=" درخواست پاسخ فرستاد برای شما برای سوال ", target=instance.question, href=reverse('QandA:question', args={instance.question.id}), sender_href=reverse('account:profile', args={instance.asker.id}), type='requests')
 
 
 class AnswerComment(models.Model):
@@ -131,7 +131,7 @@ class AnswerComment(models.Model):
 def answer_comment_notifier(sender, instance, created, **kwargs):
     if created:
         if instance.commenter != instance.answer.responder:
-            notify.send(sender=instance.commenter, recipient=instance.answer.responder, verb=" نظر داد به پاسخ شما به سوال ", target=instance.answer.question, href=reverse('account:question', args={instance.answer.question.id}) + "#c-" + str(instance.id), sender_href=reverse('account:profile', args={instance.commenter.id}), type='comments')
+            notify.send(sender=instance.commenter, recipient=instance.answer.responder, verb=" نظر داد به پاسخ شما به سوال ", target=instance.answer.question, href=reverse('QandA:question', args={instance.answer.question.id}) + "#c-" + str(instance.id), sender_href=reverse('account:profile', args={instance.commenter.id}), type='comments')
 
 
 @receiver(m2m_changed, sender=AnswerComment.voters.through)
@@ -139,4 +139,4 @@ def answer_comment_vote_notifier(sender, action, instance, pk_set, **kwargs):
     if action == "post_add" and pk_set != set():
         voter = apps.get_model('account', 'User').objects.get(id=pk_set.pop())
         if voter != instance.commenter:
-            notify.send(sender=voter, recipient=instance.commenter, verb=" رای داد به نظر شما به پاسخ سوال ", target=instance.answer.question, href=reverse('account:question', args={instance.answer.question.id}) + "#c-" + str(instance.id), sender_href=reverse('account:profile', args={voter.id}), type='votes')
+            notify.send(sender=voter, recipient=instance.commenter, verb=" رای داد به نظر شما به پاسخ سوال ", target=instance.answer.question, href=reverse('QandA:question', args={instance.answer.question.id}) + "#c-" + str(instance.id), sender_href=reverse('account:profile', args={voter.id}), type='votes')

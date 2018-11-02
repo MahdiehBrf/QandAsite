@@ -228,6 +228,10 @@ def follow_user(request, u_id):
     return JsonResponse({'count': selected_user.followers.count()})
 
 
+def topic_page(request, t_id):
+    selected_topic = Topic.objects.get(id=t_id)
+    return render(request, 'Topic/topic_page.html', {'topic':selected_topic})
+
 #
 # @login_required
 # def home(request):
